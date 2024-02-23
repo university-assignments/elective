@@ -25,6 +25,9 @@ class UsersCollection
 	{
 		/** @type {Map<string, string[]>} */
 		this.collection = new Map();
+
+		/** @see https://learn.jquery.com/events/introduction-to-custom-events/ */
+		this.listeners = jquery(document);
 	}
 
 	/**
@@ -40,7 +43,8 @@ class UsersCollection
 	 */
 	import_file (address)
 	{
-		jquery.getJSON(address, data => this.import_data(data));
+		jquery.getJSON(address, data => this.import_data(data))
+			.done(() => this.listeners.trigger('refresh'));
 	}
 }
 
@@ -134,6 +138,8 @@ class UsersPage extends PageFoundation
 		this.container = jquery(document.createElement('article'))
 			.addClass('page_container')
 			.hide();
+
+		this.users.listeners.on('refresh', () => this.refreshContent());
 	}
 
 	/**
@@ -150,6 +156,36 @@ class UsersPage extends PageFoundation
 	getContainer ()
 	{
 		return this.container;
+	}
+
+	/**
+	 * @private
+	 * 
+	 * @param {string[]} phrases
+	 * @param {string} user
+	 */
+	addUser (phrases, user)
+	{
+		this.container.append(`
+			<section class="user">
+				<article class="user_header">
+					<span class="user_name">${user}</span>
+				</article>
+
+				<article class="user_content">
+					<p class="user_phrase">${phrases.join(', ')}</p>
+				</article>
+			</section>
+		`);
+	}
+
+	/**
+	 * @private
+	 */
+	refreshContent ()
+	{
+		this.container.html('');
+		this.users.collection.forEach((phrases, user) => this.addUser(phrases, user));
 	}
 }
 
