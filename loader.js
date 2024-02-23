@@ -4,12 +4,40 @@ import jquery from 'https://cdn.jsdelivr.net/npm/jquery/+esm';
 // extensions
 // ===== ===== ===== ===== =====
 
+class QueryOptions
+{
+	constructor (search = window.location.search)
+	{
+		this.options = new URLSearchParams(search);
+
+		this.file = this.options.has('file')
+			? this.options.get('file')
+			: '';
+	}
+}
+
 class UsersCollection
 {
 	constructor ()
 	{
 		/** @type {Map<string, string[]>} */
 		this.collection = new Map();
+	}
+
+	/**
+	 * @param {{[key: string]: string[]}} data
+	 */
+	import_data (data)
+	{
+		jquery.each(data, (user, phrases) => this.collection.set(user, phrases));
+	}
+
+	/**
+	 * @param {string} address
+	 */
+	import_file (address)
+	{
+		jquery.getJSON(address, data => this.import_data(data));
 	}
 }
 
@@ -117,7 +145,13 @@ window.main = new class
 
 	_users ()
 	{
-		this.users = new UsersCollection();
+		this.users   = new UsersCollection();
+		this.options = new QueryOptions();
+
+		if (this.options.file.length > 0)
+		{
+			this.users.import_file(this.options.file);
+		}
 	}
 
 	_menu ()
