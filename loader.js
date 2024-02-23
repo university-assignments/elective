@@ -42,7 +42,9 @@ class MenuCollection
 {
 	constructor ()
 	{
-		this.tag_header  = jquery(document.createElement('section'));
+		this.tag_header = jquery(document.createElement('section'))
+			.addClass('flex');
+
 		this.tag_content = jquery(document.createElement('section'));
 	}
 
@@ -131,6 +133,8 @@ window.main = new class
 			.append(this.menu.tag_content);
 
 		this.tag_header = jquery(document.createElement('header'))
+			.addClass('header_container')
+			.addClass('flex')
 			.append(this.menu.tag_header);
 
 		this.tag_page = jquery(document.createElement('div'))
@@ -138,6 +142,7 @@ window.main = new class
 			.append(this.tag_content);
 
 		this.tag_body = jquery(document.body)
+			.addClass('remove_indents')
 			.append(this.tag_page);
 	}
 };
