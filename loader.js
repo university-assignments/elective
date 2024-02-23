@@ -137,6 +137,26 @@ class UsersPage extends PageFoundation
 // main
 // ===== ===== ===== ===== =====
 
+class TagsFoundation
+{
+	constructor ()
+	{
+		this.content = jquery(document.createElement('main'));
+
+		this.header = jquery(document.createElement('header'))
+			.addClass('header_container')
+			.addClass('flex');
+
+		this.page = jquery(document.createElement('div'))
+			.append(this.header)
+			.append(this.content);
+
+		this.body = jquery(document.body)
+			.addClass('remove_indents')
+			.append(this.page);
+	}
+}
+
 window.main = new class
 {
 	constructor ()
@@ -166,20 +186,9 @@ window.main = new class
 
 	_tags ()
 	{
-		this.tag_content = jquery(document.createElement('main'))
-			.append(this.pages.tag_content);
+		this.tags = new TagsFoundation();
 
-		this.tag_header = jquery(document.createElement('header'))
-			.addClass('header_container')
-			.addClass('flex')
-			.append(this.pages.tag_header);
-
-		this.tag_page = jquery(document.createElement('div'))
-			.append(this.tag_header)
-			.append(this.tag_content);
-
-		this.tag_body = jquery(document.body)
-			.addClass('remove_indents')
-			.append(this.tag_page);
+		this.tags.header.append(this.pages.tag_header);
+		this.tags.content.append(this.pages.tag_content);
 	}
 };
