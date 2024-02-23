@@ -1,6 +1,19 @@
 import jquery from 'https://cdn.jsdelivr.net/npm/jquery/+esm';
 
 // ===== ===== ===== ===== =====
+// extensions
+// ===== ===== ===== ===== =====
+
+class UsersCollection
+{
+	constructor ()
+	{
+		/** @type {Map<string, string[]>} */
+		this.collection = new Map();
+	}
+}
+
+// ===== ===== ===== ===== =====
 // menu
 // ===== ===== ===== ===== =====
 
@@ -47,6 +60,47 @@ class MenuCollection
 }
 
 // ===== ===== ===== ===== =====
+// pages
+// ===== ===== ===== ===== =====
+
+class UsersPage extends MenuConstructor
+{
+	/**
+	 * @param {UsersCollection} users
+	 */
+	constructor (users)
+	{
+		super();
+
+		this.users = users;
+
+		this.identifier = jquery(document.createElement('article'))
+			.addClass('page_identifier')
+			.text('users');
+
+		this.container = jquery(document.createElement('article'))
+			.addClass('page_container')
+			.hide();
+	}
+
+	/**
+	 * @override
+	 */
+	getIdentifier ()
+	{
+		return this.identifier;
+	}
+
+	/**
+	 * @override
+	 */
+	getContainer ()
+	{
+		return this.container;
+	}
+}
+
+// ===== ===== ===== ===== =====
 // main
 // ===== ===== ===== ===== =====
 
@@ -54,13 +108,21 @@ window.main = new class
 {
 	constructor ()
 	{
+		this._users();
 		this._menu();
 		this._tags();
+	}
+
+	_users ()
+	{
+		this.users = new UsersCollection();
 	}
 
 	_menu ()
 	{
 		this.menu = new MenuCollection();
+
+		this.menu.register(new UsersPage(this.users));
 	}
 
 	_tags ()
