@@ -1,0 +1,49 @@
+.user {
+	border: 1px dashed #ccc;
+	border-radius: 10px;
+
+	margin: 10px;
+}
+
+.user_header,
+.user_content {
+	padding: 10px;
+}
+
+/* user_header */
+
+.user_header {
+	justify-content: space-between;
+}
+
+.user_name {
+	line-height: 20px;
+	font-size: 20px;
+}
+
+.user_actions {
+	gap: 5px;
+}
+
+.user_action {
+	height: 20px;
+	width: 20px;
+}
+
+.user_icon_state {
+	transform: rotate(90deg);
+}
+
+.hide .user_icon_state {
+	transform: rotate(-90deg);
+}
+
+/* user_content */
+
+.user_content {
+	border-top: 1px dashed #ccc;
+}
+
+.hide .user_content {
+	display: none;
+}

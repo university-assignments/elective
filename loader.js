@@ -31,6 +31,15 @@ class UsersCollection
 	}
 
 	/**
+	 * @param {string} user
+	 */
+	delete (user)
+	{
+		this.collection.delete(user);
+		this.listeners.trigger('refresh');
+	}
+
+	/**
 	 * @param {{[key: string]: string[]}} data
 	 */
 	import_data (data)
@@ -166,17 +175,82 @@ class UsersPage extends PageFoundation
 	 */
 	addUser (phrases, user)
 	{
-		this.container.append(`
-			<section class="user">
-				<article class="user_header">
-					<span class="user_name">${user}</span>
-				</article>
+		const __icon_state = jquery(document.createElement('img'))
+			.addClass('user_icon_state')
+			.attr('src', './icons/left-2-svgrepo-com.svg')
+			.attr('alt', 'state');
 
-				<article class="user_content">
-					<p class="user_phrase">${phrases.join(', ')}</p>
-				</article>
-			</section>
-		`);
+		const __action_state = jquery(document.createElement('article'))
+			.addClass('user_action')
+			.append(__icon_state);
+
+		// ===== ===== ===== ===== =====
+
+		const __icon_edit = jquery(document.createElement('img'))
+			.attr('src', './icons/edit-svgrepo-com.svg')
+			.attr('alt', 'edit');
+
+		const __action_edit = jquery(document.createElement('article'))
+			.addClass('user_action')
+			.append(__icon_edit);
+
+		// ===== ===== ===== ===== =====
+
+		const __icon_delete = jquery(document.createElement('img'))
+			.attr('src', './icons/delete-svgrepo-com.svg')
+			.attr('alt', 'delete');
+
+		const __action_delete = jquery(document.createElement('article'))
+			.addClass('user_action')
+			.append(__icon_delete);
+
+		// ===== ===== ===== ===== =====
+
+		const __actions = jquery(document.createElement('section'))
+			.addClass('user_actions')
+			.addClass('flex')
+			.append(__action_edit)
+			.append(__action_delete)
+			.append(__action_state);
+
+		const __name = jquery(document.createElement('span'))
+			.addClass('user_name')
+			.text(user);
+
+		const __header = jquery(document.createElement('article'))
+			.addClass('user_header')
+			.addClass('flex')
+			.append(__name)
+			.append(__actions);
+
+		// ===== ===== ===== ===== =====
+
+		const __phrases = jquery(document.createElement('p'))
+			.addClass('user_phrase')
+			.addClass('remove_indents')
+			.text(phrases.join(', '));
+
+		const __content = jquery(document.createElement('article'))
+			.addClass('user_content')
+			.append(__phrases);
+
+		// ===== ===== ===== ===== =====
+
+		const __container = jquery(document.createElement('section'))
+			.addClass('user')
+			.addClass('hide')
+			.append(__header)
+			.append(__content);
+
+		// TODO: доделать
+		__action_edit.on('click', () => alert('не работает'));
+
+		__action_delete.on('click', () => this.users.delete(user));
+		__action_state.on('click', () => __container.toggleClass('hide'));
+
+		// ===== ===== ===== ===== =====
+
+		this.container.append(__container);
 	}
 
 	/**
