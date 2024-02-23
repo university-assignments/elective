@@ -1,11 +1,14 @@
 import jquery from 'https://cdn.jsdelivr.net/npm/jquery/+esm';
 
 // ===== ===== ===== ===== =====
-// extensions
+// various
 // ===== ===== ===== ===== =====
 
 class QueryOptions
 {
+	/**
+	 * @param {string} search
+	 */
 	constructor (search = window.location.search)
 	{
 		this.options = new URLSearchParams(search);
@@ -42,10 +45,10 @@ class UsersCollection
 }
 
 // ===== ===== ===== ===== =====
-// menu
+// pages
 // ===== ===== ===== ===== =====
 
-class MenuConstructor
+class PageFoundation
 {
 	/**
 	 * @abstract
@@ -66,7 +69,7 @@ class MenuConstructor
 	}
 }
 
-class MenuCollection
+class PagesCollection
 {
 	constructor ()
 	{
@@ -77,12 +80,12 @@ class MenuCollection
 	}
 
 	/**
-	 * @param {MenuConstructor} menu
+	 * @param {PageFoundation} page
 	 */
-	register (menu)
+	register (page)
 	{
-		const identifier = menu.getIdentifier();
-		const container  = menu.getContainer();
+		const identifier = page.getIdentifier();
+		const container  = page.getContainer();
 
 		this.tag_header.append(identifier);
 		this.tag_content.append(container);
@@ -93,7 +96,7 @@ class MenuCollection
 // pages
 // ===== ===== ===== ===== =====
 
-class UsersPage extends MenuConstructor
+class UsersPage extends PageFoundation
 {
 	/**
 	 * @param {UsersCollection} users
@@ -139,7 +142,7 @@ window.main = new class
 	constructor ()
 	{
 		this._users();
-		this._menu();
+		this._pages();
 		this._tags();
 	}
 
@@ -154,22 +157,22 @@ window.main = new class
 		}
 	}
 
-	_menu ()
+	_pages ()
 	{
-		this.menu = new MenuCollection();
+		this.pages = new PagesCollection();
 
-		this.menu.register(new UsersPage(this.users));
+		this.pages.register(new UsersPage(this.users));
 	}
 
 	_tags ()
 	{
 		this.tag_content = jquery(document.createElement('main'))
-			.append(this.menu.tag_content);
+			.append(this.pages.tag_content);
 
 		this.tag_header = jquery(document.createElement('header'))
 			.addClass('header_container')
 			.addClass('flex')
-			.append(this.menu.tag_header);
+			.append(this.pages.tag_header);
 
 		this.tag_page = jquery(document.createElement('div'))
 			.append(this.tag_header)
