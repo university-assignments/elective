@@ -43,7 +43,8 @@ export class UsersCollection
 	 */
 	importData (data, notification = true)
 	{
-		jQuery.each(data, (user, phrases) => this.register(user, phrases, notification));
+		jQuery.each(data, (user, phrases) => this.register(user, phrases, false));
+		notification && this.listeners.trigger(UsersEvents.EVENT_REFRESH);
 	}
 
 	/**
