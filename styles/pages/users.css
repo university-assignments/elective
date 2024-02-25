@@ -50,3 +50,21 @@
 .hide .user_content {
 	display: none;
 }
+
+/* background */
+
+#new_user {
+	min-width: 50vw;
+}
+
+#user_name,
+#user_phrase,
+#user_send {
+	border: 1px dashed #ccc;
+	border-radius: 10px;
+
+	padding: 2px 7px;
+	margin: 5px;
+
+	width: 100%;
+}

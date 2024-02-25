@@ -15,6 +15,10 @@ window.Fancybox = Fancybox;
 import { QueryOptions } from './QueryOptions.js';
 import { UsersCollection } from './UsersCollection.js';
 
+Fancybox.bind('[data-fancybox]', {
+	hideScrollbar: false
+});
+
 // ===== ===== ===== ===== =====
 // pages
 // ===== ===== ===== ===== =====
@@ -33,6 +37,7 @@ import { PhrasesPage } from './pages/PhrasesPage.js';
 // ===== ===== ===== ===== =====
 
 import { TagsFoundation } from './TagsFoundation.js';
+import { TagPopup } from './TagPopup.js';
 
 window.main = new class
 {
@@ -40,6 +45,7 @@ window.main = new class
 	{
 		this._users();
 		this._pages();
+		this._popup();
 		this._tags();
 	}
 
@@ -64,11 +70,18 @@ window.main = new class
 		this.pages.register(this.page_phrases);
 	}
 
+	_popup ()
+	{
+		this.popup = new TagPopup();
+	}
+
 	_tags ()
 	{
 		this.tags = new TagsFoundation();
 
 		this.tags.header.append(this.pages.tag_header);
 		this.tags.content.append(this.pages.tag_content);
+
+		this.tags.background.append(this.popup.tag_base);
 	}
 };

@@ -1,4 +1,5 @@
 import jQuery from 'jquery';
+import { Fancybox } from 'fancyappsui';
 
 import { UsersCollection } from '../UsersCollection.js';
 import { UsersEvents } from '../UsersEvents.js';
@@ -119,7 +120,26 @@ export class UsersPage extends PageFoundation
 			.append(__content);
 
 		// TODO: доделать
-		__action_edit.on('click', () => alert('не работает'));
+		const users = this.users;
+		__action_edit.on('click', function ()
+		{
+			Fancybox.show([{
+				src: "#new_user",
+				type: "inline"
+			}]);
+
+			const user_name   = document.getElementById('user_name');
+			const user_phrase = document.getElementById('user_phrase');
+
+			user_name.value   = user;
+			user_phrase.value = phrases.join(', ');
+
+			jQuery('#user_send').on('click', function ()
+			{
+				users.collection.delete(user);
+				users.register(user_name.value, [user_phrase.value]);
+			});
+		});
 
 		__action_delete.on('click', () => this.users.delete(user));
 		__action_state.on('click', () => __container.toggleClass('hide'));
