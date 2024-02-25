@@ -1,5 +1,3 @@
-import jQuery from 'jquery';
-
 import { TemplateSummary } from '../templates/TemplateSummary.js';
 
 import { UsersCollection } from '../UsersCollection.js';
@@ -14,38 +12,13 @@ export class PhrasesPage extends PageFoundation
 	 */
 	constructor (users)
 	{
-		super();
-
-		this.users = users;
-
-		this.identifier = jQuery(document.createElement('article'))
-			.addClass('page_identifier')
-			.text('phrases');
+		super('phrases');
 
 		this.summary = new TemplateSummary();
+		this.container.append(this.summary.tag_base);
 
-		this.container = jQuery(document.createElement('article'))
-			.addClass('page_container')
-			.append(this.summary.tag_base)
-			.hide();
-
+		this.users = users;
 		this.users.listeners.on(UsersEvents.EVENT_REFRESH, () => this.refreshContent());
-	}
-
-	/**
-	 * @override
-	 */
-	getIdentifier ()
-	{
-		return this.identifier;
-	}
-
-	/**
-	 * @override
-	 */
-	getContainer ()
-	{
-		return this.container;
 	}
 
 	// ===== ===== ===== ===== =====

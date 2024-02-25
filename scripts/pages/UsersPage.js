@@ -13,35 +13,10 @@ export class UsersPage extends PageFoundation
 	 */
 	constructor (users)
 	{
-		super();
+		super('users');
 
 		this.users = users;
-
-		this.identifier = jQuery(document.createElement('article'))
-			.addClass('page_identifier')
-			.text('users');
-
-		this.container = jQuery(document.createElement('article'))
-			.addClass('page_container')
-			.hide();
-
 		this.users.listeners.on(UsersEvents.EVENT_REFRESH, () => this.refreshContent());
-	}
-
-	/**
-	 * @override
-	 */
-	getIdentifier ()
-	{
-		return this.identifier;
-	}
-
-	/**
-	 * @override
-	 */
-	getContainer ()
-	{
-		return this.container;
 	}
 
 	/**
