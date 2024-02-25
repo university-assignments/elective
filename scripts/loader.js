@@ -1,3 +1,10 @@
+import jQuery from 'jquery';
+import { Grid } from 'gridjs';
+import { Chart } from 'chartJs';
+
+window.jQuery = jQuery;
+window.Grid   = Grid;
+window.Chart  = Chart;
 
 // ===== ===== ===== ===== =====
 // various
