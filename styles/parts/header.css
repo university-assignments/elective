@@ -13,3 +13,7 @@
 .page_identifier:hover {
 	border-top: 3px solid #8899ff;
 }
+
+.page_identifier_current {
+	border-top: 3px solid #ff88dd;
+}

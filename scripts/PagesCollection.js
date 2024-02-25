@@ -22,9 +22,16 @@ export class PagesCollection
 	{
 		this.collection.forEach(function (container, identifier)
 		{
-			identifier.is(tag)
-				? container.show()
-				: container.hide();
+			if (identifier.is(tag))
+			{
+				identifier.addClass('page_identifier_current');
+				container.show();
+			}
+			else
+			{
+				identifier.removeClass('page_identifier_current');
+				container.hide();
+			}
 		});
 	}
 
