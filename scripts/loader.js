@@ -1,10 +1,12 @@
 import jQuery from 'jquery';
 import { Grid } from 'gridjs';
 import { Chart } from 'chartJs';
+import { Fancybox } from 'fancyappsui';
 
-window.jQuery = jQuery;
-window.Grid   = Grid;
-window.Chart  = Chart;
+window.jQuery   = jQuery;
+window.Grid     = Grid;
+window.Chart    = Chart;
+window.Fancybox = Fancybox;
 
 // ===== ===== ===== ===== =====
 // various
