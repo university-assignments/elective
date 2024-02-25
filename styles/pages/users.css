@@ -31,17 +31,20 @@
 }
 
 .user_icon_state {
+	transition: all 0.2s linear;
 	transform: rotate(90deg);
-}
-
-.hide .user_icon_state {
-	transform: rotate(-90deg);
 }
 
 /* user_content */
 
 .user_content {
 	border-top: 1px dashed #ccc;
+}
+
+/* state */
+
+.hide .user_icon_state {
+	transform: rotate(-90deg);
 }
 
 .hide .user_content {
