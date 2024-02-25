@@ -1,9 +1,9 @@
 import jQuery from 'jquery';
 
-import { UsersCollection } from './UsersCollection.js';
-import { UsersEvents } from './UsersEvents.js';
+import { UsersCollection } from '../UsersCollection.js';
+import { UsersEvents } from '../UsersEvents.js';
 
-import { PageFoundation } from './PageFoundation.js';
+import { PageFoundation } from '../PageFoundation.js';
 
 export class UsersPage extends PageFoundation
 {

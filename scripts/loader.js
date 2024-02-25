@@ -16,7 +16,7 @@ import { PagesCollection } from './PagesCollection.js';
 // pages
 // ===== ===== ===== ===== =====
 
-import { UsersPage } from './UsersPage.js';
+import { UsersPage } from './pages/UsersPage.js';
 
 // ===== ===== ===== ===== =====
 // main
