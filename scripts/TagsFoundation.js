@@ -4,7 +4,8 @@ export class TagsFoundation
 {
 	constructor ()
 	{
-		this.content = jQuery(document.createElement('main'));
+		this.content = jQuery(document.createElement('main'))
+			.addClass('main_container');
 
 		this.header = jQuery(document.createElement('header'))
 			.addClass('header_container')
