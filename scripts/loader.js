@@ -40,7 +40,7 @@ window.main = new class
 
 		if (this.options.file.length > 0)
 		{
-			this.users.import_file(this.options.file);
+			this.users.importFile(this.options.file);
 		}
 	}
 

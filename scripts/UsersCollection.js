@@ -1,5 +1,7 @@
 import jQuery from 'jquery';
 
+import { UsersEvents } from './UsersEvents.js';
+
 export class UsersCollection
 {
 	constructor ()
@@ -7,33 +9,51 @@ export class UsersCollection
 		/** @type {Map<string, string[]>} */
 		this.collection = new Map();
 
-		/** @see https://learn.jquery.com/events/introduction-to-custom-events/ */
-		this.listeners = jQuery(document);
+		this.listeners = new UsersEvents();
 	}
 
 	/**
 	 * @param {string} user
+	 * @param {string[]} phrases
+	 * @param {boolean} notification
 	 */
-	delete (user)
+	register (user, phrases, notification = true)
 	{
-		this.collection.delete(user);
-		this.listeners.trigger('refresh');
+		this.collection.set(user, phrases);
+		notification && this.listeners.trigger(UsersEvents.EVENT_REFRESH);
 	}
 
 	/**
-	 * @param {{[key: string]: string[]}} data
+	 * @param {string} user
+	 * @param {boolean} notification
 	 */
-	import_data (data)
+	delete (user, notification = true)
 	{
-		jQuery.each(data, (user, phrases) => this.collection.set(user, phrases));
+		this.collection.delete(user);
+		notification && this.listeners.trigger(UsersEvents.EVENT_REFRESH);
+	}
+
+	// ===== ===== ===== ===== =====
+	// importing
+	// ===== ===== ===== ===== =====
+
+	/**
+	 * @param {{[key: string]: string[]}} data
+	 * @param {boolean} notification
+	 */
+	importData (data, notification = true)
+	{
+		jQuery.each(data, (user, phrases) => this.register(user, phrases, notification));
 	}
 
 	/**
 	 * @param {string} address
+	 * @param {boolean} notification
 	 */
-	import_file (address)
+	importFile (address, notification = true)
 	{
-		jQuery.getJSON(address, data => this.import_data(data))
-			.done(() => this.listeners.trigger('refresh'));
+		jQuery
+			.getJSON(address, data => this.importData(data, false))
+			.done(() => notification && this.listeners.trigger(UsersEvents.EVENT_REFRESH));
 	}
 }
