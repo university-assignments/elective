@@ -47,10 +47,12 @@ window.main = new class
 
 	_pages ()
 	{
-		this.pages = new PagesCollection();
+		this.page_users   = new UsersPage(this.users);
+		this.page_phrases = new PhrasesPage(this.users);
 
-		this.pages.register(new UsersPage(this.users));
-		this.pages.register(new PhrasesPage(this.users));
+		this.pages = new PagesCollection();
+		this.pages.register(this.page_users);
+		this.pages.register(this.page_phrases);
 	}
 
 	_tags ()
