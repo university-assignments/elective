@@ -1,4 +1,4 @@
-import jquery from 'jquery';
+import jQuery from 'jquery';
 
 import { PageFoundation } from './PageFoundation.js';
 
@@ -6,12 +6,12 @@ export class PagesCollection
 {
 	constructor ()
 	{
-		this.tag_header = jquery(document.createElement('section'))
+		this.tag_header = jQuery(document.createElement('section'))
 			.addClass('flex');
 
-		this.tag_content = jquery(document.createElement('section'));
+		this.tag_content = jQuery(document.createElement('section'));
 
-		/** @type {Map<HTMLElement, HTMLElement>} */
+		/** @type {Map<JQuery<HTMLElement>, JQuery<HTMLElement>>} */
 		this.collection = new Map();
 	}
 

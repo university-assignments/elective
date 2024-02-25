@@ -1,9 +1,13 @@
+import jQuery from 'jquery';
 
+/**
+ * @abstract
+ */
 export class PageFoundation
 {
 	/**
 	 * @abstract
-	 * @returns {HTMLElement}
+	 * @returns {JQuery<HTMLElement>}
 	 */
 	getIdentifier ()
 	{
@@ -12,7 +16,7 @@ export class PageFoundation
 
 	/**
 	 * @abstract
-	 * @returns {HTMLElement}
+	 * @returns {JQuery<HTMLElement>}
 	 */
 	getContainer ()
 	{

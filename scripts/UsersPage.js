@@ -1,4 +1,6 @@
-import jquery from 'jquery';
+import jQuery from 'jquery';
+
+import { UsersCollection } from './UsersCollection.js';
 
 import { PageFoundation } from './PageFoundation.js';
 
@@ -13,11 +15,11 @@ export class UsersPage extends PageFoundation
 
 		this.users = users;
 
-		this.identifier = jquery(document.createElement('article'))
+		this.identifier = jQuery(document.createElement('article'))
 			.addClass('page_identifier')
 			.text('users');
 
-		this.container = jquery(document.createElement('article'))
+		this.container = jQuery(document.createElement('article'))
 			.addClass('page_container')
 			.hide();
 
@@ -48,49 +50,49 @@ export class UsersPage extends PageFoundation
 	 */
 	addUser (phrases, user)
 	{
-		const __icon_state = jquery(document.createElement('img'))
+		const __icon_state = jQuery(document.createElement('img'))
 			.addClass('user_icon_state')
 			.attr('src', './icons/left-2-svgrepo-com.svg')
 			.attr('alt', 'state');
 
-		const __action_state = jquery(document.createElement('article'))
+		const __action_state = jQuery(document.createElement('article'))
 			.addClass('user_action')
 			.append(__icon_state);
 
 		// ===== ===== ===== ===== =====
 
-		const __icon_edit = jquery(document.createElement('img'))
+		const __icon_edit = jQuery(document.createElement('img'))
 			.attr('src', './icons/edit-svgrepo-com.svg')
 			.attr('alt', 'edit');
 
-		const __action_edit = jquery(document.createElement('article'))
+		const __action_edit = jQuery(document.createElement('article'))
 			.addClass('user_action')
 			.append(__icon_edit);
 
 		// ===== ===== ===== ===== =====
 
-		const __icon_delete = jquery(document.createElement('img'))
+		const __icon_delete = jQuery(document.createElement('img'))
 			.attr('src', './icons/delete-svgrepo-com.svg')
 			.attr('alt', 'delete');
 
-		const __action_delete = jquery(document.createElement('article'))
+		const __action_delete = jQuery(document.createElement('article'))
 			.addClass('user_action')
 			.append(__icon_delete);
 
 		// ===== ===== ===== ===== =====
 
-		const __actions = jquery(document.createElement('section'))
+		const __actions = jQuery(document.createElement('section'))
 			.addClass('user_actions')
 			.addClass('flex')
 			.append(__action_edit)
 			.append(__action_delete)
 			.append(__action_state);
 
-		const __name = jquery(document.createElement('span'))
+		const __name = jQuery(document.createElement('span'))
 			.addClass('user_name')
 			.text(user);
 
-		const __header = jquery(document.createElement('article'))
+		const __header = jQuery(document.createElement('article'))
 			.addClass('user_header')
 			.addClass('flex')
 			.append(__name)
@@ -98,18 +100,18 @@ export class UsersPage extends PageFoundation
 
 		// ===== ===== ===== ===== =====
 
-		const __phrases = jquery(document.createElement('p'))
+		const __phrases = jQuery(document.createElement('p'))
 			.addClass('user_phrase')
 			.addClass('remove_indents')
 			.text(phrases.join(', '));
 
-		const __content = jquery(document.createElement('article'))
+		const __content = jQuery(document.createElement('article'))
 			.addClass('user_content')
 			.append(__phrases);
 
 		// ===== ===== ===== ===== =====
 
-		const __container = jquery(document.createElement('section'))
+		const __container = jQuery(document.createElement('section'))
 			.addClass('user')
 			.addClass('hide')
 			.append(__header)

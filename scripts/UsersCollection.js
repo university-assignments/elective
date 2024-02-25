@@ -1,4 +1,4 @@
-import jquery from "jquery";
+import jQuery from 'jquery';
 
 export class UsersCollection
 {
@@ -8,7 +8,7 @@ export class UsersCollection
 		this.collection = new Map();
 
 		/** @see https://learn.jquery.com/events/introduction-to-custom-events/ */
-		this.listeners = jquery(document);
+		this.listeners = jQuery(document);
 	}
 
 	/**
@@ -25,7 +25,7 @@ export class UsersCollection
 	 */
 	import_data (data)
 	{
-		jquery.each(data, (user, phrases) => this.collection.set(user, phrases));
+		jQuery.each(data, (user, phrases) => this.collection.set(user, phrases));
 	}
 
 	/**
@@ -33,7 +33,7 @@ export class UsersCollection
 	 */
 	import_file (address)
 	{
-		jquery.getJSON(address, data => this.import_data(data))
+		jQuery.getJSON(address, data => this.import_data(data))
 			.done(() => this.listeners.trigger('refresh'));
 	}
 }
