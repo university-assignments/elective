@@ -17,6 +17,7 @@ import { PagesCollection } from './PagesCollection.js';
 // ===== ===== ===== ===== =====
 
 import { UsersPage } from './pages/UsersPage.js';
+import { PhrasesPage } from './pages/PhrasesPage.js';
 
 // ===== ===== ===== ===== =====
 // main
@@ -49,6 +50,7 @@ window.main = new class
 		this.pages = new PagesCollection();
 
 		this.pages.register(new UsersPage(this.users));
+		this.pages.register(new PhrasesPage(this.users));
 	}
 
 	_tags ()
