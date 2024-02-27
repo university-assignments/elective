@@ -38,6 +38,7 @@ import { PhrasesPage } from './pages/PhrasesPage.js';
 
 import { TagsFoundation } from './TagsFoundation.js';
 import { TagPopup } from './TagPopup.js';
+import { QuantityPage } from './pages/QuantityPage.js';
 
 window.main = new class
 {
@@ -62,12 +63,14 @@ window.main = new class
 
 	_pages ()
 	{
-		this.page_users   = new UsersPage(this.users);
-		this.page_phrases = new PhrasesPage(this.users);
+		this.page_users    = new UsersPage(this.users);
+		this.page_phrases  = new PhrasesPage(this.users);
+		this.page_quantity = new QuantityPage(this.users);
 
 		this.pages = new PagesCollection();
 		this.pages.register(this.page_users);
 		this.pages.register(this.page_phrases);
+		this.pages.register(this.page_quantity);
 	}
 
 	_popup ()
