@@ -6,7 +6,8 @@ export class TagPopup
 	{
 		this.tag_base = jQuery(document.createElement('section'))
 			.addClass('popup')
-			.append(this.newUser());
+			.append(this.newUser())
+			.append(`<article id="list_user"><div id="list_user_array"></div></article>`);
 	}
 
 	newUser ()
