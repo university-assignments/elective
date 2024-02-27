@@ -17,6 +17,8 @@ export class UsersPage extends PageFoundation
 
 		this.users = users;
 		this.users.listeners.on(UsersEvents.EVENT_REFRESH, () => this.refreshContent());
+
+		this.refreshContent();
 	}
 
 	/**
@@ -25,7 +27,7 @@ export class UsersPage extends PageFoundation
 	 * @param {string[]} phrases
 	 * @param {string} user
 	 */
-	addUser (phrases, user)
+	editUser (phrases, user)
 	{
 		const __icon_state = jQuery(document.createElement('img'))
 			.addClass('user_icon_state')
@@ -112,7 +114,18 @@ export class UsersPage extends PageFoundation
 			jQuery('#user_send').on('click', function ()
 			{
 				users.collection.delete(user);
-				users.register(user_name.value, [user_phrase.value]);
+
+				const user_name_value    = user_name.value;
+				const user_rules_value   = window.editor_ace.getValue();
+				const user_phrases_value = user_phrase.value;
+
+				if (!user_name_value || !user_rules_value || !user_phrases_value)
+				{
+					alert('Один или несколько пунктов пустой');
+					return;
+				}
+
+				users.register(user_name.value, eval(user_rules_value));
 			});
 		});
 
@@ -124,12 +137,63 @@ export class UsersPage extends PageFoundation
 		this.container.append(__container);
 	}
 
+	addUser ()
+	{
+		const __name = jQuery(document.createElement('span'))
+			.addClass('user_name')
+			.text('add new user');
+
+		const __header = jQuery(document.createElement('article'))
+			.addClass('user_register')
+			.append(__name);
+
+		const __container = jQuery(document.createElement('section'))
+			.addClass('user')
+			.append(__header);
+
+		// TODO: доделать
+		const users = this.users;
+		__container.on('click', function ()
+		{
+			Fancybox.show([{
+				src: "#new_user",
+				type: "inline"
+			}]);
+
+			const user_name   = document.getElementById('user_name');
+			const user_phrase = document.getElementById('user_phrase');
+
+			user_name.value   = '';
+			user_phrase.value = '';
+
+			jQuery('#user_send').on('click', function ()
+			{
+				const user_name_value    = user_name.value;
+				const user_rules_value   = window.editor_ace.getValue();
+				const user_phrases_value = user_phrase.value;
+
+				if (!user_name_value || !user_rules_value || !user_phrases_value)
+				{
+					alert('Один или несколько пунктов пустой');
+					return;
+				}
+
+				users.register(user_name.value, eval(user_rules_value));
+			});
+		});
+
+		this.container.append(__container);
+	}
+
 	/**
 	 * @private
 	 */
 	refreshContent ()
 	{
 		this.container.html('');
-		this.users.collection.forEach((phrases, user) => this.addUser(phrases, user));
+
+		this.users.collection.forEach((phrases, user) => this.editUser(phrases, user));
+
+		this.addUser();
 	}
 }

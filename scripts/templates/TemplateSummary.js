@@ -18,6 +18,8 @@ export class TemplateSummary
 		this.tag_base = jQuery(document.createElement('section'))
 			.append(this.tag_chart)
 			.append(this.tag_table);
+
+		this.lib_chart_type = 'line';
 	}
 
 	/**
@@ -27,14 +29,15 @@ export class TemplateSummary
 	{
 		const entries = Object.fromEntries(data);
 
-		if (typeof this.lib_chart === 'undefined')
+		if (typeof this.lib_chart === 'object')
 		{
-			Chart.register(...registerables);
-
-			this.lib_chart = new Chart(this.tag_chart_canvas, {
-				type: 'line'
-			});
+			this.lib_chart.destroy();
 		}
+
+		Chart.register(...registerables);
+		this.lib_chart = new Chart(this.tag_chart_canvas, {
+			type: this.lib_chart_type
+		});
 
 		this.lib_chart.data.labels = jQuery.map(entries, (_, phrase) => phrase);
 		this.lib_chart.data.datasets[0] = {

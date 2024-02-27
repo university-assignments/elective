@@ -15,6 +15,7 @@ export class QuantityPage extends PageFoundation
 		super('quantity');
 
 		this.summary = new TemplateSummary();
+		this.summary.lib_chart_type = 'pie';
 		this.container.append(this.summary.tag_base);
 
 		this.users = users;

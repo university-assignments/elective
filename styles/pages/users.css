@@ -51,10 +51,33 @@
 	display: none;
 }
 
+/* user_register */
+
+.user_register {
+	text-align: center;
+	padding: 10px;
+}
+
 /* background */
 
 #new_user {
 	min-width: 50vw;
+}
+
+.user_rules_wrap {
+	position: relative;
+
+	height: 100px;
+	width: 100%;
+}
+
+#user_rules {
+	position: absolute;
+	left: 0;
+	top: 0;
+
+	height: inherit;
+	width: inherit;
 }
 
 #user_name,

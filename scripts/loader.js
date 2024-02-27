@@ -15,10 +15,6 @@ window.Fancybox = Fancybox;
 import { QueryOptions } from './QueryOptions.js';
 import { UsersCollection } from './UsersCollection.js';
 
-Fancybox.bind('[data-fancybox]', {
-	hideScrollbar: false
-});
-
 // ===== ===== ===== ===== =====
 // pages
 // ===== ===== ===== ===== =====
