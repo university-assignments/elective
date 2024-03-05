@@ -29,6 +29,7 @@ import { PagesCollection } from './PagesCollection.js';
 import { UsersPage } from './pages/UsersPage.js';
 import { PhrasesPage } from './pages/PhrasesPage.js';
 import { QuantityPage } from './pages/QuantityPage.js';
+import { SelectionPage } from './pages/SelectionPage.js';
 import { SettingsPage } from './pages/SettingsPage.js';
 
 // ===== ===== ===== ===== =====
@@ -71,15 +72,22 @@ window.main = new class
 
 	_pages ()
 	{
+		// users
 		this.page_users    = new UsersPage(this.users);
 		this.page_phrases  = new PhrasesPage(this.users);
 		this.page_quantity = new QuantityPage(this.users);
+
+		// selection
+		this.page_selection = new SelectionPage(this.selection);
+
+		// general
 		this.page_settings = new SettingsPage(this.users);
 
 		this.pages = new PagesCollection();
 		this.pages.register(this.page_users);
 		this.pages.register(this.page_phrases);
 		this.pages.register(this.page_quantity);
+		this.pages.register(this.page_selection);
 		this.pages.register(this.page_settings);
 	}
 
