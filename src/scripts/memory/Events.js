@@ -1,11 +1,10 @@
-import 'jquery';
 
 export class Events
 {
 	constructor ()
 	{
-		/** @see https://learn.jquery.com/events/introduction-to-custom-events/ */
-		this.listeners = jQuery(document);
+		/** @type {Map<string, Function[]>} */
+		this.listeners = new Map();
 	}
 
 	/**
@@ -13,7 +12,17 @@ export class Events
 	 */
 	trigger (name)
 	{
-		this.listeners.trigger(name);
+		if (this.listeners.has(name) === false)
+		{
+			return false;
+		}
+
+		for (const handler of this.listeners.get(name))
+		{
+			handler();
+		}
+
+		return true;
 	}
 
 	/**
@@ -22,6 +31,11 @@ export class Events
 	 */
 	on (name, handler)
 	{
-		this.listeners.on(name, handler);
+		if (this.listeners.has(name) === false)
+		{
+			this.listeners.set(name, []);
+		}
+
+		this.listeners.get(name).push(handler);
 	}
 }
