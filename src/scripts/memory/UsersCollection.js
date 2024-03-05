@@ -53,8 +53,35 @@ export class UsersCollection
 	 */
 	importFile (address, notification = true)
 	{
+		const notification_options = {
+			headerSmall: 'только что',
+
+			closeButton: true,
+			animation: true,
+			delay: 5000
+		};
+
 		jQuery
 			.getJSON(address, data => this.importData(data, false))
-			.done(() => notification && this.listeners.trigger(UsersEvents.EVENT_REFRESH));
+			.done(() => notification && this.listeners.trigger(UsersEvents.EVENT_REFRESH))
+
+			// notification
+			.done(() => bootstrap.showToast({
+				...notification_options,
+
+				header: 'Файл успешно загружен',
+				body: `Файл '${address}' успешно загружен`,
+
+				toastClass: 'text-bg-success'
+			}))
+
+			.fail(() => bootstrap.showToast({
+				...notification_options,
+
+				header: 'Не удалось загрузить файл',
+				body: `Файл '${address}' не удалось загрузить`,
+
+				toastClass: 'text-bg-danger'
+			}));
 	}
 }
