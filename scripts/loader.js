@@ -54,7 +54,7 @@ window.main = new class
 
 		if (this.options.file.length > 0)
 		{
-			this.users.importFile(this.options.file);
+			this.users.importFile('/storage/' + this.options.file + '.json');
 		}
 	}
 
