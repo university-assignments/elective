@@ -12,8 +12,8 @@ window.Fancybox = Fancybox;
 // various
 // ===== ===== ===== ===== =====
 
-import { QueryOptions } from './QueryOptions.js';
-import { UsersCollection } from './UsersCollection.js';
+import { QueryOptions } from './memory/QueryOptions.js';
+import { UsersCollection } from './memory/UsersCollection.js';
 
 // ===== ===== ===== ===== =====
 // pages
@@ -32,8 +32,8 @@ import { PhrasesPage } from './pages/PhrasesPage.js';
 // main
 // ===== ===== ===== ===== =====
 
-import { TagsFoundation } from './TagsFoundation.js';
-import { TagPopup } from './TagPopup.js';
+import { TagsFoundation } from './display/TagsFoundation.js';
+import { TagPopup } from './display/TagPopup.js';
 import { QuantityPage } from './pages/QuantityPage.js';
 import { SettingsPage } from './pages/SettingsPage.js';
 
