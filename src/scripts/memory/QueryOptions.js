@@ -1,6 +1,9 @@
 
 export class QueryOptions
 {
+	static PARAM_SELECTION = 'selection';
+	static PARAM_USERS     = 'users';
+
 	/**
 	 * @param {string} search
 	 */
@@ -8,8 +11,12 @@ export class QueryOptions
 	{
 		this.options = new URLSearchParams(search);
 
-		this.file = this.options.has('file')
-			? this.options.get('file')
+		this.selection = this.options.has(QueryOptions.PARAM_SELECTION)
+			? this.options.get(QueryOptions.PARAM_SELECTION)
+			: '';
+
+		this.users = this.options.has(QueryOptions.PARAM_USERS)
+			? this.options.get(QueryOptions.PARAM_USERS)
 			: '';
 	}
 }

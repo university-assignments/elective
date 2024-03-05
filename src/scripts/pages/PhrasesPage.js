@@ -1,7 +1,7 @@
 import { TemplateSummary } from '../templates/TemplateSummary.js';
 
-import { UsersCollection } from '../memory/UsersCollection.js';
-import { UsersEvents } from '../memory/UsersEvents.js';
+import { UsersCollection } from '../memory/users/UsersCollection.js';
+import { UsersEvents } from '../memory/users/UsersEvents.js';
 
 import { PageFoundation } from '../PageFoundation.js';
 

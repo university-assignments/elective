@@ -12,6 +12,11 @@ export class UsersCollection
 		this.listeners = new UsersEvents();
 	}
 
+	notification ()
+	{
+		this.listeners.trigger(UsersEvents.EVENT_REFRESH);
+	}
+
 	/**
 	 * @param {string} user
 	 * @param {string[]} phrases
@@ -20,7 +25,7 @@ export class UsersCollection
 	register (user, phrases, notification = true)
 	{
 		this.collection.set(user, phrases);
-		notification && this.listeners.trigger(UsersEvents.EVENT_REFRESH);
+		notification && this.notification();
 	}
 
 	/**
@@ -30,7 +35,7 @@ export class UsersCollection
 	delete (user, notification = true)
 	{
 		this.collection.delete(user);
-		notification && this.listeners.trigger(UsersEvents.EVENT_REFRESH);
+		notification && this.notification();
 	}
 
 	// ===== ===== ===== ===== =====
@@ -44,7 +49,7 @@ export class UsersCollection
 	importData (data, notification = true)
 	{
 		jQuery.each(data, (user, phrases) => this.register(user, phrases, false));
-		notification && this.listeners.trigger(UsersEvents.EVENT_REFRESH);
+		notification && this.notification();
 	}
 
 	/**
@@ -63,7 +68,7 @@ export class UsersCollection
 
 		jQuery
 			.getJSON(address, data => this.importData(data, false))
-			.done(() => notification && this.listeners.trigger(UsersEvents.EVENT_REFRESH))
+			.done(() => notification && this.notification())
 
 			// notification
 			.done(() => bootstrap.showToast({

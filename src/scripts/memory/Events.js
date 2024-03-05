@@ -1,9 +1,7 @@
-import jQuery from 'jquery';
+import 'jquery';
 
-export class UsersEvents
+export class Events
 {
-	static EVENT_REFRESH = 'refresh';
-
 	constructor ()
 	{
 		/** @see https://learn.jquery.com/events/introduction-to-custom-events/ */

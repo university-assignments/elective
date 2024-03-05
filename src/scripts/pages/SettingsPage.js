@@ -1,7 +1,7 @@
 import jQuery from 'jquery';
 import { Fancybox } from 'fancyappsui';
 
-import { UsersCollection } from '../memory/UsersCollection.js';
+import { UsersCollection } from '../memory/users/UsersCollection.js';
 
 import { PageFoundation } from '../PageFoundation.js';
 
