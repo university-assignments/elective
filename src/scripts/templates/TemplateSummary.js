@@ -1,6 +1,6 @@
 import jQuery from 'jquery';
 import { Grid } from 'gridjs';
-import { Chart, registerables } from 'chart.js';
+import { Chart } from 'chart.js';
 
 export class TemplateSummary
 {
@@ -51,7 +51,6 @@ export class TemplateSummary
 			this.lib_chart.destroy();
 		}
 
-		Chart.register(...registerables);
 		this.lib_chart = new Chart(this.tag_chart_canvas, {
 			type: this.lib_chart_type
 		});
@@ -121,10 +120,6 @@ export class TemplateSummary
 		this.lib_table.updateConfig({
 			columns: [ '#', 'phrase', 'amount' ],
 			data: data_table,
-
-			pagination: {
-				limit: 20
-			},
 
 			search: true,
 			sort: true

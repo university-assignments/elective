@@ -1,7 +1,9 @@
 import jQuery from 'jquery';
 import { Grid } from 'gridjs';
-import { Chart } from 'chart.js';
+import { Chart, registerables } from 'chart.js';
 import { Fancybox } from 'fancyappsui';
+
+Chart.register(...registerables);
 
 window.jQuery   = jQuery;
 window.Grid     = Grid;
