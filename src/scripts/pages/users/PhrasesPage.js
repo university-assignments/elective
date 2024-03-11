@@ -1,14 +1,14 @@
 import { TemplateSummary } from '../../templates/TemplateSummary.js';
 
-import { UsersCollection } from '../../memory/users/UsersCollection.js';
-import { UsersEvents } from '../../memory/users/UsersEvents.js';
+import { DataCollection } from '../../memory/DataCollection.js';
+import { Events } from '../../memory/Events.js';
 
 import { PageFoundation } from '../../PageFoundation.js';
 
 export class PhrasesPage extends PageFoundation
 {
 	/**
-	 * @param {UsersCollection} users
+	 * @param {DataCollection} users
 	 */
 	constructor (users)
 	{
@@ -18,7 +18,7 @@ export class PhrasesPage extends PageFoundation
 		this.container.append(this.summary.tag_base);
 
 		this.users = users;
-		this.users.listeners.on(UsersEvents.EVENT_REFRESH, () => this.refreshContent());
+		this.users.listeners.on(Events.EVENT_REFRESH, () => this.refreshContent());
 	}
 
 	// ===== ===== ===== ===== =====

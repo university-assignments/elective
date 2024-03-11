@@ -1,6 +1,8 @@
 
 export class Events
 {
+	static EVENT_REFRESH = 'refresh';
+
 	constructor ()
 	{
 		/** @type {Map<string, Function[]>} */

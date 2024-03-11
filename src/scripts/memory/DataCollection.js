@@ -1,40 +1,40 @@
 import jQuery from 'jquery';
 
-import { UsersEvents } from './UsersEvents.js';
+import { Events } from './Events.js';
 
-export class UsersCollection
+export class DataCollection
 {
 	constructor ()
 	{
 		/** @type {Map<string, string[]>} */
 		this.collection = new Map();
 
-		this.listeners = new UsersEvents();
+		this.listeners = new Events();
 	}
 
 	notification ()
 	{
-		this.listeners.trigger(UsersEvents.EVENT_REFRESH);
+		this.listeners.trigger(Events.EVENT_REFRESH);
 	}
 
 	/**
-	 * @param {string} user
-	 * @param {string[]} phrases
+	 * @param {string} option
+	 * @param {any[]} values
 	 * @param {boolean} notification
 	 */
-	register (user, phrases, notification = true)
+	register (option, values, notification = true)
 	{
-		this.collection.set(user, phrases);
+		this.collection.set(option, values);
 		notification && this.notification();
 	}
 
 	/**
-	 * @param {string} user
+	 * @param {string} option
 	 * @param {boolean} notification
 	 */
-	delete (user, notification = true)
+	delete (option, notification = true)
 	{
-		this.collection.delete(user);
+		this.collection.delete(option);
 		notification && this.notification();
 	}
 
@@ -43,12 +43,12 @@ export class UsersCollection
 	// ===== ===== ===== ===== =====
 
 	/**
-	 * @param {{[key: string]: string[]}} data
+	 * @param { {[key: string]: any[]} } data
 	 * @param {boolean} notification
 	 */
 	importData (data, notification = true)
 	{
-		jQuery.each(data, (user, phrases) => this.register(user, phrases, false));
+		jQuery.each(data, (option, values) => this.register(option, values, false));
 		notification && this.notification();
 	}
 
@@ -67,7 +67,7 @@ export class UsersCollection
 		};
 
 		jQuery
-			.getJSON(address, data => this.importData(data, false))
+			.getJSON('storage/' + address + '.json', data => this.importData(data, false))
 			.done(() => notification && this.notification())
 
 			// notification

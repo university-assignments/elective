@@ -1,14 +1,14 @@
 import jQuery from 'jquery';
 import { Fancybox } from 'fancyappsui';
 
-import { UsersCollection } from '../memory/users/UsersCollection.js';
+import { DataCollection } from '../memory/DataCollection.js';
 
 import { PageFoundation } from '../PageFoundation.js';
 
 export class SettingsPage extends PageFoundation
 {
 	/**
-	 * @param {UsersCollection} users
+	 * @param {DataCollection} users
 	 */
 	constructor (users)
 	{

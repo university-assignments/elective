@@ -15,8 +15,7 @@ window.Fancybox = Fancybox;
 // ===== ===== ===== ===== =====
 
 import { QueryOptions } from './memory/QueryOptions.js';
-import { UsersCollection } from './memory/users/UsersCollection.js';
-import { SelectionCollection } from './memory/selection/SelectionCollection.js';
+import { DataCollection } from './memory/DataCollection.js';
 
 // ===== ===== ===== ===== =====
 // pages
@@ -32,7 +31,8 @@ import { UsersPage } from './pages/users/UsersPage.js';
 import { PhrasesPage } from './pages/users/PhrasesPage.js';
 import { QuantityPage } from './pages/users/QuantityPage.js';
 
-import { SelectionPage } from './pages/selection/SelectionPage.js';
+import { CounterPage } from './pages/selection/CounterPage.js';
+import { SelectPage } from './pages/selection/SelectPage.js';
 
 import { SettingsPage } from './pages/SettingsPage.js';
 
@@ -61,8 +61,8 @@ window.main = new class
 		// Map<пользователь, фраза[]>
 		if (this.options.users.length > 0)
 		{
-			this.users = new UsersCollection();
-			this.users.importFile('storage/' + this.options.users + '.json');
+			this.users = new DataCollection();
+			this.users.importFile(this.options.users);
 
 			return;
 		}
@@ -71,8 +71,8 @@ window.main = new class
 		// List<Map<фраза, boolean>>
 		if (this.options.selection.length > 0)
 		{
-			this.selection = new SelectionCollection();
-			this.selection.importFile('storage/' + this.options.selection + '.json');
+			this.selection = new DataCollection();
+			this.selection.importFile(this.options.selection);
 
 			return;
 		}
@@ -99,9 +99,11 @@ window.main = new class
 		// selection
 		if (typeof this.selection === 'object')
 		{
-			this.page_selection = new SelectionPage(this.selection);
+			this.page_counter = new CounterPage(this.selection);
+			this.page_select  = new SelectPage(this.selection);
 
-			this.pages.register(this.page_selection);
+			this.pages.register(this.page_counter);
+			this.pages.register(this.page_select);
 		}
 
 		// general

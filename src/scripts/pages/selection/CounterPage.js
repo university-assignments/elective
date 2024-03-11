@@ -1,24 +1,24 @@
 import { TemplateSummary } from '../../templates/TemplateSummary.js';
 
-import { SelectionCollection } from '../../memory/selection/SelectionCollection.js';
-import { SelectionEvents } from '../../memory/selection/SelectionEvents.js';
+import { DataCollection } from '../../memory/DataCollection.js';
+import { Events } from '../../memory/Events.js';
 
 import { PageFoundation } from '../../PageFoundation.js';
 
-export class SelectionPage extends PageFoundation
+export class CounterPage extends PageFoundation
 {
 	/**
-	 * @param {SelectionCollection} selection
+	 * @param {DataCollection} selection
 	 */
 	constructor (selection)
 	{
-		super('table', 'selection');
+		super('table', 'counter');
 
 		this.summary = new TemplateSummary();
 		this.container.append(this.summary.tag_base);
 
 		this.selection = selection;
-		this.selection.listeners.on(SelectionEvents.EVENT_REFRESH, () => this.refreshContent());
+		this.selection.listeners.on(Events.EVENT_REFRESH, () => this.refreshContent());
 	}
 
 	// ===== ===== ===== ===== =====
@@ -32,11 +32,11 @@ export class SelectionPage extends PageFoundation
 	{
 		const response = new Map();
 
-		this.selection.collection.forEach(function (phrases)
+		this.selection.collection.forEach(function (users, phrase)
 		{
-			jQuery.each(phrases, function (phrase, state)
+			jQuery.each(users, function (_, user)
 			{
-				if (!state)
+				if (!user)
 				{
 					return;
 				}
