@@ -60,6 +60,7 @@ export class DataCollection
 	{
 		const notification_options = {
 			headerSmall: 'только что',
+			position: 'bottom-0 end-0',
 
 			closeButton: true,
 			animation: true,
