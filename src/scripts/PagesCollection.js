@@ -37,8 +37,8 @@ export class PagesCollection
 			.append(this.tag_header_container);
 
 		this.tag_content = jQuery(document.createElement('section'))
-			.addClass('p-md-2')
-			.addClass('p-1');
+			.addClass('pt-md-2')
+			.addClass('pt-1');
 
 		/** @type {PageFoundation[]} */
 		this.collection = [];
