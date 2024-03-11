@@ -29,6 +29,15 @@ export class TemplateSummary
 	{
 		const entries = Object.fromEntries(data);
 
+		this.refreshChart(entries);
+		this.refreshTable(entries);
+	}
+
+	/**
+	 * @param { {[key: string]: number} } entries
+	 */
+	refreshChart (entries)
+	{
 		if (typeof this.lib_chart === 'object')
 		{
 			this.lib_chart.destroy();
@@ -45,11 +54,13 @@ export class TemplateSummary
 			data: jQuery.map(entries, amount => amount)
 		};
 		this.lib_chart.render();
+	}
 
-		// ===== ===== ===== ===== =====
-		// table
-		// ===== ===== ===== ===== =====
-
+	/**
+	 * @param { {[key: string]: number} } entries
+	 */
+	refreshTable (entries)
+	{
 		if (typeof this.lib_table === 'object')
 		{
 			this.lib_table.destroy();
