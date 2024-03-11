@@ -12,7 +12,7 @@ export class SelectionPage extends PageFoundation
 	 */
 	constructor (selection)
 	{
-		super('selection');
+		super('table', 'selection');
 
 		this.summary = new TemplateSummary();
 		this.container.append(this.summary.tag_base);

@@ -1,9 +1,9 @@
-.remove_indents {
-	padding: 0;
-	margin: 0;
-}
-
 .flex {
 	flex-flow: row nowrap;
 	display: flex;
+}
+
+.svg_icon {
+	vertical-align: -.125em;
+	fill: currentColor;
 }

@@ -5,11 +5,13 @@ export class TagsFoundation
 	constructor ()
 	{
 		this.content = jQuery(document.createElement('main'))
-			.addClass('main_container');
+			.addClass('container');
 
 		this.header = jQuery(document.createElement('header'))
-			.addClass('header_container')
-			.addClass('flex');
+			.addClass('px-3')
+			.addClass('py-2')
+			.addClass('bg-dark')
+			.addClass('text-white');
 
 		this.background = jQuery(document.createElement('div'))
 			.addClass('background');
@@ -20,7 +22,6 @@ export class TagsFoundation
 			.append(this.background);
 
 		this.body = jQuery(document.body)
-			.addClass('remove_indents')
 			.append(this.page);
 	}
 }
