@@ -1,6 +1,6 @@
 import jQuery from 'jquery';
 import { Grid } from 'gridjs';
-import { Chart, registerables } from 'chartJs';
+import { Chart, registerables } from 'chart.js';
 
 export class TemplateSummary
 {
