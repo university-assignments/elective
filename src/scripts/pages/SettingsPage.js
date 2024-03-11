@@ -16,6 +16,9 @@ export class SettingsPage extends PageFoundation
 
 		this.container.append(
 			jQuery(document.createElement('button'))
+				.addClass('btn-primary')
+				.addClass('btn')
+
 				.on('click', function ()
 				{
 					Fancybox.show([{
@@ -31,6 +34,7 @@ export class SettingsPage extends PageFoundation
 						)
 					);
 				})
+
 				.text('list user')
 		);
 	}
