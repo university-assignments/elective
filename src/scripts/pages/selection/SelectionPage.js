@@ -1,9 +1,9 @@
-import { TemplateSummary } from '../templates/TemplateSummary.js';
+import { TemplateSummary } from '../../templates/TemplateSummary.js';
 
-import { SelectionCollection } from '../memory/selection/SelectionCollection.js';
-import { SelectionEvents } from '../memory/selection/SelectionEvents.js';
+import { SelectionCollection } from '../../memory/selection/SelectionCollection.js';
+import { SelectionEvents } from '../../memory/selection/SelectionEvents.js';
 
-import { PageFoundation } from '../PageFoundation.js';
+import { PageFoundation } from '../../PageFoundation.js';
 
 export class SelectionPage extends PageFoundation
 {

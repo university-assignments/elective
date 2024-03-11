@@ -1,10 +1,10 @@
 import jQuery from 'jquery';
 import { Fancybox } from 'fancyappsui';
 
-import { UsersCollection } from '../memory/users/UsersCollection.js';
-import { UsersEvents } from '../memory/users/UsersEvents.js';
+import { UsersCollection } from '../../memory/users/UsersCollection.js';
+import { UsersEvents } from '../../memory/users/UsersEvents.js';
 
-import { PageFoundation } from '../PageFoundation.js';
+import { PageFoundation } from '../../PageFoundation.js';
 
 export class UsersPage extends PageFoundation
 {

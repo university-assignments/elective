@@ -1,9 +1,9 @@
-import { TemplateSummary } from '../templates/TemplateSummary.js';
+import { TemplateSummary } from '../../templates/TemplateSummary.js';
 
-import { UsersCollection } from '../memory/users/UsersCollection.js';
-import { UsersEvents } from '../memory/users/UsersEvents.js';
+import { UsersCollection } from '../../memory/users/UsersCollection.js';
+import { UsersEvents } from '../../memory/users/UsersEvents.js';
 
-import { PageFoundation } from '../PageFoundation.js';
+import { PageFoundation } from '../../PageFoundation.js';
 
 export class QuantityPage extends PageFoundation
 {

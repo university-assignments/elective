@@ -28,11 +28,11 @@ import { PagesCollection } from './PagesCollection.js';
 // pages
 // ===== ===== ===== ===== =====
 
-import { UsersPage } from './pages/UsersPage.js';
-import { PhrasesPage } from './pages/PhrasesPage.js';
-import { QuantityPage } from './pages/QuantityPage.js';
+import { UsersPage } from './pages/users/UsersPage.js';
+import { PhrasesPage } from './pages/users/PhrasesPage.js';
+import { QuantityPage } from './pages/users/QuantityPage.js';
 
-import { SelectionPage } from './pages/SelectionPage.js';
+import { SelectionPage } from './pages/selection/SelectionPage.js';
 
 import { SettingsPage } from './pages/SettingsPage.js';
 
