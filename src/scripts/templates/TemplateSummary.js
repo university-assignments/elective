@@ -33,6 +33,14 @@ export class TemplateSummary
 		this.refreshTable(entries);
 	}
 
+	// ===== ===== ===== ===== =====
+	// Chart
+	// ===== ===== ===== ===== =====
+
+	initializeChart ()
+	{
+	}
+
 	/**
 	 * @param { {[key: string]: number} } entries
 	 */
@@ -56,23 +64,31 @@ export class TemplateSummary
 		this.lib_chart.render();
 	}
 
+	// ===== ===== ===== ===== =====
+	// Table
+	// ===== ===== ===== ===== =====
+
+	initializeTable ()
+	{
+		this.lib_table = new Grid();
+
+		this.lib_table.render(this.tag_table.get(0));
+	}
+
 	/**
 	 * @param { {[key: string]: number} } entries
 	 */
 	refreshTable (entries)
 	{
-		if (typeof this.lib_table === 'object')
+		if (typeof this.lib_table === 'undefined')
 		{
-			this.lib_table.destroy();
-			this.lib_table = null;
+			this.initializeTable();
 		}
 
 		const data_table = jQuery
 			.map(entries, (amount, phrase) => [[phrase, amount]])
 			.map((values, index) => [index, ...values]);
 
-		this.lib_table = new Grid();
-		this.lib_table.render(this.tag_table[0]);
 		this.lib_table.updateConfig({
 			columns: [ '#', 'phrase', 'amount' ],
 			data: data_table,
@@ -84,5 +100,7 @@ export class TemplateSummary
 			search: true,
 			sort: true
 		});
+
+		this.lib_table.forceRender();
 	}
 }
