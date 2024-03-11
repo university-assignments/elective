@@ -68,7 +68,7 @@ export class DataCollection
 		};
 
 		jQuery
-			.getJSON('storage/' + address + '.json', data => this.importData(data, false))
+			.getJSON('../storage/' + address + '.json', data => this.importData(data, false))
 			.done(() => notification && this.notification())
 
 			// notification
