@@ -68,11 +68,40 @@ export class TemplateSummary
 	// Table
 	// ===== ===== ===== ===== =====
 
+	synchronizeChart (store)
+	{
+		const state = store.getState();
+		const data  = state.data;
+
+		if (!data)
+		{
+			return;
+		}
+
+		const rows = data.rows;
+		const view = {};
+
+		for (const row of rows)
+		{
+			const cells = row.cells;
+
+			const phrase = cells[1].data;
+			const amount = cells[2].data;
+
+			view[phrase] = amount;
+		}
+
+		this.refreshChart(view);
+	}
+
 	initializeTable ()
 	{
 		this.lib_table = new Grid();
 
 		this.lib_table.render(this.tag_table.get(0));
+
+		const store = this.lib_table.config.store;
+		store.subscribe(() => this.synchronizeChart(store));
 	}
 
 	/**
