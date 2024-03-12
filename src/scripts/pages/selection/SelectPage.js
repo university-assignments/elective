@@ -9,12 +9,15 @@ export class SelectPage extends PageFoundation
 {
 	/**
 	 * @param {DataCollection} selection
+	 * @param {DataCollection} tags
 	 */
-	constructor (selection)
+	constructor (selection, tags)
 	{
 		super('table', 'select');
 
 		this.selection = selection;
+		this.tags = tags;
+
 		this.selection.listeners.on(Events.EVENT_REFRESH, () => this.refreshContent());
 	}
 
@@ -49,7 +52,30 @@ export class SelectPage extends PageFoundation
 		});
 
 		this.lib_table = new Grid({
-			columns: [ 'phrase', ...users ],
+			columns: [
+				{
+					name: 'phrase',
+
+					formatter: cell => html(`
+						<section>
+							${cell}
+						</section>
+
+						<section>
+							${
+								typeof this.tags === 'object' && this.tags.collection.has(cell)
+									? this.tags.collection.get(cell)
+										.map(value => '<article class="p-1 m-1 bg-info bg-opacity-10 text-wrap text-info-subtle border border-info rounded">' + value + '</article>')
+										.join('')
+									: ''
+							}
+						</section>
+					`)
+				},
+
+				...users
+			],
+
 			data: data,
 
 			pagination: {

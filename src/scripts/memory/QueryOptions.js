@@ -3,6 +3,7 @@ export class QueryOptions
 {
 	static PARAM_SELECTION = 'selection';
 	static PARAM_USERS     = 'users';
+	static PARAM_TAGS      = 'tags';
 
 	/**
 	 * @param {string} search
@@ -17,6 +18,10 @@ export class QueryOptions
 
 		this.users = this.options.has(QueryOptions.PARAM_USERS)
 			? this.options.get(QueryOptions.PARAM_USERS)
+			: '';
+
+		this.tags = this.options.has(QueryOptions.PARAM_TAGS)
+			? this.options.get(QueryOptions.PARAM_TAGS)
 			: '';
 	}
 }

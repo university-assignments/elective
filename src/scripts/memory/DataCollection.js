@@ -6,7 +6,7 @@ export class DataCollection
 {
 	constructor ()
 	{
-		/** @type {Map<string, string[]>} */
+		/** @type {Map<string, (string | boolean)[]>} */
 		this.collection = new Map();
 
 		this.listeners = new Events();

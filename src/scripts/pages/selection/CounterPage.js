@@ -8,17 +8,21 @@ import { PageFoundation } from '../../PageFoundation.js';
 export class CounterPage extends PageFoundation
 {
 	/**
-	 * @param {DataCollection} selection
+	 * @param {DataCollection} collection
+	 * @param {string} filter
+	 * @param {string} name
 	 */
-	constructor (selection)
+	constructor (collection, filter, name)
 	{
-		super('table', 'counter');
+		super('table', name);
 
 		this.summary = new TemplateSummary();
 		this.container.append(this.summary.tag_base);
 
-		this.selection = selection;
-		this.selection.listeners.on(Events.EVENT_REFRESH, () => this.refreshContent());
+		this.collection = collection;
+		this.collection.listeners.on(Events.EVENT_REFRESH, () => this.refreshContent());
+
+		this.filter = filter;
 	}
 
 	// ===== ===== ===== ===== =====
@@ -32,18 +36,30 @@ export class CounterPage extends PageFoundation
 	{
 		const response = new Map();
 
-		this.selection.collection.forEach(function (users, phrase)
+		const _filter = this.filter;
+
+		this.collection.collection.forEach(function (values, key)
 		{
-			jQuery.each(users, function (_, user)
+			jQuery.each(values, function (index, value)
 			{
-				if (!user)
+				if (_filter.includes('check') && !value)
 				{
 					return;
 				}
 
-				response.has(phrase)
-					? response.set(phrase, response.get(phrase) + 1)
-					: response.set(phrase, 1);
+				if (_filter.includes('key'))
+				{
+					response.has(key)
+						? response.set(key, response.get(key) + 1)
+						: response.set(key, 1);
+				}
+
+				if (_filter.includes('value'))
+				{
+					response.has(value)
+						? response.set(value, response.get(value) + 1)
+						: response.set(value, 1);
+				}
 			});
 		});
 

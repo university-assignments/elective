@@ -73,8 +73,13 @@ window.main = new class
 		{
 			this.selection = new DataCollection();
 			this.selection.importFile(this.options.selection);
+		}
 
-			return;
+		// теги
+		if (this.options.tags.length > 0)
+		{
+			this.data_tags = new DataCollection();
+			this.data_tags.importFile(this.options.tags);
 		}
 
 		// TODO...
@@ -99,10 +104,12 @@ window.main = new class
 		// selection
 		if (typeof this.selection === 'object')
 		{
-			this.page_counter = new CounterPage(this.selection);
-			this.page_select  = new SelectPage(this.selection);
+			this.page_counter = new CounterPage(this.selection, 'check-key', 'counter');
+			this.page_tags    = new CounterPage(this.data_tags, 'value', 'tags');
+			this.page_select  = new SelectPage(this.selection, this.data_tags);
 
 			this.pages.register(this.page_counter);
+			this.pages.register(this.page_tags);
 			this.pages.register(this.page_select);
 		}
 
