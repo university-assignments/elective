@@ -42,7 +42,7 @@ export class SelectPage extends PageFoundation
 		const users = Array(maximum).fill().map(function (_, value)
 		{
 			return {
-				name: 'user' + value,
+				name: value,
 				formatter: (cell) => html(`
 					<svg style="stroke-width: 2; stroke: #${ cell ? '6aff6a' : 'ff0033' };" class="svg_icon me-2" width="24" height="24" role="img">
 						<use xlink:href="#yes"></use>
