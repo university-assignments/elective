@@ -12,7 +12,7 @@ export class PhrasesPage extends PageFoundation
 	 */
 	constructor (users)
 	{
-		super('table', 'phrases');
+		super();
 
 		this.summary = new TemplateSummary();
 		this.container.append(this.summary.tag_base);

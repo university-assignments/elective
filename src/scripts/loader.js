@@ -23,6 +23,9 @@ import { DataCollection } from './memory/DataCollection.js';
 
 import { PagesCollection } from './PagesCollection.js';
 
+import { Sidebar } from './parts/sidebar/Sidebar.js';
+import { Content } from './parts/content/Content.js';
+
 // ===== ===== ===== ===== =====
 // pages
 // ===== ===== ===== ===== =====
@@ -47,77 +50,121 @@ window.main = new class
 {
 	constructor ()
 	{
+		this._initialize();
+	}
+
+	async _initialize ()
+	{
 		this._users();
+
+		await this._parts();
 		this._pages();
 		this._popup();
 		this._tags();
+		this._events();
 	}
 
 	_users ()
 	{
 		this.options = new QueryOptions();
 
+		this.users     = new DataCollection();
+		this.selection = new DataCollection();
+		this.data_tags = new DataCollection();
+
 		// пользователи
 		// Map<пользователь, фраза[]>
 		if (this.options.users.length > 0)
 		{
-			this.users = new DataCollection();
 			this.users.importFile(this.options.users);
-
-			return;
 		}
 
 		// выделение
 		// List<Map<фраза, boolean>>
 		if (this.options.selection.length > 0)
 		{
-			this.selection = new DataCollection();
 			this.selection.importFile(this.options.selection);
 		}
 
 		// теги
 		if (this.options.tags.length > 0)
 		{
-			this.data_tags = new DataCollection();
 			this.data_tags.importFile(this.options.tags);
 		}
 
 		// TODO...
 	}
 
+	async _parts ()
+	{
+		this.sidebar = new Sidebar();
+		this.content = new Content();
+
+		await this.sidebar.initialize();
+		await this.content.initialize();
+	}
+
 	_pages ()
 	{
-		this.pages = new PagesCollection();
+		this.pages = new PagesCollection(
+			this.sidebar,
+			this.content
+		);
 
 		// users
-		if (typeof this.users === 'object')
 		{
 			this.page_users    = new UsersPage(this.users);
 			this.page_phrases  = new PhrasesPage(this.users);
 			this.page_quantity = new QuantityPage(this.users);
 
-			this.pages.register(this.page_users);
-			this.pages.register(this.page_phrases);
-			this.pages.register(this.page_quantity);
+			this.pages.register('users', [
+				{
+					name: 'users',
+					page: this.page_users
+				},
+				{
+					name: 'phrases',
+					page: this.page_phrases
+				},
+				{
+					name: 'quantity',
+					page: this.page_quantity
+				}
+			]);
 		}
 
 		// selection
-		if (typeof this.selection === 'object')
 		{
-			this.page_counter = new CounterPage(this.selection, 'check-key', 'counter');
-			this.page_tags    = new CounterPage(this.data_tags, 'value', 'tags');
+			this.page_counter = new CounterPage(this.selection, 'check-key');
+			this.page_tags    = new CounterPage(this.data_tags, 'value');
 			this.page_select  = new SelectPage(this.selection, this.data_tags);
 
-			this.pages.register(this.page_counter);
-			this.pages.register(this.page_tags);
-			this.pages.register(this.page_select);
+			this.pages.register('selection', [
+				{
+					name: 'counter',
+					page: this.page_counter
+				},
+				{
+					name: 'tags',
+					page: this.page_tags
+				},
+				{
+					name: 'select',
+					page: this.page_select
+				}
+			]);
 		}
 
 		// general
 		{
 			this.page_settings = new SettingsPage(this.users);
 
-			this.pages.register(this.page_settings);
+			this.pages.register('general', [
+				{
+					name: 'settings',
+					page: this.page_settings
+				}
+			]);
 		}
 	}
 
@@ -130,9 +177,19 @@ window.main = new class
 	{
 		this.tags = new TagsFoundation();
 
-		this.tags.header.append(this.pages.tag_header);
-		this.tags.content.append(this.pages.tag_content);
+		this.tags.page.append(this.sidebar.tag_sidebar);
+		this.tags.page.append(this.content.tag_content);
 
 		this.tags.background.append(this.popup.tag_base);
+	}
+
+	/**
+	 * TODO: Убрать это недоразумение
+	 */
+	_events ()
+	{
+		this.users.listeners.trigger('refresh');
+		this.selection.listeners.trigger('refresh');
+		this.data_tags.listeners.trigger('refresh');
 	}
 };

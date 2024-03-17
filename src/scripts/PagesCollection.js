@@ -1,44 +1,21 @@
-import jQuery from 'jquery';
 
-import { PageFoundation } from './PageFoundation.js';
+/**
+ * @typedef { import('./PageFoundation').PageFoundation } PageFoundation
+ * 
+ * @typedef { import('./parts/sidebar/Sidebar').Sidebar } Sidebar
+ * @typedef { import('./parts/content/Content').Content } Content
+ */
 
 export class PagesCollection
 {
-	constructor ()
+	/**
+	 * @param {Sidebar} sidebar
+	 * @param {Content} content
+	 */
+	constructor (sidebar, content)
 	{
-		this.tag_header_navigation = jQuery(document.createElement('ul'))
-			.addClass('nav')
-			.addClass('col-12')
-			.addClass('col-lg-auto')
-			.addClass('my-2')
-			.addClass('justify-content-center')
-			.addClass('my-md-0')
-			.addClass('text-small');
-
-		this.tag_header_container = jQuery(document.createElement('div'))
-			.addClass('d-flex')
-			.addClass('flex-wrap')
-			.addClass('align-items-center')
-			.addClass('justify-content-center')
-			.addClass('justify-content-lg-start')
-			.append(`
-				<a href="/" class="d-flex align-items-center my-2 my-lg-0 me-lg-auto text-white text-decoration-none">
-					<svg class="svg_icon me-2" width="40" height="32" role="img" aria-label="Bootstrap">
-						<use xlink:href="#bootstrap"></use>
-					</svg>
-
-					<h4>ЮУрГУ @ Факультатив</h4>
-				</a>
-			`)
-			.append(this.tag_header_navigation);
-
-		this.tag_header = jQuery(document.createElement('div'))
-			.addClass('container')
-			.append(this.tag_header_container);
-
-		this.tag_content = jQuery(document.createElement('section'))
-			.addClass('pt-md-2')
-			.addClass('pt-1');
+		this.sidebar = sidebar;
+		this.content = content;
 
 		/** @type {PageFoundation[]} */
 		this.collection = [];
@@ -58,18 +35,23 @@ export class PagesCollection
 	}
 
 	/**
-	 * @param {PageFoundation} page
+	 * @param {string} title
+	 * @param { { name: string, page: PageFoundation }[] } categories
 	 */
-	register (page)
+	register (title, categories)
 	{
-		const identifier = page.getIdentifier();
-		const container  = page.getContainer();
+		const _self = this;
 
-		identifier.on('click', () => this.show(page));
+		this.sidebar.register(title, categories.map(function (category)
+		{
+			// register
+			_self.content.register(category.page.getContainer());
+			_self.collection.push(category.page);
 
-		this.tag_header_navigation.append(identifier);
-		this.tag_content.append(container);
-
-		this.collection.push(page);
+			return {
+				category: category.name,
+				clicking: () => _self.show(category.page)
+			};
+		}));
 	}
 }

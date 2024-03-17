@@ -10,11 +10,10 @@ export class CounterPage extends PageFoundation
 	/**
 	 * @param {DataCollection} collection
 	 * @param {string} filter
-	 * @param {string} name
 	 */
-	constructor (collection, filter, name)
+	constructor (collection, filter)
 	{
-		super('table', name);
+		super();
 
 		this.summary = new TemplateSummary();
 		this.container.append(this.summary.tag_base);

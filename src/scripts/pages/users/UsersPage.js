@@ -13,7 +13,7 @@ export class UsersPage extends PageFoundation
 	 */
 	constructor (users)
 	{
-		super('people-circle', 'users');
+		super();
 
 		this.users = users;
 		this.users.listeners.on(Events.EVENT_REFRESH, () => this.refreshContent());

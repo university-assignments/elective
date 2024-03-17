@@ -12,7 +12,7 @@ export class QuantityPage extends PageFoundation
 	 */
 	constructor (users)
 	{
-		super('table', 'quantity');
+		super();
 
 		this.summary = new TemplateSummary();
 		this.summary.lib_chart_type = 'pie';

@@ -3,7 +3,8 @@
 
 /* parts */
 
-@import url('./parts/header.css');
+@import url('./parts/sidebar.css');
+@import url('./parts/content.css');
 
 /* pages */
 

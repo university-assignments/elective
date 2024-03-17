@@ -13,7 +13,7 @@ export class SelectPage extends PageFoundation
 	 */
 	constructor (selection, tags)
 	{
-		super('table', 'select');
+		super();
 
 		this.selection = selection;
 		this.tags = tags;

@@ -12,7 +12,7 @@ export class SettingsPage extends PageFoundation
 	 */
 	constructor (users)
 	{
-		super('settings', 'settings');
+		super();
 
 		this.container.append(
 			jQuery(document.createElement('button'))
