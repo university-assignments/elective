@@ -37,7 +37,8 @@ import { QuantityPage } from './pages/users/QuantityPage.js';
 import { CounterPage } from './pages/selection/CounterPage.js';
 import { SelectPage } from './pages/selection/SelectPage.js';
 
-import { SettingsPage } from './pages/SettingsPage.js';
+import { UsersSettingsPage } from './pages/settings/UsersSettingsPage.js';
+import { ImportFilesPage } from './pages/settings/ImportFilesPage.js';
 
 // ===== ===== ===== ===== =====
 // main
@@ -155,14 +156,19 @@ window.main = new class
 			]);
 		}
 
-		// general
+		// settings
 		{
-			this.page_settings = new SettingsPage(this.users);
+			this.page_settings_users = new UsersSettingsPage(this.users);
+			this.page_import_files   = new ImportFilesPage();
 
-			this.pages.register('general', [
+			this.pages.register('settings', [
 				{
-					name: 'settings',
-					page: this.page_settings
+					name: 'users',
+					page: this.page_settings_users
+				},
+				{
+					name: 'import files',
+					page: this.page_import_files
 				}
 			]);
 		}
