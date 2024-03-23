@@ -15,6 +15,8 @@ window.Fancybox = Fancybox;
 import { QueryOptions } from './memory/QueryOptions.js';
 import { UserImport } from './memory/users/UserImport.js';
 
+import { TagsDictionary } from './memory/tags/TagsDictionary.js';
+
 // ===== ===== ===== ===== =====
 // import
 // ===== ===== ===== ===== =====
@@ -62,17 +64,18 @@ window.main = new class
 	{
 		await this._users();
 
-		// await this._parts();
-		// this._pages();
-		// this._popup();
-		// this._tags();
-		// this._events();
+		await this._parts();
+		this._pages();
+		this._popup();
+		this._tags();
+		this._events();
 	}
 
 	async _users ()
 	{
-		this.options = new QueryOptions();
-		this.users   = new UserImport();
+		this.options   = new QueryOptions();
+		this.data_tags = new TagsDictionary();
+		this.users     = new UserImport();
 
 		// пользователи
 		// Map<пользователь, фраза[]>
@@ -141,9 +144,9 @@ window.main = new class
 
 		// selection
 		{
-			this.page_counter = new CounterPage(this.selection, 'check-key');
+			this.page_counter = new CounterPage(this.users, 'check-key');
 			this.page_tags    = new CounterPage(this.data_tags, 'value');
-			this.page_select  = new SelectPage(this.selection, this.data_tags);
+			this.page_select  = new SelectPage(this.users, this.data_tags);
 
 			this.pages.register('selection', [
 				{
@@ -199,8 +202,7 @@ window.main = new class
 	 */
 	_events ()
 	{
-		this.users.listeners.trigger('refresh');
-		this.selection.listeners.trigger('refresh');
-		this.data_tags.listeners.trigger('refresh');
+		this.users.trigger('refresh');
+		this.data_tags.trigger('refresh');
 	}
 };

@@ -1,25 +1,28 @@
+
+/**
+ * @typedef { import('../../memory/users/UserCollection').UserCollection } UserCollection
+ */
+
 import { TemplateSummary } from '../../templates/TemplateSummary.js';
 
-import { DataCollection } from '../../memory/DataCollection.js';
-import { Events } from '../../memory/Events.js';
-
 import { PageFoundation } from '../../PageFoundation.js';
+
 
 export class CounterPage extends PageFoundation
 {
 	/**
-	 * @param {DataCollection} collection
+	 * @param {UserCollection} users
 	 * @param {string} filter
 	 */
-	constructor (collection, filter)
+	constructor (users, filter)
 	{
 		super();
 
 		this.summary = new TemplateSummary();
 		this.container.append(this.summary.tag_base);
 
-		this.collection = collection;
-		this.collection.listeners.on(Events.EVENT_REFRESH, () => this.refreshContent());
+		this.users = users;
+		this.users.on(this.users.EVENT_REFRESH, () => this.refreshContent());
 
 		this.filter = filter;
 	}
@@ -37,7 +40,7 @@ export class CounterPage extends PageFoundation
 
 		const _filter = this.filter;
 
-		this.collection.collection.forEach(function (values, key)
+		this.users.collection.forEach(function (values, key)
 		{
 			jQuery.each(values, function (index, value)
 			{

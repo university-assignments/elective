@@ -1,14 +1,19 @@
-import jQuery from 'jquery';
+
+/**
+ * @typedef { import('jquery') } jQuery
+ * 
+ * @typedef { import('../../memory/users/UserCollection').UserCollection } UserCollection
+ */
+
 import { Fancybox } from 'fancyappsui';
 
-import { DataCollection } from '../../memory/DataCollection.js';
-
 import { PageFoundation } from '../../PageFoundation.js';
+
 
 export class UsersSettingsPage extends PageFoundation
 {
 	/**
-	 * @param {DataCollection} users
+	 * @param {UserCollection} users
 	 */
 	constructor (users)
 	{

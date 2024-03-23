@@ -1,14 +1,17 @@
+
+/**
+ * @typedef { import('../../memory/users/UserCollection').UserCollection } UserCollection
+ */
+
 import { TemplateSummary } from '../../templates/TemplateSummary.js';
 
-import { DataCollection } from '../../memory/DataCollection.js';
-import { Events } from '../../memory/Events.js';
-
 import { PageFoundation } from '../../PageFoundation.js';
+
 
 export class PhrasesPage extends PageFoundation
 {
 	/**
-	 * @param {DataCollection} users
+	 * @param {UserCollection} users
 	 */
 	constructor (users)
 	{
@@ -18,7 +21,7 @@ export class PhrasesPage extends PageFoundation
 		this.container.append(this.summary.tag_base);
 
 		this.users = users;
-		this.users.listeners.on(Events.EVENT_REFRESH, () => this.refreshContent());
+		this.users.on(this.users.EVENT_REFRESH, () => this.refreshContent());
 	}
 
 	// ===== ===== ===== ===== =====

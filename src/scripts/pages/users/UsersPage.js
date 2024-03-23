@@ -1,34 +1,39 @@
-import jQuery from 'jquery';
+
+/**
+ * @typedef { import('jquery') } jQuery
+ * 
+ * @typedef { import('../../memory/users/user/UserData').UserData } UserData
+ * @typedef { import('../../memory/users/UserCollection').UserCollection } UserCollection
+ */
+
 import { Fancybox } from 'fancyappsui';
 
-import { DataCollection } from '../../memory/DataCollection.js';
-import { Events } from '../../memory/Events.js';
-
 import { PageFoundation } from '../../PageFoundation.js';
+
 
 export class UsersPage extends PageFoundation
 {
 	/**
-	 * @param {DataCollection} users
+	 * @param {UserCollection} users
 	 */
 	constructor (users)
 	{
 		super();
 
 		this.users = users;
-		this.users.listeners.on(Events.EVENT_REFRESH, () => this.refreshContent());
-
-		this.refreshContent();
+		this.users.on(this.users.EVENT_REFRESH, () => this.refreshContent());
 	}
 
 	/**
 	 * @private
 	 * 
-	 * @param {string[]} phrases
-	 * @param {string} user
+	 * @param {UserData} user
 	 */
-	editUser (phrases, user)
+	editUser (user)
 	{
+		const phrases = user.phrases;
+		const name    = user.name;
+
 		const __icon_state = jQuery(document.createElement('img'))
 			.addClass('user_icon_state')
 			.attr('src', './icons/left-2-svgrepo-com.svg')
@@ -69,7 +74,7 @@ export class UsersPage extends PageFoundation
 
 		const __name = jQuery(document.createElement('span'))
 			.addClass('user_name')
-			.text(user);
+			.text(name);
 
 		const __header = jQuery(document.createElement('article'))
 			.addClass('user_header')
@@ -113,7 +118,7 @@ export class UsersPage extends PageFoundation
 
 			jQuery('#user_send').on('click', function ()
 			{
-				users.collection.delete(user);
+				users.delete(name, false);
 
 				const user_name_value    = user_name.value;
 				const user_rules_value   = window.editor_ace.getValue();
@@ -124,8 +129,9 @@ export class UsersPage extends PageFoundation
 					alert('Один или несколько пунктов пустой');
 					return;
 				}
-
-				users.register(user_name.value, eval(user_rules_value));
+				
+				const _user = users.create(user_name.value, false);
+				_user.addPhrases(eval(user_rules_value));
 			});
 		});
 
@@ -192,7 +198,7 @@ export class UsersPage extends PageFoundation
 	{
 		this.container.html('');
 
-		this.users.collection.forEach((phrases, user) => this.editUser(phrases, user));
+		this.users.all().forEach(user => this.editUser(user));
 
 		this.addUser();
 	}

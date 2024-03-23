@@ -1,24 +1,27 @@
+
+/**
+ * @typedef { import('../../memory/users/UserCollection').UserCollection } UserCollection
+ */
+
 import { Grid, html } from 'gridjs';
 
-import { DataCollection } from '../../memory/DataCollection.js';
-import { Events } from '../../memory/Events.js';
-
 import { PageFoundation } from '../../PageFoundation.js';
+
 
 export class SelectPage extends PageFoundation
 {
 	/**
-	 * @param {DataCollection} selection
+	 * @param {UserCollection} users
 	 * @param {DataCollection} tags
 	 */
-	constructor (selection, tags)
+	constructor (users, tags)
 	{
 		super();
 
-		this.selection = selection;
-		this.tags = tags;
+		this.users = users;
+		this.users.on(this.users.EVENT_REFRESH, () => this.refreshContent());
 
-		this.selection.listeners.on(Events.EVENT_REFRESH, () => this.refreshContent());
+		this.tags = tags;
 	}
 
 	// ===== ===== ===== ===== =====

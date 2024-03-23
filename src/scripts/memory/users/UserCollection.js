@@ -28,6 +28,11 @@ export class UserCollection extends UserEvents
 		return this.index(name) !== -1;
 	}
 
+	all ()
+	{
+		return this.users;
+	}
+
 	/**
 	 * @param {string} name
 	 */
