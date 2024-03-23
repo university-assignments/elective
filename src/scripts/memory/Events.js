@@ -1,18 +1,16 @@
 
 export class Events
 {
-	static EVENT_REFRESH = 'refresh';
-
-	constructor ()
-	{
-		/** @type {Map<string, Function[]>} */
-		this.listeners = new Map();
-	}
+	/**
+	 * @private
+	 * @type {Map<string, Function[]>}
+	 */
+	listeners = new Map();
 
 	/**
 	 * @param {string} name
 	 */
-	trigger (name)
+	trigger (name, ...options)
 	{
 		if (this.listeners.has(name) === false)
 		{
@@ -21,7 +19,7 @@ export class Events
 
 		for (const handler of this.listeners.get(name))
 		{
-			handler();
+			handler(...options);
 		}
 
 		return true;

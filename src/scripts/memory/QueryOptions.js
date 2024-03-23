@@ -1,9 +1,9 @@
 
 export class QueryOptions
 {
-	static PARAM_SELECTION = 'selection';
-	static PARAM_USERS     = 'users';
-	static PARAM_TAGS      = 'tags';
+	PARAM_SELECTION = 'selection';
+	PARAM_PHRASES   = 'phrases';
+	PARAM_TAGS      = 'tags';
 
 	/**
 	 * @param {string} search
@@ -12,16 +12,16 @@ export class QueryOptions
 	{
 		this.options = new URLSearchParams(search);
 
-		this.selection = this.options.has(QueryOptions.PARAM_SELECTION)
-			? this.options.get(QueryOptions.PARAM_SELECTION)
+		this.selection = this.options.has(this.PARAM_SELECTION)
+			? this.options.get(this.PARAM_SELECTION)
 			: '';
 
-		this.users = this.options.has(QueryOptions.PARAM_USERS)
-			? this.options.get(QueryOptions.PARAM_USERS)
+		this.phrases = this.options.has(this.PARAM_PHRASES)
+			? this.options.get(this.PARAM_PHRASES)
 			: '';
 
-		this.tags = this.options.has(QueryOptions.PARAM_TAGS)
-			? this.options.get(QueryOptions.PARAM_TAGS)
+		this.tags = this.options.has(this.PARAM_TAGS)
+			? this.options.get(this.PARAM_TAGS)
 			: '';
 	}
 }

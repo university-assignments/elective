@@ -1,11 +1,9 @@
-import jQuery from 'jquery';
 import { Grid } from 'gridjs';
 import { Chart, registerables } from 'chart.js';
 import { Fancybox } from 'fancyappsui';
 
 Chart.register(...registerables);
 
-window.jQuery   = jQuery;
 window.Grid     = Grid;
 window.Chart    = Chart;
 window.Fancybox = Fancybox;
@@ -15,7 +13,13 @@ window.Fancybox = Fancybox;
 // ===== ===== ===== ===== =====
 
 import { QueryOptions } from './memory/QueryOptions.js';
-import { DataCollection } from './memory/DataCollection.js';
+import { UserImport } from './memory/users/UserImport.js';
+
+// ===== ===== ===== ===== =====
+// import
+// ===== ===== ===== ===== =====
+
+import { import_file_auto } from './import/auto.js';
 
 // ===== ===== ===== ===== =====
 // pages
@@ -56,35 +60,36 @@ window.main = new class
 
 	async _initialize ()
 	{
-		this._users();
+		await this._users();
 
-		await this._parts();
-		this._pages();
-		this._popup();
-		this._tags();
-		this._events();
+		// await this._parts();
+		// this._pages();
+		// this._popup();
+		// this._tags();
+		// this._events();
 	}
 
-	_users ()
+	async _users ()
 	{
 		this.options = new QueryOptions();
-
-		this.users     = new DataCollection();
-		this.selection = new DataCollection();
-		this.data_tags = new DataCollection();
+		this.users   = new UserImport();
 
 		// пользователи
 		// Map<пользователь, фраза[]>
-		if (this.options.users.length > 0)
+		if (this.options.phrases.length > 0)
 		{
-			this.users.importFile(this.options.users);
+			this.users.importPhrases(
+				await import_file_auto(this.options.phrases, 'left')
+			);
 		}
 
 		// выделение
 		// List<Map<фраза, boolean>>
 		if (this.options.selection.length > 0)
 		{
-			this.selection.importFile(this.options.selection);
+			this.users.importSurvey(
+				await import_file_auto(this.options.selection, 'top-left')
+			);
 		}
 
 		// теги
