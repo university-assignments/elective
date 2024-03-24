@@ -21,6 +21,8 @@ export class QuantityPage extends PageFoundation
 
 		this.users = users;
 		this.users.on(this.users.EVENT_REFRESH, () => this.refreshContent());
+
+		this.refreshContent();
 	}
 
 	// ===== ===== ===== ===== =====

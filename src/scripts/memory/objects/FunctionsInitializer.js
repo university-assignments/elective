@@ -72,7 +72,7 @@ export class FunctionsInitializer
 	{
 		const comment = this.getComment(obj, func);
 		const options = this.getOptions(comment);
-		const values  = this.objects.filter(options);
+		const values  = this.objects.filter(options).filter(value => value);
 
 		const gived = [...values, ...parameters];
 
@@ -87,7 +87,7 @@ export class FunctionsInitializer
 	{
 		const comment = this.getComment(obj, 'constructor');
 		const options = this.getOptions(comment);
-		const values  = this.objects.filter(options);
+		const values  = this.objects.filter(options).filter(value => value);
 
 		const gived = [...values, ...parameters];
 

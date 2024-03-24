@@ -1,6 +1,7 @@
 
 /**
  * @typedef { import('../../memory/users/UserCollection').UserCollection } UserCollection
+ * @typedef { import('../../memory/tags/TagsDictionary').TagsDictionary } TagsDictionary
  */
 
 import { Grid, html } from 'gridjs';
@@ -11,15 +12,18 @@ import { PageFoundation } from '../../PageFoundation.js';
 export class SelectPage extends PageFoundation
 {
 	/**
+	 * @param {TagsDictionary} tags
 	 * @param {UserCollection} users
-	 * @param {DataCollection} tags
 	 */
-	async initialize (users, tags)
+	async initialize (tags, users)
 	{
+		// TODO: Позже исправить список тегов
+		// this.tags = tags;
+
 		this.users = users;
 		this.users.on(this.users.EVENT_REFRESH, () => this.refreshContent());
 
-		this.tags = tags;
+		this.refreshContent();
 	}
 
 	// ===== ===== ===== ===== =====

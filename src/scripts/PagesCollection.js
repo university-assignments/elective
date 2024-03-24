@@ -9,6 +9,9 @@
  */
 
 
+/**
+ * @template { { name: string, page: PageFoundation, args: any[] } } PageOptions
+ */
 export class PagesCollection
 {
 	/**
@@ -31,7 +34,7 @@ export class PagesCollection
 
 	/**
 	 * @private
-	 * @type {PageFoundation[]}
+	 * @type {PageOptions[]}
 	 */
 	collection = [];
 
@@ -54,14 +57,17 @@ export class PagesCollection
 	{
 		const _self = this;
 
-		this.collection.forEach(function (page)
+		this.collection.forEach(function (options)
 		{
+			const page = options.page;
+			const args = options.args;
+
 			if (page === current)
 			{
 				// создаем страницу только когда ее необходимо показать
 				if (page.initialized === false)
 				{
-					_self.initializer.runFunction(page, 'initialize');
+					_self.initializer.runFunction(page, 'initialize', args);
 					page.initialized = true;
 				}
 
@@ -76,7 +82,7 @@ export class PagesCollection
 
 	/**
 	 * @param {string} title
-	 * @param { { name: string, page: PageFoundation, args: any[] }[] } categories
+	 * @param {PageOptions[]} categories
 	 */
 	register (title, categories)
 	{
@@ -85,14 +91,11 @@ export class PagesCollection
 		this.sidebar.register(title, categories.map(function (category)
 		{
 			// create page
-			category.page = _self.initializer.runClass(
-				category.page,
-				category.args
-			);
+			category.page = new category.page();
 
 			// register
 			_self.content.register(category.page.container);
-			_self.collection.push(category.page);
+			_self.collection.push(category);
 
 			return {
 				category: category.name,
