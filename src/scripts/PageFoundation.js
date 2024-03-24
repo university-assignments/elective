@@ -1,24 +1,29 @@
-import jQuery from 'jquery';
+
+/**
+ * @typedef { import('jquery') } jQuery
+ */
+
 
 /**
  * @abstract
  */
-
 export class PageFoundation
 {
 	constructor ()
 	{
+		this.initialized = false;
+
 		this.container = jQuery(document.createElement('article'))
 			.addClass('page_container')
 			.hide();
 	}
 
 	/**
-	 * @returns {JQuery<HTMLElement>}
+	 * @abstract
 	 */
-	getContainer ()
+	async initialize ()
 	{
-		return this.container;
+		throw new Error('override');
 	}
 
 	show ()

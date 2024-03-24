@@ -14,10 +14,8 @@ export class CounterPage extends PageFoundation
 	 * @param {UserCollection} users
 	 * @param {string} filter
 	 */
-	constructor (users, filter)
+	async initialize (users, filter)
 	{
-		super();
-
 		this.summary = new TemplateSummary();
 		this.container.append(this.summary.tag_base);
 

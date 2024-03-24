@@ -14,10 +14,8 @@ export class SelectPage extends PageFoundation
 	 * @param {UserCollection} users
 	 * @param {DataCollection} tags
 	 */
-	constructor (users, tags)
+	async initialize (users, tags)
 	{
-		super();
-
 		this.users = users;
 		this.users.on(this.users.EVENT_REFRESH, () => this.refreshContent());
 

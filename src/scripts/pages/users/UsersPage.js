@@ -16,10 +16,8 @@ export class UsersPage extends PageFoundation
 	/**
 	 * @param {UserCollection} users
 	 */
-	constructor (users)
+	async initialize (users)
 	{
-		super();
-
 		this.users = users;
 		this.users.on(this.users.EVENT_REFRESH, () => this.refreshContent());
 	}

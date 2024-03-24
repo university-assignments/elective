@@ -13,10 +13,8 @@ export class PhrasesPage extends PageFoundation
 	/**
 	 * @param {UserCollection} users
 	 */
-	constructor (users)
+	async initialize (users)
 	{
-		super();
-
 		this.summary = new TemplateSummary();
 		this.container.append(this.summary.tag_base);
 

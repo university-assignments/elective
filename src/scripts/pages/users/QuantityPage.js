@@ -11,12 +11,10 @@ import { PageFoundation } from '../../PageFoundation.js';
 export class QuantityPage extends PageFoundation
 {
 	/**
-	 * @param {DataCollection} users
+	 * @param {UserCollection} users
 	 */
-	constructor (users)
+	async initialize (users)
 	{
-		super();
-
 		this.summary = new TemplateSummary();
 		this.summary.lib_chart_type = 'pie';
 		this.container.append(this.summary.tag_base);

@@ -31,7 +31,7 @@ export class PagesCollection
 
 	/**
 	 * @private
-	 * @type {PageFoundation}
+	 * @type {PageFoundation[]}
 	 */
 	collection = [];
 
@@ -52,11 +52,25 @@ export class PagesCollection
 	 */
 	show (current)
 	{
+		const _self = this;
+
 		this.collection.forEach(function (page)
 		{
-			page === current
-				? page.show()
-				: page.hide();
+			if (page === current)
+			{
+				// создаем страницу только когда ее необходимо показать
+				if (page.initialized === false)
+				{
+					_self.initializer.runFunction(page, 'initialize');
+					page.initialized = true;
+				}
+
+				page.show();
+			}
+			else
+			{
+				page.hide();
+			}
 		});
 	}
 
@@ -77,7 +91,7 @@ export class PagesCollection
 			);
 
 			// register
-			_self.content.register(category.page.getContainer());
+			_self.content.register(category.page.container);
 			_self.collection.push(category.page);
 
 			return {

@@ -15,10 +15,8 @@ export class UsersSettingsPage extends PageFoundation
 	/**
 	 * @param {UserCollection} users
 	 */
-	constructor (users)
+	async initialize (users)
 	{
-		super();
-
 		this.container.append(
 			jQuery(document.createElement('button'))
 				.addClass('btn-primary')
