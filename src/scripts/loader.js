@@ -1,3 +1,14 @@
+
+/**
+ * @typedef { import('./memory/QueryOptions').QueryOptions } QueryOptions
+ * 
+ * @typedef { import('./memory/tags/TagsDictionary').TagsDictionary } TagsDictionary
+ * @typedef { import('./memory/users/UserImport').UserImport } UserImport
+ * 
+ * @typedef { import('./parts/sidebar/Sidebar').Sidebar } Sidebar
+ * @typedef { import('./parts/content/Content').Content } Content
+ */
+
 import { Grid } from 'gridjs';
 import { Chart, registerables } from 'chart.js';
 import { Fancybox } from 'fancyappsui';
@@ -12,10 +23,7 @@ window.Fancybox = Fancybox;
 // various
 // ===== ===== ===== ===== =====
 
-import { QueryOptions } from './memory/QueryOptions.js';
-import { UserImport } from './memory/users/UserImport.js';
-
-import { TagsDictionary } from './memory/tags/TagsDictionary.js';
+import { FunctionsInitializer } from './memory/objects/FunctionsInitializer.js';
 
 // ===== ===== ===== ===== =====
 // import
@@ -29,22 +37,12 @@ import { import_file_auto } from './import/auto.js';
 
 import { PagesCollection } from './PagesCollection.js';
 
-import { Sidebar } from './parts/sidebar/Sidebar.js';
-import { Content } from './parts/content/Content.js';
-
 // ===== ===== ===== ===== =====
-// pages
+// register
 // ===== ===== ===== ===== =====
 
-import { UsersPage } from './pages/users/UsersPage.js';
-import { PhrasesPage } from './pages/users/PhrasesPage.js';
-import { QuantityPage } from './pages/users/QuantityPage.js';
-
-import { CounterPage } from './pages/selection/CounterPage.js';
-import { SelectPage } from './pages/selection/SelectPage.js';
-
-import { UsersSettingsPage } from './pages/settings/UsersSettingsPage.js';
-import { ImportFilesPage } from './pages/settings/ImportFilesPage.js';
+import { get_objects } from './register/get_objects.js';
+import { register_routers } from './register/register_routers.js';
 
 // ===== ===== ===== ===== =====
 // main
@@ -53,133 +51,52 @@ import { ImportFilesPage } from './pages/settings/ImportFilesPage.js';
 import { TagsFoundation } from './display/TagsFoundation.js';
 import { TagPopup } from './display/TagPopup.js';
 
+
 window.main = new class
 {
 	constructor ()
 	{
+		this.objects     = get_objects();
+		this.initializer = new FunctionsInitializer(this.objects);
+
 		this._initialize();
 	}
 
 	async _initialize ()
 	{
-		await this._users();
+		await this.initializer.runFunction(this, '_' + 'parts');
 
-		await this._parts();
-		this._pages();
-		this._popup();
-		this._tags();
-		this._events();
+		this.initializer.runFunction(this, '_' + 'pages');
+		this.initializer.runFunction(this, '_' + 'popup');
+		this.initializer.runFunction(this, '_' + 'tags');
+
+		await this.initializer.runFunction(this, '_' + 'import');
 	}
 
-	async _users ()
+	/**
+	 * @param {Sidebar} sidebar
+	 * @param {Content} content
+	 */
+	async _parts (sidebar, content)
 	{
-		this.options   = new QueryOptions();
-		this.data_tags = new TagsDictionary();
-		this.users     = new UserImport();
-
-		// пользователи
-		// Map<пользователь, фраза[]>
-		if (this.options.phrases.length > 0)
-		{
-			this.users.importPhrases(
-				await import_file_auto(this.options.phrases, 'left')
-			);
-		}
-
-		// выделение
-		// List<Map<фраза, boolean>>
-		if (this.options.selection.length > 0)
-		{
-			this.users.importSurvey(
-				await import_file_auto(this.options.selection, 'top-left')
-			);
-		}
-
-		// теги
-		if (this.options.tags.length > 0)
-		{
-			this.data_tags.importFile(this.options.tags);
-		}
-
-		// TODO...
+		await sidebar.initialize();
+		await content.initialize();
 	}
 
-	async _parts ()
-	{
-		this.sidebar = new Sidebar();
-		this.content = new Content();
-
-		await this.sidebar.initialize();
-		await this.content.initialize();
-	}
-
-	_pages ()
+	/**
+	 * @param {FunctionsInitializer} initializer
+	 * @param {Sidebar} sidebar
+	 * @param {Content} content
+	 */
+	_pages (initializer, sidebar, content)
 	{
 		this.pages = new PagesCollection(
-			this.sidebar,
-			this.content
+			initializer,
+			sidebar,
+			content
 		);
 
-		// users
-		{
-			this.page_users    = new UsersPage(this.users);
-			this.page_phrases  = new PhrasesPage(this.users);
-			this.page_quantity = new QuantityPage(this.users);
-
-			this.pages.register('users', [
-				{
-					name: 'users',
-					page: this.page_users
-				},
-				{
-					name: 'phrases',
-					page: this.page_phrases
-				},
-				{
-					name: 'quantity',
-					page: this.page_quantity
-				}
-			]);
-		}
-
-		// selection
-		{
-			this.page_counter = new CounterPage(this.users, 'check-key');
-			this.page_tags    = new CounterPage(this.data_tags, 'value');
-			this.page_select  = new SelectPage(this.users, this.data_tags);
-
-			this.pages.register('selection', [
-				{
-					name: 'counter',
-					page: this.page_counter
-				},
-				{
-					name: 'tags',
-					page: this.page_tags
-				},
-				{
-					name: 'select',
-					page: this.page_select
-				}
-			]);
-		}
-
-		// settings
-		{
-			this.page_settings_users = new UsersSettingsPage(this.users);
-			this.page_import_files   = new ImportFilesPage();
-
-			this.pages.register('settings', [
-				{
-					name: 'users',
-					page: this.page_settings_users
-				},
-				{
-					name: 'import files',
-					page: this.page_import_files
-				}
-			]);
-		}
+		register_routers(this.pages);
 	}
 
 	_popup ()
@@ -187,22 +104,43 @@ window.main = new class
 		this.popup = new TagPopup();
 	}
 
-	_tags ()
+	/**
+	 * @param {TagsFoundation} tags
+	 * @param {Sidebar} sidebar
+	 * @param {Content} content
+	 */
+	_tags (tags, sidebar, content)
 	{
-		this.tags = new TagsFoundation();
+		tags.page.append(sidebar.tag_sidebar);
+		tags.page.append(content.tag_content);
 
-		this.tags.page.append(this.sidebar.tag_sidebar);
-		this.tags.page.append(this.content.tag_content);
-
-		this.tags.background.append(this.popup.tag_base);
+		tags.background.append(this.popup.tag_base);
 	}
 
 	/**
-	 * TODO: Убрать это недоразумение
+	 * @param {QueryOptions} options
+	 * @param {TagsDictionary} tags
+	 * @param {UserImport} users
 	 */
-	_events ()
+	async _import (options, tags, users)
 	{
-		this.users.trigger('refresh');
-		this.data_tags.trigger('refresh');
+		if (options.phrases.length > 0)
+		{
+			users.importPhrases(
+				await import_file_auto(options.phrases, 'left')
+			);
+		}
+
+		if (options.selection.length > 0)
+		{
+			users.importSurvey(
+				await import_file_auto(options.selection, 'top-left')
+			);
+		}
+
+		if (options.tags.length > 0)
+		{
+			tags.importFile(options.tags);
+		}
 	}
 };
