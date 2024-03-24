@@ -55,29 +55,23 @@ export class PagesCollection
 	 */
 	show (current)
 	{
-		const _self = this;
-
-		this.collection.forEach(function (options)
+		for (const {page, args} of this.collection)
 		{
-			const page = options.page;
-			const args = options.args;
-
 			if (page === current)
 			{
 				// создаем страницу только когда ее необходимо показать
 				if (page.initialized === false)
 				{
-					_self.initializer.runFunction(page, 'initialize', args);
+					this.initializer.runFunction(page, 'initialize', args);
 					page.initialized = true;
 				}
 
 				page.show();
+				continue;
 			}
-			else
-			{
-				page.hide();
-			}
-		});
+
+			page.hide();
+		}
 	}
 
 	/**
