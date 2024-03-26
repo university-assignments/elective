@@ -29,7 +29,6 @@ export class TemplateSummary
 	{
 		const entries = Object.fromEntries(data);
 
-		this.refreshChart(entries);
 		this.refreshTable(entries);
 	}
 

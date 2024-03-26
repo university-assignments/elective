@@ -36,10 +36,10 @@ export class QuantityPage extends PageFoundation
 	{
 		const response = new Map();
 
-		this.users.collection.forEach(function (phrases, user)
+		for (const user of this.users.all())
 		{
-			response.set(user, phrases.length);
-		});
+			response.set(user.name, user.phrases.length);
+		}
 
 		return response;
 	}

@@ -23,6 +23,8 @@ export class CounterPage extends PageFoundation
 		this.users.on(this.users.EVENT_REFRESH, () => this.refreshContent());
 
 		this.filter = filter;
+
+		this.refreshContent();
 	}
 
 	// ===== ===== ===== ===== =====
@@ -38,9 +40,12 @@ export class CounterPage extends PageFoundation
 
 		const _filter = this.filter;
 
-		this.users.collection.forEach(function (values, key)
+		this.users.all().forEach(function (user)
 		{
-			jQuery.each(values, function (index, value)
+			const key    = user.name;
+			const values = user.phrases;
+
+			values.forEach(function (value)
 			{
 				if (_filter.includes('check') && !value)
 				{

@@ -96,13 +96,33 @@ export class SelectPage extends PageFoundation
 
 	refreshContent ()
 	{
+		const phrases = [];
+
+		for (const {survey} of this.users.all())
+		{
+			for (const phrase of survey.keys())
+			{
+				if (phrases.includes(phrase) === false)
+				{
+					phrases.push(phrase);
+				}
+			}
+		}
+
 		const response = [];
 
-		for (const [phrase, users] of this.selection.collection)
+		for (const phrase of phrases)
 		{
+			const users_amount = [];
+
+			for (const {survey} of this.users.all())
+			{
+				users_amount.push(survey.get(phrase));
+			}
+
 			response.push([
 				phrase,
-				...users
+				...users_amount
 			]);
 		}
 

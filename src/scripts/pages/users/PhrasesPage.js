@@ -35,7 +35,7 @@ export class PhrasesPage extends PageFoundation
 	{
 		const response = new Map();
 
-		for (const phrases of this.users.collection.values())
+		for (const phrases of this.users.all().map(user => user.phrases))
 		{
 			for (const phrase of phrases)
 			{

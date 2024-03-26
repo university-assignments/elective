@@ -46,7 +46,14 @@ export class UserImport extends UserCollection
 		 */
 		const handler = function (user, survey)
 		{
-			survey = survey.map(selected => Boolean(selected));
+			survey = survey.map(function (selected)
+			{
+				const key   = selected[0];
+				const value = selected[1];
+
+				return [key, Boolean(value)];
+			});
+
 			survey = new Map(survey);
 
 			user.addSurvey(survey);
