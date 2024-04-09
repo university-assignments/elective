@@ -3,11 +3,13 @@
  * @typedef { import('jquery') } jQuery
  */
 
+import { PartConstructor } from '../parts/PartConstructor.js';
+
 
 /**
  * @abstract
  */
-export class PageFoundation
+export class PageFoundation extends PartConstructor
 {
 	constructor ()
 	{
@@ -16,14 +18,6 @@ export class PageFoundation
 		this.container = jQuery(document.createElement('article'))
 			.addClass('page_container')
 			.hide();
-	}
-
-	/**
-	 * @abstract
-	 */
-	async initialize ()
-	{
-		throw new Error('override');
 	}
 
 	show ()
