@@ -11,7 +11,7 @@ import { CounterPage } from '../pages/selection/CounterPage.js';
 import { SelectPage } from '../pages/selection/SelectPage.js';
 
 import { UsersSettingsPage } from '../pages/settings/UsersSettingsPage.js';
-import { ImportFilesPage } from '../pages/settings/ImportFilesPage.js';
+import { ImportFilesPage } from '../pages/settings/import/ImportFilesPage.js';
 
 
 /**

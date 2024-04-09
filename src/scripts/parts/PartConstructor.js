@@ -1,29 +1,14 @@
-import jQuery from 'jquery';
 
+/**
+ * @abstract
+ */
 export class PartConstructor
 {
+	/**
+	 * @abstract
+	 */
 	async initialize ()
 	{
-	}
-
-	/**
-	 * @protected
-	 * 
-	 * @param {string} path
-	 * 
-	 * @returns {Promise<string>}
-	 */
-	template (path)
-	{
-		return new Promise(function (resolve)
-		{
-			const loaded = function ()
-			{
-				resolve(this.innerHTML);
-			};
-
-			jQuery(document.createElement('template'))
-				.load(path, loaded);
-		});
+		throw new Error('override');
 	}
 }

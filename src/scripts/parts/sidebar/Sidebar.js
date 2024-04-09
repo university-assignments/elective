@@ -2,13 +2,14 @@ import jQuery from 'jquery';
 import Mustache from 'mustache';
 
 import { PartConstructor } from '../PartConstructor.js';
+import { FilesTools } from '../../tools/FilesTools.js';
 
 export class Sidebar extends PartConstructor
 {
 	async initialize ()
 	{
-		this.template_sidebar    = await this.template('./scripts/parts/sidebar/sidebar.mst');
-		this.template_navigation = await this.template('./scripts/parts/sidebar/navigation.mst');
+		this.template_sidebar    = await FilesTools.getText('./scripts/parts/sidebar/sidebar.mst');
+		this.template_navigation = await FilesTools.getText('./scripts/parts/sidebar/navigation.mst');
 
 		this.tag_sidebar    = jQuery(this.template_sidebar);
 		this.tag_navigation = this.tag_sidebar.find('#navigation');
