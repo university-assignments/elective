@@ -13,6 +13,8 @@ export class PageFoundation extends PartConstructor
 {
 	constructor ()
 	{
+		super();
+
 		this.initialized = false;
 
 		this.container = jQuery(document.createElement('article'))
