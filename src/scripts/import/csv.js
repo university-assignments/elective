@@ -10,26 +10,22 @@ import { import_json } from './json.js';
  * @param {string} path
  * @param {string} reader
  */
-export function import_file_csv (path, reader)
+export async function import_file_csv (path, reader)
 {
-	return new Promise(function (resolve)
-	{
-		jQuery.get(path, function (buffer)
-		{
-			import_csv(buffer, reader)
-				.then(data => resolve(data));
-		});
-	});
+	const text = await jQuery.get(path);
+	const data = import_csv(text, reader);
+
+	return data;
 }
 
 /**
  * @param {string} buffer
  * @param {string} reader
  */
-export async function import_csv (buffer, reader)
+export function import_csv (buffer, reader)
 {
 	/** @type { (string | number | boolean)[][] } */
 	const lines = jQuery.csv.toArrays(buffer);
 
-	return await import_json(lines, reader);
+	return import_json(lines, reader);
 }

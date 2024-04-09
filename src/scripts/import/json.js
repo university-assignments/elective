@@ -8,16 +8,12 @@
  * @param {string} path
  * @param {string} reader
  */
-export function import_file_json (path, reader)
+export async function import_file_json (path, reader)
 {
-	return new Promise(function (resolve)
-	{
-		jQuery.getJSON(path, function (data)
-		{
-			import_json(data, reader)
-				.then(data => resolve(data));
-		});
-	});
+	const json = await jQuery.getJSON(path);
+	const data = import_json(json, reader);
+
+	return data;
 }
 
 /**
@@ -74,7 +70,7 @@ const readers = {
  * @param {TLines} lines
  * @param {string} reader
  */
-export async function import_json (lines, reader)
+export function import_json (lines, reader)
 {
 	const handler = readers[reader];
 
