@@ -1,7 +1,6 @@
 
 import { TagsFoundation } from '../display/TagsFoundation.js';
 import { QueryOptions } from '../memory/QueryOptions.js';
-import { FunctionsInitializer } from '../memory/objects/FunctionsInitializer.js';
 import { Objects } from '../memory/objects/Objects.js';
 
 import { TagsDictionary } from '../memory/tags/TagsDictionary.js';
@@ -14,8 +13,6 @@ import { Sidebar } from '../parts/sidebar/Sidebar.js';
 export function get_objects ()
 {
 	const objects = new Objects();
-
-	objects.singleton.register(() => new FunctionsInitializer(objects));
 
 	objects.singleton.register(() => new QueryOptions());
 

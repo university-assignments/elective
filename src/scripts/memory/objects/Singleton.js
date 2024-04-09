@@ -1,4 +1,7 @@
 
+import { MethodsCaller } from './MethodsCaller.js';
+
+
 export class Singleton
 {
 	/**
@@ -6,6 +9,12 @@ export class Singleton
 	 * @type { Map<string, Object> }
 	 */
 	objects = new Map();
+
+	constructor ()
+	{
+		this.register(() => new MethodsCaller(this));
+		this.register(() => this);
+	}
 
 	/**
 	 * @param {string} name_1

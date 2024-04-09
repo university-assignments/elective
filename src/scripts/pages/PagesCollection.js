@@ -1,8 +1,8 @@
 
 /**
- * @typedef { import('./PageFoundation').PageFoundation } PageFoundation
+ * @typedef { import('../memory/objects/MethodsCaller').MethodsCaller } MethodsCaller
  * 
- * @typedef { import('../memory/objects/FunctionsInitializer').FunctionsInitializer } FunctionsInitializer
+ * @typedef { import('./PageFoundation').PageFoundation } PageFoundation
  * 
  * @typedef { import('../parts/sidebar/Sidebar').Sidebar } Sidebar
  * @typedef { import('../parts/content/Content').Content } Content
@@ -16,7 +16,7 @@ export class PagesCollection
 {
 	/**
 	 * @private
-	 * @type {FunctionsInitializer}
+	 * @type {MethodsCaller}
 	 */
 	initializer;
 
@@ -39,7 +39,7 @@ export class PagesCollection
 	collection = [];
 
 	/**
-	 * @param {FunctionsInitializer} initializer
+	 * @param {MethodsCaller} initializer
 	 * @param {Sidebar} sidebar
 	 * @param {Content} content
 	 */

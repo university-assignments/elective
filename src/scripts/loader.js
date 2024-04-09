@@ -1,5 +1,7 @@
 
 /**
+ * @typedef { import('./memory/objects/MethodsCaller').MethodsCaller } MethodsCaller
+ * 
  * @typedef { import('./memory/QueryOptions').QueryOptions } QueryOptions
  * 
  * @typedef { import('./memory/tags/TagsDictionary').TagsDictionary } TagsDictionary
@@ -18,12 +20,6 @@ Chart.register(...registerables);
 window.Grid     = Grid;
 window.Chart    = Chart;
 window.Fancybox = Fancybox;
-
-// ===== ===== ===== ===== =====
-// various
-// ===== ===== ===== ===== =====
-
-import { FunctionsInitializer } from './memory/objects/FunctionsInitializer.js';
 
 // ===== ===== ===== ===== =====
 // import
@@ -54,10 +50,15 @@ import { TagPopup } from './display/TagPopup.js';
 
 window.main = new class
 {
+	/**
+	 * @type {MethodsCaller}
+	 */
+	initializer;
+
 	constructor ()
 	{
 		this.objects     = get_objects();
-		this.initializer = new FunctionsInitializer(this.objects);
+		this.initializer = this.objects.get('MethodsCaller');
 
 		this._initialize();
 	}
@@ -84,7 +85,7 @@ window.main = new class
 	}
 
 	/**
-	 * @param {FunctionsInitializer} initializer
+	 * @param {MethodsCaller} initializer
 	 * @param {Sidebar} sidebar
 	 * @param {Content} content
 	 */

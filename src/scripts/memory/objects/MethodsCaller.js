@@ -4,7 +4,7 @@
  */
 
 
-export class FunctionsInitializer
+export class MethodsCaller
 {
 	/**
 	 * @private
