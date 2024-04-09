@@ -11,7 +11,7 @@ export class TagsFoundation
 			.attr('id', 'page')
 
 			.addClass('flex-row')
-			.addClass('flex');
+			.addClass('d-md-flex');
 
 		this.body = jQuery(document.body)
 			.append(this.background)
