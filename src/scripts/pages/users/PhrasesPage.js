@@ -5,7 +5,7 @@
 
 import { TemplateSummary } from '../../templates/TemplateSummary.js';
 
-import { PageFoundation } from '../../PageFoundation.js';
+import { PageFoundation } from '../PageFoundation.js';
 
 
 export class PhrasesPage extends PageFoundation

@@ -35,14 +35,14 @@ import { import_file_auto } from './import/auto.js';
 // pages
 // ===== ===== ===== ===== =====
 
-import { PagesCollection } from './PagesCollection.js';
+import { PagesCollection } from './pages/PagesCollection.js';
 
 // ===== ===== ===== ===== =====
 // register
 // ===== ===== ===== ===== =====
 
-import { get_objects } from './register/get_objects.js';
-import { register_routers } from './register/register_routers.js';
+import { get_objects } from './configuration/get_objects.js';
+import { register_routers } from './configuration/register_routers.js';
 
 // ===== ===== ===== ===== =====
 // main

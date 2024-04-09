@@ -1,6 +1,6 @@
 
 /**
- * @typedef { import('../PagesCollection.js').PagesCollection } PagesCollection
+ * @typedef { import('../pages/PagesCollection.js').PagesCollection } PagesCollection
  */
 
 import { UsersPage } from '../pages/users/UsersPage.js';

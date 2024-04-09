@@ -2,10 +2,10 @@
 /**
  * @typedef { import('./PageFoundation').PageFoundation } PageFoundation
  * 
- * @typedef { import('./memory/objects/FunctionsInitializer').FunctionsInitializer } FunctionsInitializer
+ * @typedef { import('../memory/objects/FunctionsInitializer').FunctionsInitializer } FunctionsInitializer
  * 
- * @typedef { import('./parts/sidebar/Sidebar').Sidebar } Sidebar
- * @typedef { import('./parts/content/Content').Content } Content
+ * @typedef { import('../parts/sidebar/Sidebar').Sidebar } Sidebar
+ * @typedef { import('../parts/content/Content').Content } Content
  */
 
 
