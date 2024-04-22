@@ -3,6 +3,8 @@
  * @typedef { import('./Objects').Objects } Objects
  */
 
+import { ReflectionMethod } from './ReflectionMethod.js';
+
 
 export class MethodsCaller
 {
@@ -21,76 +23,40 @@ export class MethodsCaller
 	}
 
 	/**
-	 * @param {string} comment
+	 * @template TObj
+	 * 
+	 * @param {TObj} obj
+	 * @param {keyof TObj} method
+	 * @param {any[]} parameters_custom
 	 */
-	getOptions (comment)
+	runMethod (obj, method, parameters_custom = [])
 	{
-		const results = comment.matchAll(/@param\s*{([^}]*)}\s*(\w*)/g);
-		const options = [];
+		const reflection      = new ReflectionMethod(obj, method);
+		const parameters_list = reflection.getParameters();
 
-		for (const result of results)
-		{
-			options.push(result[1]);
-		}
+		const parameters_data = this.objects.filter(parameters_list).filter(value => value);
 
-		return options;
+		const callable = reflection.getMethod();
+		const response = callable.call(obj, ...parameters_data, ...parameters_custom);
+
+		return response;
 	}
 
 	/**
-	 * @param { {} | Function } obj
-	 * @param {string} func
+	 * @template TObj
+	 * 
+	 * @param {TObj} obj
+	 * @param {any[]} parameters_custom
+	 * 
+	 * @returns {new TObj}
 	 */
-	getComment (obj, func)
+	runClass (obj, parameters_custom = [])
 	{
-		// 'new class' => object
-		// 'class' => function
-		const class_buffer = typeof obj === 'object'
-			? obj.constructor.toString()
-			: obj.toString();
+		const reflection      = new ReflectionMethod(obj, 'constructor');
+		const parameters_list = reflection.getParameters();
 
-		// function
-		const func_index = class_buffer.indexOf(func);
-		const func_value = class_buffer.substring(0, func_index);
+		const parameters_data = this.objects.filter(parameters_list).filter(value => value);
 
-		// comment close
-		const comment_close_index = func_value.lastIndexOf('*/');
-		const comment_close_value = func_value.substring(0, comment_close_index);
-
-		// comment begin
-		const comment_begin_index = comment_close_value.lastIndexOf('/**') + '/**'.length;
-		const comment_begin_value = comment_close_value.substring(comment_begin_index);
-
-		return comment_begin_value.trim();
-	}
-
-	/**
-	 * @param { {} | Function } obj
-	 * @param {string} func
-	 * @param {any[]} parameters
-	 */
-	runFunction (obj, func, parameters = [])
-	{
-		const comment = this.getComment(obj, func);
-		const options = this.getOptions(comment);
-		const values  = this.objects.filter(options).filter(value => value);
-
-		const gived = [...values, ...parameters];
-
-		return obj[func](...gived);
-	}
-
-	/**
-	 * @param { {} | Function } obj
-	 * @param {any[]} parameters
-	 */
-	runClass (obj, parameters = [])
-	{
-		const comment = this.getComment(obj, 'constructor');
-		const options = this.getOptions(comment);
-		const values  = this.objects.filter(options).filter(value => value);
-
-		const gived = [...values, ...parameters];
-
-		return new obj(...gived);
+		return new obj(...parameters_data, ...parameters_custom);
 	}
 }

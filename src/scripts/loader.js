@@ -38,7 +38,7 @@ import { PagesCollection } from './pages/PagesCollection.js';
 // ===== ===== ===== ===== =====
 
 import { get_objects } from './configuration/get_objects.js';
-import { register_routers } from './configuration/register_routers.js';
+import { Routers } from './configuration/Routers.js';
 
 // ===== ===== ===== ===== =====
 // main
@@ -65,13 +65,13 @@ window.main = new class
 
 	async _initialize ()
 	{
-		await this.initializer.runFunction(this, '_' + 'parts');
+		await this.initializer.runMethod(this, '_parts');
 
-		this.initializer.runFunction(this, '_' + 'pages');
-		this.initializer.runFunction(this, '_' + 'popup');
-		this.initializer.runFunction(this, '_' + 'tags');
+		this.initializer.runMethod(this, '_pages');
+		this.initializer.runMethod(this, '_popup');
+		this.initializer.runMethod(this, '_tags');
 
-		await this.initializer.runFunction(this, '_' + 'import');
+		await this.initializer.runMethod(this, '_import');
 	}
 
 	/**
@@ -85,19 +85,11 @@ window.main = new class
 	}
 
 	/**
-	 * @param {MethodsCaller} initializer
-	 * @param {Sidebar} sidebar
-	 * @param {Content} content
+	 * @param {MethodsCaller} caller
 	 */
-	_pages (initializer, sidebar, content)
+	_pages (caller)
 	{
-		this.pages = new PagesCollection(
-			initializer,
-			sidebar,
-			content
-		);
-
-		register_routers(this.pages);
+		this.pages = caller.runMethod(Routers, 'collection');
 	}
 
 	_popup ()
