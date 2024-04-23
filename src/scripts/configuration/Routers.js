@@ -7,8 +7,10 @@
  */
 
 import { UsersPage } from '../pages/users/UsersPage.js';
-import { PhrasesPage } from '../pages/users/PhrasesPage.js';
-import { QuantityPage } from '../pages/users/QuantityPage.js';
+
+import { PhrasesPage } from '../pages/phrases/PhrasesPage.js';
+import { QuantityPage } from '../pages/phrases/QuantityPage.js';
+import { MemorizePage } from '../pages/phrases/MemorizePage.js';
 
 import { CounterPage } from '../pages/selection/CounterPage.js';
 import { SelectPage } from '../pages/selection/SelectPage.js';
@@ -39,13 +41,20 @@ export class Routers
 				page: UsersPage,
 				name: 'users'
 			},
+		]);
+
+		pages.register('phrases', [
 			{
 				page: PhrasesPage,
-				name: 'phrases'
+				name: 'counter by phrases'
 			},
 			{
 				page: QuantityPage,
-				name: 'quantity'
+				name: 'counter by users'
+			},
+			{
+				page: MemorizePage,
+				name: 'memorize'
 			}
 		]);
 

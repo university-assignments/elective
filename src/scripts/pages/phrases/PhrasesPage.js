@@ -1,6 +1,6 @@
 
 /**
- * @typedef { import('../../memory/users/UserCollection').UserCollection } UserCollection
+ * @typedef { import('../../memory/users/UserCollection.js').UserCollection } UserCollection
  */
 
 import { TemplateSummary } from '../../templates/TemplateSummary.js';
