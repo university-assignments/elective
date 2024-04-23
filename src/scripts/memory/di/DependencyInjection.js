@@ -2,7 +2,7 @@
 import { Singleton } from './Singleton.js';
 
 
-export class Objects
+export class DependencyInjection
 {
 	singleton = new Singleton();
 

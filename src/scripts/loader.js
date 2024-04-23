@@ -1,7 +1,5 @@
 
 /**
- * @typedef { import('./memory/objects/MethodsCaller').MethodsCaller } MethodsCaller
- * 
  * @typedef { import('./memory/QueryOptions').QueryOptions } QueryOptions
  * 
  * @typedef { import('./memory/tags/TagsDictionary').TagsDictionary } TagsDictionary
@@ -28,17 +26,13 @@ window.Fancybox = Fancybox;
 import { import_file_auto } from './import/auto.js';
 
 // ===== ===== ===== ===== =====
-// pages
-// ===== ===== ===== ===== =====
-
-import { PagesCollection } from './pages/PagesCollection.js';
-
-// ===== ===== ===== ===== =====
 // register
 // ===== ===== ===== ===== =====
 
-import { get_objects } from './configuration/get_objects.js';
+import { get_di } from './configuration/get_di.js';
 import { Routers } from './configuration/Routers.js';
+
+import { MethodsCaller } from './memory/di/MethodsCaller.js';
 
 // ===== ===== ===== ===== =====
 // main
@@ -50,28 +44,23 @@ import { TagPopup } from './display/TagPopup.js';
 
 window.main = new class
 {
-	/**
-	 * @type {MethodsCaller}
-	 */
-	initializer;
-
 	constructor ()
 	{
-		this.objects     = get_objects();
-		this.initializer = this.objects.get('MethodsCaller');
+		this.di     = get_di();
+		this.caller = new MethodsCaller(this.di);
 
 		this._initialize();
 	}
 
 	async _initialize ()
 	{
-		await this.initializer.runMethod(this, '_parts');
+		await this.caller.runMethod(this, '_parts');
 
-		this.initializer.runMethod(this, '_pages');
-		this.initializer.runMethod(this, '_popup');
-		this.initializer.runMethod(this, '_tags');
+		this.caller.runMethod(this, '_pages');
+		this.caller.runMethod(this, '_popup');
+		this.caller.runMethod(this, '_tags');
 
-		await this.initializer.runMethod(this, '_import');
+		await this.caller.runMethod(this, '_import');
 	}
 
 	/**

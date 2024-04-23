@@ -1,6 +1,6 @@
 
 /**
- * @typedef { import('../memory/objects/MethodsCaller').MethodsCaller } MethodsCaller
+ * @typedef { import('../memory/di/MethodsCaller').MethodsCaller } MethodsCaller
  * 
  * @typedef { import('./PageFoundation').PageFoundation } PageFoundation
  * 
@@ -62,7 +62,7 @@ export class PagesCollection
 				// создаем страницу только когда ее необходимо показать
 				if (page.initialized === false)
 				{
-					this.initializer.runFunction(page, 'initialize', args);
+					this.initializer.runMethod(page, 'initialize', args);
 					page.initialized = true;
 				}
 

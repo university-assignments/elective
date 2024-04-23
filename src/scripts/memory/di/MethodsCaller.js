@@ -1,6 +1,6 @@
 
 /**
- * @typedef { import('./Objects').Objects } Objects
+ * @typedef { import('./DependencyInjection.js').DependencyInjection } DependencyInjection
  */
 
 import { ReflectionMethod } from './ReflectionMethod.js';
@@ -10,16 +10,16 @@ export class MethodsCaller
 {
 	/**
 	 * @private
-	 * @type {Objects}
+	 * @type {DependencyInjection}
 	 */
-	objects;
+	di;
 
 	/**
-	 * @param {Objects} objects
+	 * @param {DependencyInjection} di
 	 */
-	constructor (objects)
+	constructor (di)
 	{
-		this.objects = objects;
+		this.di = di;
 	}
 
 	/**
@@ -34,7 +34,7 @@ export class MethodsCaller
 		const reflection      = new ReflectionMethod(obj, method);
 		const parameters_list = reflection.getParameters();
 
-		const parameters_data = this.objects.filter(parameters_list).filter(value => value);
+		const parameters_data = this.di.filter(parameters_list).filter(value => value);
 
 		const callable = reflection.getMethod();
 		const response = callable.call(obj, ...parameters_data, ...parameters_custom);
@@ -55,7 +55,7 @@ export class MethodsCaller
 		const reflection      = new ReflectionMethod(obj, 'constructor');
 		const parameters_list = reflection.getParameters();
 
-		const parameters_data = this.objects.filter(parameters_list).filter(value => value);
+		const parameters_data = this.di.filter(parameters_list).filter(value => value);
 
 		return new obj(...parameters_data, ...parameters_custom);
 	}
