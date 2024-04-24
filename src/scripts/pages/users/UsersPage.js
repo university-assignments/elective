@@ -6,7 +6,7 @@
  * @typedef { import('../../memory/users/UserCollection').UserCollection } UserCollection
  */
 
-import { Fancybox } from '@fancyapps/ui';
+import { fancyappsFancybox } from '../../templates/fancyapps/fancyappsFancybox.js';
 
 import { PageFoundation } from '../PageFoundation.js';
 
@@ -27,168 +27,149 @@ export class UsersPage extends PageFoundation
 	/**
 	 * @private
 	 * 
-	 * @param {UserData} user
+	 * @param {?UserData} user
 	 */
 	editUser (user)
+	{
+		const phrases = (user && user.phrases) || [];
+		const name    = (user && user.name   ) || '';
+
+		const users = this.users;
+
+		fancyappsFancybox({
+
+			initialize (container)
+			{
+				/** @type { JQuery<HTMLInputElement> } */
+				const user_name = container.find('#user_name');
+
+				/** @type { JQuery<HTMLTemplateElement> } */
+				const user_rules = container.find('#user_rules');
+
+				/** @type { JQuery<HTMLTextAreaElement> } */
+				const user_phrases = container.find('#user_phrases');
+
+				/** @type { JQuery<HTMLButtonElement> } */
+				const user_send = container.find('#user_send');
+
+				user_name.val(name);
+				user_phrases.val(phrases.join(', '));
+
+				const editor_ace = this.editor_ace = window.ace.edit(user_rules.get(0), {
+					theme: 'ace/theme/monokai',
+					mode: 'ace/mode/javascript',
+
+					fontSize: 20
+				});
+
+				editor_ace.setValue([
+					"value_user_phrases.indexOf('->') >= 0",
+					"    ? [...new Set(value_user_phrases.toLowerCase().replace(/->/g, '').split('\\n').map(value => value.trim()))].filter(value => value)",
+					"    : [...new Set(value_user_phrases.toLowerCase().replace(/\\n/g, '').split(',').map(value => value.trim()))].filter(value => value);",
+				].join('\r\n'));
+
+				user_send.on('click', function ()
+				{
+					const value_user_name    = user_name.val();
+					const value_user_rules   = editor_ace.getValue();
+					const value_user_phrases = user_phrases.val();
+
+					if (!value_user_name || !value_user_rules || !value_user_phrases)
+					{
+						alert('Один или несколько пунктов пустой');
+						return;
+					}
+
+					if (user)
+					{
+						users.delete(name, false);
+					}
+
+					const new_user = users.create(value_user_name, false);
+					new_user.addPhrases(eval(value_user_rules));
+
+					users.trigger(users.EVENT_REFRESH);
+				});
+			},
+
+			destroy (container)
+			{
+				this.editor_ace.destroy();
+			},
+
+			content: `
+				<section class="w-75">
+					<article>
+						<input id="user_name" placeholder="пользователь" />
+					</article>
+
+					<article class="user_rules_wrap">
+						<div id="user_rules"></div>
+					</article>
+
+					<article>
+						<textarea id="user_phrases"></textarea>
+					</article>
+
+					<article>
+						<button id="user_send">отправить</button>
+					</article>
+				</section>
+			`
+
+		});
+	}
+
+	/**
+	 * @private
+	 * 
+	 * @param {UserData} user
+	 */
+	viewUser (user)
 	{
 		const phrases = user.phrases;
 		const name    = user.name;
 
-		const __icon_state = jQuery(document.createElement('img'))
-			.addClass('user_icon_state')
-			.attr('src', './icons/left-2-svgrepo-com.svg')
-			.attr('alt', 'state');
+		const container = jQuery(`
+			<section class="m-2 border rounded-4">
+				<article class="px-3 py-2 d-flex flex-row justify-content-between">
+					<div>
+						<h4 class="m-0">${name}</h4>
+					</div>
 
-		const __action_state = jQuery(document.createElement('article'))
-			.addClass('user_action')
-			.append(__icon_state);
+					<div>
+						<img class="user_action" alt="edit"   src="./icons/edit-svgrepo-com.svg" />
+						<img class="user_action" alt="delete" src="./icons/delete-svgrepo-com.svg" />
+						<img class="user_action user_icon_state" data-bs-toggle="collapse" data-bs-target="#user_${name}" alt="state" src="./icons/left-2-svgrepo-com.svg" />
+					</div>
+				</article>
 
-		// ===== ===== ===== ===== =====
+				<article id="user_${name}" class="px-3 py-2 border-top collapse">
+					${phrases.join(', ')}
+				</article>
+			</section
+		`);
 
-		const __icon_edit = jQuery(document.createElement('img'))
-			.attr('src', './icons/edit-svgrepo-com.svg')
-			.attr('alt', 'edit');
+		container.find('[alt=edit]').on('click', () => this.editUser(user));
+		container.find('[alt=delete]').on('click', () => this.users.delete(name));
 
-		const __action_edit = jQuery(document.createElement('article'))
-			.addClass('user_action')
-			.append(__icon_edit);
-
-		// ===== ===== ===== ===== =====
-
-		const __icon_delete = jQuery(document.createElement('img'))
-			.attr('src', './icons/delete-svgrepo-com.svg')
-			.attr('alt', 'delete');
-
-		const __action_delete = jQuery(document.createElement('article'))
-			.addClass('user_action')
-			.append(__icon_delete);
-
-		// ===== ===== ===== ===== =====
-
-		const __actions = jQuery(document.createElement('section'))
-			.addClass('user_actions')
-			.addClass('flex')
-			.append(__action_edit)
-			.append(__action_delete)
-			.append(__action_state);
-
-		const __name = jQuery(document.createElement('span'))
-			.addClass('user_name')
-			.text(name);
-
-		const __header = jQuery(document.createElement('article'))
-			.addClass('user_header')
-			.addClass('flex')
-			.append(__name)
-			.append(__actions);
-
-		// ===== ===== ===== ===== =====
-
-		const __phrases = jQuery(document.createElement('p'))
-			.addClass('user_phrase')
-			.addClass('remove_indents')
-			.text(phrases.join(', '));
-
-		const __content = jQuery(document.createElement('article'))
-			.addClass('user_content')
-			.append(__phrases);
-
-		// ===== ===== ===== ===== =====
-
-		const __container = jQuery(document.createElement('section'))
-			.addClass('user')
-			.addClass('hide')
-			.append(__header)
-			.append(__content);
-
-		// TODO: доделать
-		const users = this.users;
-		__action_edit.on('click', function ()
-		{
-			Fancybox.show([{
-				src: "#new_user",
-				type: "inline"
-			}]);
-
-			const user_name   = document.getElementById('user_name');
-			const user_phrase = document.getElementById('user_phrase');
-
-			user_name.value   = user;
-			user_phrase.value = phrases.join(', ');
-
-			jQuery('#user_send').on('click', function ()
-			{
-				users.delete(name, false);
-
-				const user_name_value    = user_name.value;
-				const user_rules_value   = window.editor_ace.getValue();
-				const user_phrases_value = user_phrase.value;
-
-				if (!user_name_value || !user_rules_value || !user_phrases_value)
-				{
-					alert('Один или несколько пунктов пустой');
-					return;
-				}
-				
-				const _user = users.create(user_name.value, false);
-				_user.addPhrases(eval(user_rules_value));
-			});
-		});
-
-		__action_delete.on('click', () => this.users.delete(user));
-		__action_state.on('click', () => __container.toggleClass('hide'));
-
-		// ===== ===== ===== ===== =====
-
-		this.container.append(__container);
+		return container;
 	}
 
+	/**
+	 * @private
+	 */
 	addUser ()
 	{
-		const __name = jQuery(document.createElement('span'))
-			.addClass('user_name')
-			.text('add new user');
+		const container = jQuery(`
+			<section class="m-2 p-2 border rounded-4 text-center">
+				<h4>add new user</h4>
+			</section>
+		`);
 
-		const __header = jQuery(document.createElement('article'))
-			.addClass('user_register')
-			.append(__name);
+		container.on('click', () => this.editUser());
 
-		const __container = jQuery(document.createElement('section'))
-			.addClass('user')
-			.append(__header);
-
-		// TODO: доделать
-		const users = this.users;
-		__container.on('click', function ()
-		{
-			Fancybox.show([{
-				src: "#new_user",
-				type: "inline"
-			}]);
-
-			const user_name   = document.getElementById('user_name');
-			const user_phrase = document.getElementById('user_phrase');
-
-			user_name.value   = '';
-			user_phrase.value = '';
-
-			jQuery('#user_send').on('click', function ()
-			{
-				const user_name_value    = user_name.value;
-				const user_rules_value   = window.editor_ace.getValue();
-				const user_phrases_value = user_phrase.value;
-
-				if (!user_name_value || !user_rules_value || !user_phrases_value)
-				{
-					alert('Один или несколько пунктов пустой');
-					return;
-				}
-
-				users.register(user_name.value, eval(user_rules_value));
-			});
-		});
-
-		this.container.append(__container);
+		return container;
 	}
 
 	/**
@@ -198,8 +179,7 @@ export class UsersPage extends PageFoundation
 	{
 		this.container.html('');
 
-		this.users.all().forEach(user => this.editUser(user));
-
-		this.addUser();
+		this.container.append(this.users.all().map(user => this.viewUser(user)));
+		this.container.append(this.addUser());
 	}
 }

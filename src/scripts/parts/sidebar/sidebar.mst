@@ -16,7 +16,7 @@
 
 	<hr />
 
-	<a class="flex align-items-center" href="https://docs.google.com/spreadsheets/d/1R9c21u5qzHZEu6Q0F-_gictp8zO_M3b-_b8B-F9Qxd8/edit#gid=0">
+	<a class="d-flex flex-row align-items-center" href="https://docs.google.com/spreadsheets/d/1R9c21u5qzHZEu6Q0F-_gictp8zO_M3b-_b8B-F9Qxd8/edit#gid=0">
 		<div class="me-2" style="height: 36px; width: 36px;">
 			<!-- https://ssl.gstatic.com/docs/common/material_common_sprite662_gm3_grey_medium.svg -->
 			<svg xmlns="http://www.w3.org/2000/svg">
