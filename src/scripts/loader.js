@@ -11,7 +11,7 @@
 
 import { Grid } from 'gridjs';
 import { Chart, registerables } from 'chart.js';
-import { Fancybox } from 'fancyappsui';
+import { Fancybox } from '@fancyapps/ui';
 
 Chart.register(...registerables);
 

@@ -6,7 +6,7 @@
  * @typedef { import('../../memory/users/UserCollection').UserCollection } UserCollection
  */
 
-import { Fancybox } from 'fancyappsui';
+import { Fancybox } from '@fancyapps/ui';
 
 import { PageFoundation } from '../PageFoundation.js';
 
