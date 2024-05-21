@@ -59,10 +59,7 @@ export class FlashCards
 	 */
 	_position;
 
-	/**
-	 * @param {FlashCard[]} collection
-	 */
-	constructor (collection)
+	constructor ()
 	{
 		this._container_collection = jQuery(document.createElement('article'))
 			.addClass('collection');
@@ -95,15 +92,7 @@ export class FlashCards
 			.append(this._container_collection)
 			.append(this._container_management);
 
-		this._collection = [];
-		this._position   = 0;
-
-		for (const flashcard of collection)
-		{
-			this.regiter(flashcard);
-		}
-
-		this.show();
+		this.reset();
 	}
 
 	// ===== ===== ===== ===== =====
@@ -125,6 +114,13 @@ export class FlashCards
 
 	// ===== ===== ===== ===== =====
 
+	reset ()
+	{
+		this._container_collection.html('');
+		this._collection = [];
+		this._position   = 0;
+	}
+
 	/**
 	 * @param {FlashCard} flashcard
 	 */
@@ -143,6 +139,8 @@ export class FlashCards
 			: flashcard.container.hide()
 		);
 	}
+
+	// ===== ===== ===== ===== =====
 
 	/**
 	 * @param {number} offset

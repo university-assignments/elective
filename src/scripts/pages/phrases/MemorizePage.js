@@ -1,4 +1,8 @@
 
+/**
+ * @typedef { import('../../memory/phrases/TranslatedPhrases').TranslatedPhrases } TranslatedPhrases
+ */
+
 import { FlashCard } from '../../templates/flashcards/FlashCard.js';
 import { FlashCards } from '../../templates/flashcards/FlashCards.js';
 
@@ -9,9 +13,9 @@ export class MemorizePage extends PageFoundation
 {
 	/**
 	 * @private
-	 * @type {FlashCard[]}
+	 * @type {TranslatedPhrases}
 	 */
-	_flashcards_collection;
+	_translated;
 
 	/**
 	 * @private
@@ -19,27 +23,32 @@ export class MemorizePage extends PageFoundation
 	 */
 	_flashcards;
 
-	async initialize ()
+	/**
+	 * @param {TranslatedPhrases} translated
+	 */
+	async initialize (translated)
 	{
-		this._flashcards_collection = [
-			new FlashCard({
-				frontHTML: 'hello 1',
-				backHTML: 'world 1'
-			}),
-
-			new FlashCard({
-				frontHTML: 'hello 2',
-				backHTML: 'world 2'
-			}),
-
-			new FlashCard({
-				frontHTML: 'hello 3',
-				backHTML: 'world 3'
-			})
-		];
-
-		this._flashcards = new FlashCards(this._flashcards_collection);
+		this._translated = translated;
+		this._flashcards = new FlashCards();
 
 		this.container.append(this._flashcards.container);
+
+		translated.on(translated.EVENT_REFRESH, () => this.refresh());
+		this.refresh();
+	}
+
+	async refresh ()
+	{
+		this._flashcards.reset();
+
+		for (const [ english, russian ] of this._translated.dictionary)
+		{
+			this._flashcards.regiter(new FlashCard({
+				frontHTML: english,
+				backHTML: russian
+			}));
+		}
+
+		this._flashcards.show();
 	}
 }
