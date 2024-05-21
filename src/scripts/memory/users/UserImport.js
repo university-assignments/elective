@@ -1,6 +1,6 @@
 
 /**
- * @typedef { import('./user/UserData.js').UserData } UserData
+ * @typedef { import('./user/UserData').UserData } UserData
  */
 
 import { UserCollection } from './UserCollection.js';

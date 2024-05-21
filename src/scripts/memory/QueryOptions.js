@@ -1,9 +1,11 @@
 
 export class QueryOptions
 {
-	PARAM_SELECTION = 'selection';
-	PARAM_PHRASES   = 'phrases';
-	PARAM_TAGS      = 'tags';
+	PARAMETER_PHRASES    = 'phrases';
+	PARAMETER_SECTIONS   = 'sections';
+	PARAMETER_TRANSLATED = 'translated';
+
+	PARAMETER_SELECTION = 'selection';
 
 	/**
 	 * @param {string} search
@@ -12,16 +14,22 @@ export class QueryOptions
 	{
 		this.options = new URLSearchParams(search);
 
-		this.selection = this.options.has(this.PARAM_SELECTION)
-			? this.options.get(this.PARAM_SELECTION)
+		this.phrases = this.options.has(this.PARAMETER_PHRASES)
+			? this.options.get(this.PARAMETER_PHRASES)
 			: '';
 
-		this.phrases = this.options.has(this.PARAM_PHRASES)
-			? this.options.get(this.PARAM_PHRASES)
+		this.sections = this.options.has(this.PARAMETER_SECTIONS)
+			? this.options.get(this.PARAMETER_SECTIONS)
 			: '';
 
-		this.tags = this.options.has(this.PARAM_TAGS)
-			? this.options.get(this.PARAM_TAGS)
+		this.translated = this.options.has(this.PARAMETER_TRANSLATED)
+			? this.options.get(this.PARAMETER_TRANSLATED)
+			: '';
+
+		// ===== ===== ===== ===== =====
+
+		this.selection = this.options.has(this.PARAMETER_SELECTION)
+			? this.options.get(this.PARAMETER_SELECTION)
 			: '';
 	}
 }

@@ -1,11 +1,11 @@
 
 import { import_file_csv } from './csv.js';
-import { import_file_json } from './json.js';
+import { import_file_json, readers } from './json.js';
 
 
 /**
  * @param {string} path
- * @param {string} reader
+ * @param {keyof readers} reader
  */
 export async function import_file_auto (path, reader)
 {

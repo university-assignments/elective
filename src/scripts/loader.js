@@ -20,17 +20,12 @@ window.Chart    = Chart;
 window.Fancybox = Fancybox;
 
 // ===== ===== ===== ===== =====
-// import
-// ===== ===== ===== ===== =====
-
-import { import_file_auto } from './import/auto.js';
-
-// ===== ===== ===== ===== =====
 // register
 // ===== ===== ===== ===== =====
 
 import { get_di } from './configuration/get_di.js';
 import { Routers } from './configuration/Routers.js';
+import { Importer } from './configuration/Importer.js';
 
 import { MethodsCaller } from './memory/di/MethodsCaller.js';
 
@@ -100,29 +95,10 @@ window.main = new class
 	}
 
 	/**
-	 * @param {QueryOptions} options
-	 * @param {TagsDictionary} tags
-	 * @param {UserImport} users
+	 * @param {MethodsCaller} caller
 	 */
-	async _import (options, tags, users)
+	async _import (caller)
 	{
-		if (options.phrases.length > 0)
-		{
-			users.importPhrases(
-				await import_file_auto(options.phrases, 'left')
-			);
-		}
-
-		if (options.selection.length > 0)
-		{
-			users.importSurvey(
-				await import_file_auto(options.selection, 'top-left')
-			);
-		}
-
-		if (options.tags.length > 0)
-		{
-			tags.importFile(options.tags);
-		}
+		await caller.runMethod(Importer, 'files');
 	}
 };

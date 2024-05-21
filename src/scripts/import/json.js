@@ -6,7 +6,7 @@
 
 /**
  * @param {string} path
- * @param {string} reader
+ * @param {keyof readers} reader
  */
 export async function import_file_json (path, reader)
 {
@@ -20,7 +20,7 @@ export async function import_file_json (path, reader)
  * @template { (string | number | boolean)[][] } TLines
  */
 
-const readers = {
+export const readers = {
 
 	/**
 	 * @param {TLines} lines
@@ -68,10 +68,16 @@ const readers = {
 
 /**
  * @param {TLines} lines
- * @param {string} reader
+ * @param {keyof readers} reader
  */
 export function import_json (lines, reader)
 {
+	lines = lines.map(
+		line => line.map(
+			item => item.trim()
+		)
+	);
+
 	const handler = readers[reader];
 
 	if (typeof handler === 'undefined')

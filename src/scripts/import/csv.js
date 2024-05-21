@@ -3,12 +3,12 @@
  * @typedef { import('jquery') } jQuery
  */
 
-import { import_json } from './json.js';
+import { import_json, readers } from './json.js';
 
 
 /**
  * @param {string} path
- * @param {string} reader
+ * @param {keyof readers} reader
  */
 export async function import_file_csv (path, reader)
 {
@@ -20,7 +20,7 @@ export async function import_file_csv (path, reader)
 
 /**
  * @param {string} buffer
- * @param {string} reader
+ * @param {keyof readers} reader
  */
 export function import_csv (buffer, reader)
 {
