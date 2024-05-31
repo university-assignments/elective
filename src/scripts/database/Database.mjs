@@ -24,15 +24,7 @@ export class Database
 	 */
 	execute (sql)
 	{
-		let rows = [];
-
-		this.db.exec({
-			sql: sql,
-			rowMode: 'object',
-			resultRows: rows,
-		});
-
-		return rows;
+		return this.db.selectObjects(sql);
 	}
 
 	/**
