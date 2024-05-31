@@ -10,8 +10,12 @@ export class TagsFoundation
 		this.page = jQuery(document.createElement('div'))
 			.attr('id', 'page')
 
-			.addClass('flex-row')
-			.addClass('d-md-flex');
+			.addClass('d-flex')
+			.addClass('flex-column')
+			.addClass('flex-md-row')
+
+			.addClass('gap-2')
+			.addClass('p-2');
 
 		this.body = jQuery(document.body)
 			.append(this.background)

@@ -1,6 +1,6 @@
 
-<aside class="d-flex flex-column flex-shrink-0 p-3 border-end">
-	<a href="/" class="d-flex align-items-center link-dark text-decoration-none">
+<aside class="d-flex flex-column flex-shrink-0 gap-2">
+	<a href="/" class="p-2 bg-white rounded d-flex align-items-center link-dark text-decoration-none">
 		<svg class="bi me-2" width="30" height="24">
 			<use xlink:href="#bootstrap"></use>
 		</svg>
@@ -8,15 +8,11 @@
 		<h4 class="fw-semibold">ЮУрГУ @ Факультатив</h4>
 	</a>
 
-	<hr />
-
-	<ul id="navigation" class="mb-auto list-unstyled ps-0">
+	<ul id="navigation" class="p-2 bg-white rounded mb-auto list-unstyled">
 		<!-- navigation.mst -->
 	</ul>
 
-	<hr />
-
-	<a class="d-flex flex-row align-items-center" href="https://docs.google.com/spreadsheets/d/1R9c21u5qzHZEu6Q0F-_gictp8zO_M3b-_b8B-F9Qxd8/edit#gid=0">
+	<a class="p-2 bg-white rounded d-flex flex-row align-items-center" href="https://docs.google.com/spreadsheets/d/1R9c21u5qzHZEu6Q0F-_gictp8zO_M3b-_b8B-F9Qxd8/edit#gid=0">
 		<div class="me-2" style="height: 36px; width: 36px;">
 			<!-- https://ssl.gstatic.com/docs/common/material_common_sprite662_gm3_grey_medium.svg -->
 			<svg xmlns="http://www.w3.org/2000/svg">

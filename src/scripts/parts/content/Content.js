@@ -9,6 +9,9 @@ export class Content extends PartConstructor
 			.addClass('container');
 
 		this.tag_content = jQuery(document.createElement('main'))
+			.addClass('bg-white')
+			.addClass('rounded')
+
 			.append(this.tag_container);
 	}
 
