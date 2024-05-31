@@ -1,5 +1,6 @@
 
 import { MethodsCaller } from './MethodsCaller.js';
+import { ReflectionClass } from './ReflectionClass.mjs';
 
 
 export class Singleton
@@ -26,7 +27,9 @@ export class Singleton
 	}
 
 	/**
-	 * @param {() => Object} callback
+	 * @template TInstance
+	 * 
+	 * @param {() => TInstance} callback
 	 */
 	register (callback)
 	{
@@ -34,6 +37,7 @@ export class Singleton
 		const class_name = class_data.constructor.name;
 
 		this.objects.set(class_name, class_data);
+		return new ReflectionClass(class_data);
 	}
 
 	/**

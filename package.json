@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "@antonz/sqlean": "^3.45.1-rc1",
     "@fancyapps/ui": "^5.0.33",
     "bootstrap": "^5.3.3",
     "bootstrap-show-toast": "^1.1.5",

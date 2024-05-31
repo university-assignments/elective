@@ -10,10 +10,15 @@ import { UserImport } from '../memory/users/UserImport.js';
 import { Content } from '../parts/content/Content.js';
 import { Sidebar } from '../parts/sidebar/Sidebar.js';
 
+import { Database } from '../database/Database.mjs';
+
 
 export function get_di ()
 {
 	const di = new DependencyInjection();
+
+	di.singleton.register(() => new Database())
+		.runMethod('initialize');
 
 	di.singleton.register(() => new QueryOptions());
 
