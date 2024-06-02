@@ -29,7 +29,7 @@ export class Loader extends InitializerInterface
 		this.di     = await get_di();
 		this.caller = this.di.singleton.caller;
 
-		this.caller.runMethod(Routers, 'collection');
+		this.pages = this.caller.runMethod(Routers, 'collection');
 		this.caller.runMethod(this, '_tags');
 		this.caller.runMethod(Importer, 'files');
 	}
