@@ -18,6 +18,8 @@ import { SelectPage } from '../pages/selection/SelectPage.js';
 import { UsersSettingsPage } from '../pages/settings/UsersSettingsPage.js';
 import { ImportFilesPage } from '../pages/settings/import/ImportFilesPage.js';
 
+import { DatabaseTablesPage } from '../pages/database/DatabaseTablesPage.mjs';
+
 import { PagesCollection } from '../pages/PagesCollection.js';
 
 
@@ -85,6 +87,13 @@ export class Routers
 			{
 				page: ImportFilesPage,
 				name: 'import files'
+			}
+		]);
+
+		pages.register('database', [
+			{
+				page: DatabaseTablesPage,
+				name: 'tables'
 			}
 		]);
 
