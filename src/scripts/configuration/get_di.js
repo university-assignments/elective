@@ -1,5 +1,7 @@
 
 import { TagsFoundation } from '../display/TagsFoundation.js';
+import { TagPopup } from '../display/TagPopup.js';
+
 import { QueryOptions } from '../memory/QueryOptions.js';
 import { DependencyInjection } from '../memory/di/DependencyInjection.js';
 
@@ -35,6 +37,7 @@ export async function get_di ()
 	di.singleton.register(() => new UserImport());
 
 	di.singleton.register(() => new TagsFoundation());
+	di.singleton.register(() => new TagPopup());
 
 	await di.singleton.register(() => new Sidebar())
 		.runMethod('initialize');

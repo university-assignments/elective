@@ -40,7 +40,6 @@ import { MethodsCaller } from './memory/di/MethodsCaller.js';
 // ===== ===== ===== ===== =====
 
 import { TagsFoundation } from './display/TagsFoundation.js';
-import { TagPopup } from './display/TagPopup.js';
 
 
 export class Loader extends InitializerInterface
@@ -51,7 +50,6 @@ export class Loader extends InitializerInterface
 		this.caller = new MethodsCaller(this.di);
 
 		this.caller.runMethod(this, '_pages');
-		this.caller.runMethod(this, '_popup');
 		this.caller.runMethod(this, '_tags');
 
 		await this.caller.runMethod(this, '_import');
@@ -65,22 +63,18 @@ export class Loader extends InitializerInterface
 		this.pages = caller.runMethod(Routers, 'collection');
 	}
 
-	_popup ()
-	{
-		this.popup = new TagPopup();
-	}
-
 	/**
 	 * @param {TagsFoundation} tags
+	 * @param {TagPopup} popup
 	 * @param {Sidebar} sidebar
 	 * @param {Content} content
 	 */
-	_tags (tags, sidebar, content)
+	_tags (tags, popup, sidebar, content)
 	{
 		tags.page.append(sidebar.tag_sidebar);
 		tags.page.append(content.tag_content);
 
-		tags.background.append(this.popup.tag_base);
+		tags.background.append(popup.tag_base);
 	}
 
 	/**
