@@ -3,13 +3,13 @@
  * @typedef { import('jquery') } jQuery
  */
 
-import { PartConstructor } from '../parts/PartConstructor.js';
+import { InitializerInterface } from '../plugins/initializer/InitializerInterface.mjs';
 
 
 /**
  * @abstract
  */
-export class PageFoundation extends PartConstructor
+export class PageFoundation extends InitializerInterface
 {
 	constructor ()
 	{

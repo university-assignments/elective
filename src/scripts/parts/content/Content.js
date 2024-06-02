@@ -1,7 +1,7 @@
 
-import { PartConstructor } from '../PartConstructor.js';
+import { InitializerInterface } from '../../plugins/initializer/InitializerInterface.mjs';
 
-export class Content extends PartConstructor
+export class Content extends InitializerInterface
 {
 	async initialize ()
 	{

@@ -1,12 +1,12 @@
 
 /**
- * @typedef { import('./memory/QueryOptions').QueryOptions } QueryOptions
+ * @typedef { import('./memory/QueryOptions.js').QueryOptions } QueryOptions
  * 
  * @typedef { import('./memory/tags/TagsDictionary').TagsDictionary } TagsDictionary
- * @typedef { import('./memory/users/UserImport').UserImport } UserImport
+ * @typedef { import('./memory/users/UserImport.js').UserImport } UserImport
  * 
- * @typedef { import('./parts/sidebar/Sidebar').Sidebar } Sidebar
- * @typedef { import('./parts/content/Content').Content } Content
+ * @typedef { import('./parts/sidebar/Sidebar.js').Sidebar } Sidebar
+ * @typedef { import('./parts/content/Content.js').Content } Content
  */
 
 import { Grid } from 'gridjs';
@@ -18,6 +18,12 @@ Chart.register(...registerables);
 window.Grid     = Grid;
 window.Chart    = Chart;
 window.Fancybox = Fancybox;
+
+// ===== ===== ===== ===== =====
+// plugins
+// ===== ===== ===== ===== =====
+
+import { InitializerInterface } from './plugins/initializer/InitializerInterface.mjs';
 
 // ===== ===== ===== ===== =====
 // register
@@ -37,35 +43,18 @@ import { TagsFoundation } from './display/TagsFoundation.js';
 import { TagPopup } from './display/TagPopup.js';
 
 
-window.main = new class
+export class Loader extends InitializerInterface
 {
-	constructor ()
+	async initialize ()
 	{
-		this.di     = get_di();
+		this.di     = await get_di();
 		this.caller = new MethodsCaller(this.di);
-
-		this._initialize();
-	}
-
-	async _initialize ()
-	{
-		await this.caller.runMethod(this, '_parts');
 
 		this.caller.runMethod(this, '_pages');
 		this.caller.runMethod(this, '_popup');
 		this.caller.runMethod(this, '_tags');
 
 		await this.caller.runMethod(this, '_import');
-	}
-
-	/**
-	 * @param {Sidebar} sidebar
-	 * @param {Content} content
-	 */
-	async _parts (sidebar, content)
-	{
-		await sidebar.initialize();
-		await content.initialize();
 	}
 
 	/**

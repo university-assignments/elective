@@ -13,11 +13,11 @@ import { Sidebar } from '../parts/sidebar/Sidebar.js';
 import { Database } from '../database/Database.mjs';
 
 
-export function get_di ()
+export async function get_di ()
 {
 	const di = new DependencyInjection();
 
-	di.singleton.register(() => new Database())
+	await di.singleton.register(() => new Database())
 		.runMethod('initialize');
 
 	di.singleton.register(() => new QueryOptions());
@@ -27,8 +27,12 @@ export function get_di ()
 	di.singleton.register(() => new UserImport());
 
 	di.singleton.register(() => new TagsFoundation());
-	di.singleton.register(() => new Sidebar());
-	di.singleton.register(() => new Content());
+
+	await di.singleton.register(() => new Sidebar())
+		.runMethod('initialize');
+
+	await di.singleton.register(() => new Content())
+		.runMethod('initialize');
 
 	di.singleton.override('UserCollection', 'UserImport');
 

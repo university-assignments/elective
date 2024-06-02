@@ -1,10 +1,10 @@
 import jQuery from 'jquery';
 import Mustache from 'mustache';
 
-import { PartConstructor } from '../PartConstructor.js';
+import { InitializerInterface } from '../../plugins/initializer/InitializerInterface.mjs';
 import { FilesTools } from '../../tools/FilesTools.js';
 
-export class Sidebar extends PartConstructor
+export class Sidebar extends InitializerInterface
 {
 	async initialize ()
 	{

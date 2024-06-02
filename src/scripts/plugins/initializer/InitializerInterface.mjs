@@ -7,7 +7,7 @@ export class InitializerInterface
 	/**
 	 * @abstract
 	 */
-	initialize ()
+	async initialize ()
 	{
 		throw new Error('override');
 	}
