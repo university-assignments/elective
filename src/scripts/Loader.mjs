@@ -1,9 +1,9 @@
 
 /**
- * @typedef { import('./memory/QueryOptions').QueryOptions } QueryOptions
+ * @typedef { import('./memory/di/MethodsCaller.js').MethodsCaller } MethodsCaller
  * 
- * @typedef { import('./memory/tags/TagsDictionary').TagsDictionary } TagsDictionary
- * @typedef { import('./memory/users/UserImport').UserImport } UserImport
+ * @typedef { import('./display/TagsFoundation.js').TagsFoundation } TagsFoundation
+ * @typedef { import('./display/TagPopup.js').TagPopup } TagPopup
  * 
  * @typedef { import('./parts/sidebar/Sidebar').Sidebar } Sidebar
  * @typedef { import('./parts/content/Content').Content } Content
@@ -33,21 +33,13 @@ import { get_di } from './configuration/get_di.js';
 import { Routers } from './configuration/Routers.js';
 import { Importer } from './configuration/Importer.js';
 
-import { MethodsCaller } from './memory/di/MethodsCaller.js';
-
-// ===== ===== ===== ===== =====
-// main
-// ===== ===== ===== ===== =====
-
-import { TagsFoundation } from './display/TagsFoundation.js';
-
 
 export class Loader extends InitializerInterface
 {
 	async initialize ()
 	{
 		this.di     = await get_di();
-		this.caller = new MethodsCaller(this.di);
+		this.caller = this.di.singleton.caller;
 
 		this.caller.runMethod(this, '_pages');
 		this.caller.runMethod(this, '_tags');
