@@ -1,5 +1,7 @@
 
+import { MethodsCaller } from './MethodsCaller.js';
 import { ReflectionMethod } from './ReflectionMethod.js';
+
 
 /**
  * @template TInstance
@@ -8,10 +10,12 @@ export class ReflectionClass
 {
 	/**
 	 * @param {TInstance} instance
+	 * @param {MethodsCaller} caller
 	 */
-	constructor (instance)
+	constructor (instance, caller)
 	{
 		this.instance = instance;
+		this.caller   = caller;
 	}
 
 	/**
@@ -19,10 +23,7 @@ export class ReflectionClass
 	 */
 	async runMethod (name, ...options)
 	{
-		const reflection = new ReflectionMethod(this.instance, name);
-		const callback   = reflection.getMethod();
-
-		await callback.call(this.instance, ...options);
+		await this.caller.runMethod(this.instance, name, options);
 		return this;
 	}
 }

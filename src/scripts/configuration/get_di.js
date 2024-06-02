@@ -10,14 +10,22 @@ import { UserImport } from '../memory/users/UserImport.js';
 import { Content } from '../parts/content/Content.js';
 import { Sidebar } from '../parts/sidebar/Sidebar.js';
 
+import { Files } from '../plugins/files/Files.mjs';
 import { Database } from '../database/Database.mjs';
+
+import { Profiles } from '../database/profiles/Profiles.mjs';
 
 
 export async function get_di ()
 {
 	const di = new DependencyInjection();
 
+	di.singleton.register(() => new Files());
+
 	await di.singleton.register(() => new Database())
+		.runMethod('initialize');
+
+	await di.singleton.register(() => new Profiles())
 		.runMethod('initialize');
 
 	di.singleton.register(() => new QueryOptions());

@@ -1,4 +1,5 @@
 
+import { DependencyInjection } from './DependencyInjection.js';
 import { MethodsCaller } from './MethodsCaller.js';
 import { ReflectionClass } from './ReflectionClass.mjs';
 
@@ -13,7 +14,9 @@ export class Singleton
 
 	constructor ()
 	{
-		this.register(() => new MethodsCaller(this));
+		this.caller = new MethodsCaller(this);
+
+		this.register(() => this.caller);
 		this.register(() => this);
 	}
 
@@ -37,7 +40,7 @@ export class Singleton
 		const class_name = class_data.constructor.name;
 
 		this.objects.set(class_name, class_data);
-		return new ReflectionClass(class_data);
+		return new ReflectionClass(class_data, this.caller);
 	}
 
 	/**

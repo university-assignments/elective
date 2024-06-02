@@ -45,7 +45,7 @@ export class ReflectionMethod
 
 		if (comment_close_index === -1)
 		{
-			return null;
+			return '';
 		}
 
 		const comment_close_value = func_value.substring(0, comment_close_index);
