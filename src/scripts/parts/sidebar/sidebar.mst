@@ -8,7 +8,7 @@
 		<h4 class="fw-semibold">ЮУрГУ @ Факультатив</h4>
 	</a>
 
-	<ul id="navigation" class="p-2 bg-white rounded mb-auto list-unstyled">
+	<ul id="navigation" class="p-2 bg-white rounded mb-auto list-unstyled overflow-auto">
 		<!-- navigation.mst -->
 	</ul>
 
