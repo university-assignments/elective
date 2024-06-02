@@ -1,12 +1,12 @@
 
 /**
- * @typedef { import('./memory/QueryOptions.js').QueryOptions } QueryOptions
+ * @typedef { import('./memory/QueryOptions').QueryOptions } QueryOptions
  * 
  * @typedef { import('./memory/tags/TagsDictionary').TagsDictionary } TagsDictionary
- * @typedef { import('./memory/users/UserImport.js').UserImport } UserImport
+ * @typedef { import('./memory/users/UserImport').UserImport } UserImport
  * 
- * @typedef { import('./parts/sidebar/Sidebar.js').Sidebar } Sidebar
- * @typedef { import('./parts/content/Content.js').Content } Content
+ * @typedef { import('./parts/sidebar/Sidebar').Sidebar } Sidebar
+ * @typedef { import('./parts/content/Content').Content } Content
  */
 
 import { Grid } from 'gridjs';

@@ -1,8 +1,10 @@
 
 import sqlite3InitModule from '@antonz/sqlean';
 
+import { InitializerInterface } from '../plugins/initializer/InitializerInterface.mjs';
 
-export class Database
+
+export class Database extends InitializerInterface
 {
 	async initialize ()
 	{
