@@ -1,7 +1,6 @@
 
-import { DependencyInjection } from './DependencyInjection.js';
 import { MethodsCaller } from './MethodsCaller.js';
-import { ReflectionClass } from './ReflectionClass.mjs';
+import { ReflectionClass } from '../reflections/ReflectionClass.mjs';
 
 
 export class Singleton

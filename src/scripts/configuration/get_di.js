@@ -3,7 +3,7 @@ import { TagsFoundation } from '../display/TagsFoundation.js';
 import { TagPopup } from '../display/TagPopup.js';
 
 import { QueryOptions } from '../memory/QueryOptions.js';
-import { DependencyInjection } from '../memory/di/DependencyInjection.js';
+import { DependencyInjection } from '../plugins/di/DependencyInjection.js';
 
 import { TranslatedPhrases } from '../memory/phrases/TranslatedPhrases.js';
 import { SectionsPhrases } from '../memory/phrases/SectionsPhrases.js';

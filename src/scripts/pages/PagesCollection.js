@@ -1,6 +1,6 @@
 
 /**
- * @typedef { import('../memory/di/MethodsCaller').MethodsCaller } MethodsCaller
+ * @typedef { import('../plugins/di/MethodsCaller').MethodsCaller } MethodsCaller
  * 
  * @typedef { import('./PageFoundation').PageFoundation } PageFoundation
  * 

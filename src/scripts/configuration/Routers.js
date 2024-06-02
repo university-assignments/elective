@@ -1,6 +1,6 @@
 
 /**
- * @typedef { import('../memory/di/MethodsCaller').MethodsCaller } MethodsCaller
+ * @typedef { import('../plugins/di/MethodsCaller').MethodsCaller } MethodsCaller
  * 
  * @typedef { import('../parts/sidebar/Sidebar').Sidebar } Sidebar
  * @typedef { import('../parts/content/Content').Content } Content

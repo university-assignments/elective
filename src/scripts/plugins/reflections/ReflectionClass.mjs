@@ -1,6 +1,5 @@
 
-import { MethodsCaller } from './MethodsCaller.js';
-import { ReflectionMethod } from './ReflectionMethod.js';
+import { MethodsCaller } from '../di/MethodsCaller.js';
 
 
 /**

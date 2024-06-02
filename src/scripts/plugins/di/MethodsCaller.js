@@ -1,9 +1,9 @@
 
 /**
- * @typedef { import('./DependencyInjection.js').DependencyInjection } DependencyInjection
+ * @typedef { import('./DependencyInjection').DependencyInjection } DependencyInjection
  */
 
-import { ReflectionMethod } from './ReflectionMethod.js';
+import { ReflectionMethod } from '../reflections/ReflectionMethod.mjs';
 
 
 export class MethodsCaller

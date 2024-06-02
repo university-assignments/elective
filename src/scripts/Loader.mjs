@@ -1,6 +1,6 @@
 
 /**
- * @typedef { import('./memory/di/MethodsCaller.js').MethodsCaller } MethodsCaller
+ * @typedef { import('./plugins/di/MethodsCaller.js').MethodsCaller } MethodsCaller
  * 
  * @typedef { import('./display/TagsFoundation.js').TagsFoundation } TagsFoundation
  * @typedef { import('./display/TagPopup.js').TagPopup } TagPopup
