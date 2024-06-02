@@ -2,14 +2,23 @@ import jQuery from 'jquery';
 import Mustache from 'mustache';
 
 import { InitializerInterface } from '../../plugins/initializer/InitializerInterface.mjs';
-import { FilesTools } from '../../tools/FilesTools.js';
+import { Files } from '../../plugins/files/Files.mjs';
+import { FileMustache } from '../../plugins/files/html/FileMustache.mjs';
 
 export class Sidebar extends InitializerInterface
 {
-	async initialize ()
+	/**
+	 * @param {Files} files
+	 */
+	async initialize (files)
 	{
-		this.template_sidebar    = await FilesTools.getText('./scripts/parts/sidebar/sidebar.mst');
-		this.template_navigation = await FilesTools.getText('./scripts/parts/sidebar/navigation.mst');
+		this.template_sidebar = (await files.download(new FileMustache(
+			'./scripts/parts/sidebar/sidebar.mst'
+		))).data;
+
+		this.template_navigation = (await files.download(new FileMustache(
+			'./scripts/parts/sidebar/navigation.mst'
+		))).data;
 
 		this.tag_sidebar    = jQuery(this.template_sidebar);
 		this.tag_navigation = this.tag_sidebar.find('#navigation');

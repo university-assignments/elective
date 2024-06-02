@@ -44,7 +44,7 @@ export class Files
 	 * 
 	 * @param { TDownloader } downloader
 	 * 
-	 * @returns { TDownloader }
+	 * @returns { Promise<TDownloader> }
 	 */
 	async download (downloader)
 	{

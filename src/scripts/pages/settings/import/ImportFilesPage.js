@@ -4,7 +4,8 @@
  */
 
 import { PageFoundation } from '../../PageFoundation.js';
-import { FilesTools } from '../../../tools/FilesTools.js';
+import { Files } from '../../../plugins/files/Files.mjs';
+import { FileMustache } from '../../../plugins/files/html/FileMustache.mjs';
 
 
 export class ImportFilesPage extends PageFoundation
@@ -17,12 +18,15 @@ export class ImportFilesPage extends PageFoundation
 
 	/**
 	 * @param {UserImport} users
+	 * @param {Files} files
 	 */
-	async initialize (users)
+	async initialize (users, files)
 	{
 		this._users = users;
 
-		this.container.html(await FilesTools.getText('./scripts/pages/settings/import/template.mst'));
+		this.container.html(await files.download(new FileMustache(
+			'./scripts/pages/settings/import/template.mst'
+		)));
 
 		this.download_format = this.container.find('#download_format');
 		this.download_filter = this.container.find('#download_filter');
