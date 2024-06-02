@@ -16,6 +16,8 @@ import { Files } from '../plugins/files/Files.mjs';
 import { Database } from '../database/Database.mjs';
 
 import { Profiles } from '../database/profiles/Profiles.mjs';
+import { Phrases } from '../database/phrases/Phrases.mjs';
+import { ProfilesPhrases } from '../database/profiles_phrases/ProfilesPhrases.mjs';
 
 
 export async function get_di ()
@@ -28,6 +30,12 @@ export async function get_di ()
 		.runMethod('initialize');
 
 	await di.singleton.register(() => new Profiles())
+		.runMethod('initialize');
+
+	await di.singleton.register(() => new Phrases())
+		.runMethod('initialize');
+
+	await di.singleton.register(() => new ProfilesPhrases())
 		.runMethod('initialize');
 
 	di.singleton.register(() => new QueryOptions());

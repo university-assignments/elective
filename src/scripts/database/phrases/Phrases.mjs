@@ -6,7 +6,7 @@ import { Files } from '../../plugins/files/Files.mjs';
 import { Database } from '../Database.mjs';
 
 
-export class Profiles extends InitializerInterface
+export class Phrases extends InitializerInterface
 {
 	/**
 	 * @param {Database} database
@@ -14,7 +14,7 @@ export class Profiles extends InitializerInterface
 	 */
 	async initialize (database, files)
 	{
-		const path = './scripts/database/profiles/sql/profiles.sql';
+		const path = './scripts/database/phrases/sql/phrases.sql';
 		const info = new FileSQL(path);
 		const file = await files.download(info);
 
