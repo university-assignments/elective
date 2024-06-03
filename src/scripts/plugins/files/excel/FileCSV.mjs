@@ -44,7 +44,7 @@ export class FileCSV extends FileDownloader
 
 			for (const value of values_inputs)
 			{
-				values_result.push(value);
+				values_result.push(value.trim());
 			}
 
 			lines_result.push(values_result);
