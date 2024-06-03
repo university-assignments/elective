@@ -55,6 +55,6 @@ export class Singleton
 	 */
 	get (name)
 	{
-		return this.objects.get(name);
+		return this.objects.get(name.trim());
 	}
 }

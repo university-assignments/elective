@@ -1,33 +1,55 @@
 
-/**
- * @typedef { import('../../../memory/users/UserImport').UserImport } UserImport
- */
-
 import { PageFoundation } from '../../PageFoundation.mjs';
 
+import { Database } from '../../../database/Database.mjs';
+
 import { Files } from '../../../plugins/files/Files.mjs';
+
+import { FileCSV } from '../../../plugins/files/excel/FileCSV.mjs';
+
 import { FileMustache } from '../../../plugins/files/html/FileMustache.mjs';
+
+import { FileSQL } from '../../../plugins/files/sql/FileSQL.mjs';
 
 
 export class ImportFilesPage extends PageFoundation
 {
 	/**
 	 * @private
-	 * @type {UserImport}
+	 * @property
+	 * @readonly
+	 * @type { Database }
 	 */
-	_users;
+	database;
 
 	/**
-	 * @param {UserImport} users
-	 * @param {Files} files
+	 * @private
+	 * @property
+	 * @readonly
+	 * @type { Files }
 	 */
-	async initialize (users, files)
-	{
-		this._users = users;
+	files;
 
-		this.container.html(await files.download(new FileMustache(
-			'./scripts/pages/settings/import/template.mst'
-		)));
+	// ===== ===== ===== ===== =====
+
+	/**
+	 * @param { Database } database
+	 * @param { Files } files
+	 */
+	async initialize (database, files)
+	{
+		this.database = database;
+		this.files    = files;
+
+		// ===== ===== ===== ===== =====
+
+		const path = './scripts/pages/settings/import/template.mst';
+		const info = new FileMustache(path);
+		const file = await files.download(info);
+
+		this.container.html(file.data);
+
+		// ===== ===== ===== ===== =====
 
 		this.download_format = this.container.find('#download_format');
 		this.download_filter = this.container.find('#download_filter');
