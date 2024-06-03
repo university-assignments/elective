@@ -2,8 +2,8 @@
 /**
  * @typedef { import('../plugins/di/MethodsCaller').MethodsCaller } MethodsCaller
  * 
- * @typedef { import('../parts/sidebar/Sidebar').Sidebar } Sidebar
- * @typedef { import('../parts/content/Content').Content } Content
+ * @typedef { import('../parts/sidebar/Sidebar.mjs').Sidebar } Sidebar
+ * @typedef { import('../parts/content/Content.mjs').Content } Content
  */
 
 import { UsersPage } from '../pages/users/UsersPage.js';
@@ -20,7 +20,7 @@ import { ImportFilesPage } from '../pages/settings/import/ImportFilesPage.js';
 
 import { DatabaseTablesPage } from '../pages/database/DatabaseTablesPage.mjs';
 
-import { PagesCollection } from '../pages/PagesCollection.js';
+import { PagesCollection } from '../pages/PagesCollection.mjs';
 
 
 export class Routers
@@ -38,62 +38,85 @@ export class Routers
 			content
 		);
 
-		pages.register('users', [
+		pages.register([
 			{
-				page: UsersPage,
-				name: 'users'
-			},
-		]);
+				title: 'users',
 
-		pages.register('phrases', [
-			{
-				page: PhrasesPage,
-				name: 'counter by phrases'
+				pages: [
+					{
+						instance: UsersPage,
+						name: 'users'
+					}
+				]
 			},
+
 			{
-				page: QuantityPage,
-				name: 'counter by users'
+				title: 'phrases',
+
+				pages: [
+					{
+						instance: PhrasesPage,
+						name: 'counter by phrases'
+					},
+					{
+						instance: QuantityPage,
+						name: 'counter by users'
+					},
+					{
+						instance: MemorizePage,
+						name: 'memorize'
+					}
+				]
 			},
-			{
-				page: MemorizePage,
-				name: 'memorize'
-			}
-		]);
 
-		pages.register('selection', [
 			{
-				page: CounterPage,
-				args: [ 'check-key' ],
+				title: 'selection',
 
-				name: 'counter'
+				pages: [
+					{
+						instance: CounterPage,
+						options: [ 'check-key' ],
+
+						name: 'counter'
+					},
+					{
+						instance: CounterPage,
+						options: [ 'value' ],
+
+						name: 'tags'
+					},
+					{
+						instance: SelectPage,
+						name: 'select'
+					}
+				]
 			},
-			{
-				page: CounterPage,
-				args: [ 'value' ],
 
-				name: 'tags'
+			{
+				title: 'settings',
+
+				pages: [
+					{
+						instance: UsersSettingsPage,
+						name: 'users'
+					},
+					{
+						instance: ImportFilesPage,
+						name: 'import files'
+					}
+				]
 			},
-			{
-				page: SelectPage,
-				name: 'select'
-			}
-		]);
 
-		pages.register('settings', [
 			{
-				page: UsersSettingsPage,
-				name: 'users'
-			},
-			{
-				page: ImportFilesPage,
-				name: 'import files'
-			}
-		]);
+				prefix: 'DEV',
+				title: 'database',
 
-		pages.register('database', [
-			{
-				page: DatabaseTablesPage,
-				name: 'tables'
+				pages: [
+					{
+						instance: DatabaseTablesPage,
+						name: 'tables'
+					}
+				]
 			}
 		]);
 

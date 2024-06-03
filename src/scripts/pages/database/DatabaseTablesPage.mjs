@@ -1,7 +1,7 @@
 
 import { Database } from '../../database/Database.mjs';
 
-import { PageFoundation } from '../PageFoundation.js';
+import { PageFoundation } from '../PageFoundation.mjs';
 
 import { DatabaseTablesPart } from './parts/DatabaseTablesPart.mjs';
 import { DatabaseTablePart } from './parts/DatabaseTablePart.mjs';

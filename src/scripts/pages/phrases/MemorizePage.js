@@ -6,7 +6,7 @@
 import { FlashCard } from '../../templates/flashcards/FlashCard.js';
 import { FlashCards } from '../../templates/flashcards/FlashCards.js';
 
-import { PageFoundation } from '../PageFoundation.js';
+import { PageFoundation } from '../PageFoundation.mjs';
 
 
 export class MemorizePage extends PageFoundation

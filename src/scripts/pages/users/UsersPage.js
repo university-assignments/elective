@@ -8,7 +8,7 @@
 
 import { fancyappsFancybox } from '../../templates/fancyapps/fancyappsFancybox.js';
 
-import { PageFoundation } from '../PageFoundation.js';
+import { PageFoundation } from '../PageFoundation.mjs';
 
 
 export class UsersPage extends PageFoundation

@@ -1,8 +1,4 @@
 
-/**
- * @typedef { import('jquery') } jQuery
- */
-
 import { InitializerInterface } from '../plugins/initializer/InitializerInterface.mjs';
 
 

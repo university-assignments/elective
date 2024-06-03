@@ -6,7 +6,7 @@
 
 import { Grid, html } from 'gridjs';
 
-import { PageFoundation } from '../PageFoundation.js';
+import { PageFoundation } from '../PageFoundation.mjs';
 
 
 export class SelectPage extends PageFoundation

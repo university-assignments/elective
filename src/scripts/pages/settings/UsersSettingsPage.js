@@ -7,7 +7,7 @@
 
 import { Fancybox } from '@fancyapps/ui';
 
-import { PageFoundation } from '../PageFoundation.js';
+import { PageFoundation } from '../PageFoundation.mjs';
 
 
 export class UsersSettingsPage extends PageFoundation

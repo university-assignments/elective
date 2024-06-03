@@ -7,8 +7,8 @@ import { QueryOptions } from '../memory/QueryOptions.js';
 import { DependencyInjection } from '../plugins/di/DependencyInjection.js';
 import { Files } from '../plugins/files/Files.mjs';
 
-import { Content } from '../parts/content/Content.js';
-import { Sidebar } from '../parts/sidebar/Sidebar.js';
+import { Content } from '../parts/content/Content.mjs';
+import { Sidebar } from '../parts/sidebar/Sidebar.mjs';
 
 import { Database } from '../database/Database.mjs';
 import { Profiles } from '../database/profiles/Profiles.mjs';

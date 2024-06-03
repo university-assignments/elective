@@ -1,19 +1,28 @@
 
 <li class="mb-1">
-	<button
-		class="btn btn-toggle align-items-center rounded"
-		data-bs-toggle="collapse"
-		data-bs-target="#{{ show_identifier }}"
-		aria-expanded="false"
-	>
-		{{ title }}
-	</button>
+	<div class="d-flex flex-row justify-content-between">
+		<button
+			class = "btn btn-toggle align-items-center rounded w-100"
+
+			data-bs-toggle = "collapse"
+			data-bs-target = "#{{ show_identifier }}"
+			aria-expanded  = "false"
+		>
+			{{ title }}
+		</button>
+
+		{{ #prefix }}
+			<span class="border border-info rounded text-success fw-bold p-1 ms-1">
+				{{ prefix }}
+			</span>
+		{{ /prefix }}
+	</div>
 
 	<div id="{{ show_identifier }}" class="collapse">
-		<ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+		<ul class="btn-toggle-nav list-unstyled fw-normal small">
 			{{ #categories }}
-				<li class="category">
-					<a class="link-dark rounded">{{ category }}</a>
+				<li class="category d-flex">
+					<a class="link-dark rounded w-100">{{ category }}</a>
 				</li>
 			{{ /categories }}
 		</ul>

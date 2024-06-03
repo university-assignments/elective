@@ -3,7 +3,8 @@
  * @typedef { import('../../../memory/users/UserImport').UserImport } UserImport
  */
 
-import { PageFoundation } from '../../PageFoundation.js';
+import { PageFoundation } from '../../PageFoundation.mjs';
+
 import { Files } from '../../../plugins/files/Files.mjs';
 import { FileMustache } from '../../../plugins/files/html/FileMustache.mjs';
 

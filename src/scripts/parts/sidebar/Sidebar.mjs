@@ -1,9 +1,11 @@
-import jQuery from 'jquery';
+
 import Mustache from 'mustache';
 
 import { InitializerInterface } from '../../plugins/initializer/InitializerInterface.mjs';
+
 import { Files } from '../../plugins/files/Files.mjs';
 import { FileMustache } from '../../plugins/files/html/FileMustache.mjs';
+
 
 export class Sidebar extends InitializerInterface
 {
@@ -25,17 +27,20 @@ export class Sidebar extends InitializerInterface
 	}
 
 	/**
-	 * @param {string} title
+	 * @param { string } prefix
+	 * @param { string } title
 	 * @param { { category: string, clicking: Function }[] } categories
 	 */
-	register (title, categories)
+	register (prefix, title, categories)
 	{
 		const identifier = 'show_identifier_' + Math.round(Math.random() * 10_000_000);
 
 		const item = jQuery(Mustache.render(this.template_navigation, {
 			show_identifier: identifier,
 
+			prefix: prefix,
 			title: title,
+
 			categories: categories
 		}));
 
