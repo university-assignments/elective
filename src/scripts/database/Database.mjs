@@ -3,11 +3,15 @@ import sqlite3InitModule from '@antonz/sqlean';
 
 import { InitializerInterface } from '../plugins/initializer/InitializerInterface.mjs';
 
+import { DatabaseEvents } from './DatabaseEvents.mjs';
+
 
 export class Database extends InitializerInterface
 {
 	async initialize ()
 	{
+		this.events = new DatabaseEvents();
+
 		this.sqlite3 = await sqlite3InitModule({
 			printErr: console.error,
 			print: console.debug
@@ -35,5 +39,6 @@ export class Database extends InitializerInterface
 	scheme (sql)
 	{
 		this.db.exec(sql);
+		this.events.trigger(this.events.EVENT_REFRESH);
 	}
 }
