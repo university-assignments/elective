@@ -18,6 +18,12 @@ export class FileDownloader extends FileInterface
 
 	// ===== ===== ===== ===== =====
 
+	onSuccessfulDownload ()
+	{
+	}
+
+	// ===== ===== ===== ===== =====
+
 	async download ()
 	{
 		const resource = await fetch(this.full_path);
@@ -25,5 +31,7 @@ export class FileDownloader extends FileInterface
 
 		this.state = true;
 		this.data  = response;
+
+		this.onSuccessfulDownload();
 	}
 }

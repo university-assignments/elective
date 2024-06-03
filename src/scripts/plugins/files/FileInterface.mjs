@@ -61,13 +61,17 @@ export class FileInterface extends InitializerInterface
 
 	// ===== ===== ===== ===== =====
 
+	onPathProcessed ()
+	{
+	}
+
+	// ===== ===== ===== ===== =====
+
 	/**
 	 * @param {string} full_path
 	 */
-	constructor (full_path)
+	initialize (full_path)
 	{
-		super();
-
 		this.full_path = full_path;
 		this.copy_path = full_path;
 
@@ -94,5 +98,16 @@ export class FileInterface extends InitializerInterface
 
 		this.name      = this.copy_path;
 		this.copy_path = '';
+	}
+
+	/**
+	 * @param {string} full_path
+	 */
+	constructor (full_path)
+	{
+		super();
+
+		this.initialize(full_path);
+		this.onPathProcessed();
 	}
 }

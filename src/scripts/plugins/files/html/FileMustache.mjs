@@ -22,18 +22,11 @@ export class FileMustache extends FileDownloader
 		});
 	}
 
-	/**
-	 * @param {string} full_path
-	 */
-	constructor (full_path)
+	onPathProcessed ()
 	{
-		super(full_path);
+		const prefixes = [ 'mustache', 'mst' ];
 
-		if
-		(
-			   this.prefix !== 'mustache'
-			&& this.prefix !== 'mst'
-		)
+		if (prefixes.includes(this.prefix) === false)
 		{
 			throw new Error('INCORRECT_FILE_FORMAT => mustache');
 		}

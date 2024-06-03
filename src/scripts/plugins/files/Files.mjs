@@ -1,7 +1,6 @@
 
 import { FileDownloader } from './FileDownloader.mjs';
 import { FileInterface } from './FileInterface.mjs';
-import { FileSQL } from './sql/FileSQL.mjs';
 
 
 export class Files
@@ -9,50 +8,45 @@ export class Files
 	/**
 	 * @private
 	 * @property
-	 * @type { { [path: string]: FileInterface } }
+	 * @type { Map<string, FileInterface> }
 	 */
-	files = {};
+	files = new Map();
 
 	// ===== ===== ===== ===== =====
 
 	/**
-	 * @param {FileInterface} file
+	 * @param { FileInterface } file
 	 */
 	add (file)
 	{
-		this.files[file.full_path] = file;
+		this.files.set(file.full_path, file);
 	}
 
 	/**
-	 * @param {string} path
+	 * @param { string } path
 	 */
 	get (full_path)
 	{
-		return this.files[full_path];
+		return this.files.get(full_path);
 	}
 
 	/**
-	 * @param {string} full_path
+	 * @param { string } full_path
 	 */
 	exists (full_path)
 	{
-		return this.files[full_path] instanceof FileInterface;
+		return this.files.has(full_path);
 	}
 
 	/**
 	 * @template TDownloader
 	 * 
-	 * @param { TDownloader } downloader
+	 * @param { TDownloader & FileDownloader } downloader
 	 * 
 	 * @returns { Promise<TDownloader> }
 	 */
 	async download (downloader)
 	{
-		if (downloader instanceof FileDownloader === false)
-		{
-			throw new Error('FileDownloader');
-		}
-
 		const full_path = downloader.full_path;
 
 		if (this.exists(full_path))
