@@ -56,8 +56,6 @@ export class FilesPage extends PageFoundation
 		this.caller = caller;
 		this.files  = files;
 
-		this.container.addClass('m-2');
-
 		this.files.events.on(this.files.events.EVENT_REFRESH, () => this.refreshDisplay());
 		this.refreshDisplay();
 	}

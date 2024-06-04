@@ -12,10 +12,10 @@ export class DatabaseTablesPage extends PageFoundation
 	initializeTags ()
 	{
 		this.tables_container = jQuery(document.createElement('div'))
-			.addClass('m-2');
+			.addClass('mb-2');
 
 		this.table_container = jQuery(document.createElement('div'))
-			.addClass('m-2');
+			.addClass('mb-2');
 
 		this.container
 			.append(this.tables_container)
