@@ -13,7 +13,7 @@ export class FilesPage extends PageFoundation
 	{
 		const response = [];
 
-		for (const [ _, file ] of this.files.all())
+		for (const file of this.files.all().values())
 		{
 			response.push([
 				file.full_path,
