@@ -1,7 +1,6 @@
 
 /**
  * @typedef { import('./display/TagsFoundation.js').TagsFoundation } TagsFoundation
- * @typedef { import('./display/TagPopup.js').TagPopup } TagPopup
  * 
  * @typedef { import('./parts/sidebar/Sidebar').Sidebar } Sidebar
  * @typedef { import('./parts/content/Content').Content } Content
@@ -36,15 +35,12 @@ export class Loader extends InitializerInterface
 
 	/**
 	 * @param {TagsFoundation} tags
-	 * @param {TagPopup} popup
 	 * @param {Sidebar} sidebar
 	 * @param {Content} content
 	 */
-	_tags (tags, popup, sidebar, content)
+	_tags (tags, sidebar, content)
 	{
 		tags.page.append(sidebar.tag_sidebar);
 		tags.page.append(content.tag_content);
-
-		tags.background.append(popup.tag_base);
 	}
 };
