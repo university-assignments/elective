@@ -12,7 +12,7 @@ export class FileDownloader extends FileInterface
 
 	/**
 	 * @property
-	 * @type { string }
+	 * @type { ?string }
 	 */
 	data = null;
 

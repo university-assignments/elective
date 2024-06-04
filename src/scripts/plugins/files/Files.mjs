@@ -1,25 +1,39 @@
 
 import { FileDownloader } from './FileDownloader.mjs';
-import { FileInterface } from './FileInterface.mjs';
+import { FilesEvents } from './FilesEvents.mjs';
 
 
 export class Files
 {
 	/**
+	 * @property
+	 * @readonly
+	 * @type { FilesEvents }
+	 */
+	events = new FilesEvents();
+
+	/**
 	 * @private
 	 * @property
-	 * @type { Map<string, FileInterface> }
+	 * @readonly
+	 * @type { Map<string, FileDownloader> }
 	 */
 	files = new Map();
 
 	// ===== ===== ===== ===== =====
 
+	all ()
+	{
+		return this.files;
+	}
+
 	/**
-	 * @param { FileInterface } file
+	 * @param { FileDownloader } file
 	 */
 	add (file)
 	{
 		this.files.set(file.full_path, file);
+		this.events.trigger(this.events.EVENT_REFRESH);
 	}
 
 	/**
@@ -37,6 +51,8 @@ export class Files
 	{
 		return this.files.has(full_path);
 	}
+
+	// ===== ===== ===== ===== =====
 
 	/**
 	 * @template TDownloader

@@ -12,7 +12,8 @@ export class FileMustache extends FileDownloader
 		{
 			const loaded = function ()
 			{
-				_self.data = this.innerHTML;
+				_self.state = true;
+				_self.data  = this.innerHTML;
 
 				resolve();
 			};

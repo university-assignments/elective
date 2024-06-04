@@ -15,7 +15,7 @@ import { MemorizePage } from '../pages/phrases/MemorizePage.js';
 import { CounterPage } from '../pages/selection/CounterPage.js';
 import { SelectPage } from '../pages/selection/SelectPage.js';
 
-import { ImportFilesPage } from '../pages/settings/import/ImportFilesPage.js';
+import { FilesPage } from '../pages/settings/files/FilesPage.mjs';
 
 import { DatabaseTablesPage } from '../pages/database/DatabaseTablesPage.mjs';
 
@@ -96,8 +96,8 @@ export class Routers
 
 				pages: [
 					{
-						instance: ImportFilesPage,
-						name: 'import files'
+						instance: FilesPage,
+						name: 'files'
 					}
 				]
 			},

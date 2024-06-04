@@ -12,7 +12,7 @@ import { FileMustache } from '../../../plugins/files/html/FileMustache.mjs';
 import { FileSQL } from '../../../plugins/files/sql/FileSQL.mjs';
 
 
-export class ImportFilesPage extends PageFoundation
+export class ImportPart extends PageFoundation
 {
 	/**
 	 * @private
