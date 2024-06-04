@@ -7,7 +7,7 @@ import { DatabaseTablesPart } from './parts/DatabaseTablesPart.mjs';
 import { DatabaseTablePart } from './parts/DatabaseTablePart.mjs';
 
 
-export class DatabaseTablesPage extends PageFoundation
+export class DatabasePage extends PageFoundation
 {
 	initializeTags ()
 	{

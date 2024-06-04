@@ -15,9 +15,8 @@ import { MemorizePage } from '../pages/phrases/MemorizePage.js';
 import { CounterPage } from '../pages/selection/CounterPage.js';
 import { SelectPage } from '../pages/selection/SelectPage.js';
 
-import { FilesPage } from '../pages/settings/files/FilesPage.mjs';
-
-import { DatabaseTablesPage } from '../pages/database/DatabaseTablesPage.mjs';
+import { DatabasePage } from '../pages/di/DatabasePage.mjs';
+import { FilesPage } from '../pages/di/FilesPage.mjs';
 
 import { PagesCollection } from '../pages/PagesCollection.mjs';
 
@@ -94,22 +93,21 @@ export class Routers
 			{
 				title: 'settings',
 
-				pages: [
-					{
-						instance: FilesPage,
-						name: 'files'
-					}
-				]
+				pages: []
 			},
 
 			{
 				prefix: 'DEV',
-				title: 'database',
+				title: 'di',
 
 				pages: [
 					{
-						instance: DatabaseTablesPage,
-						name: 'tables'
+						instance: DatabasePage,
+						name: 'database'
+					},
+					{
+						instance: FilesPage,
+						name: 'files'
 					}
 				]
 			}
