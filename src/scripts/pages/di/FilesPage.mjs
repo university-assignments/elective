@@ -1,7 +1,6 @@
 
 import { Grid, h } from 'gridjs';
 
-import { MethodsCaller } from '../../plugins/di/MethodsCaller.js';
 import { Files } from '../../plugins/files/Files.mjs';
 
 import { PageFoundation } from '../PageFoundation.mjs';
@@ -83,13 +82,11 @@ export class FilesPage extends PageFoundation
 	}
 
 	/**
-	 * @param { MethodsCaller } caller
 	 * @param { Files } files
 	 */
-	async initialize (caller, files)
+	async initialize (files)
 	{
-		this.caller = caller;
-		this.files  = files;
+		this.files = files;
 
 		this.files.events.on(this.files.events.EVENT_REFRESH, () => this.refresh());
 		this.refresh();

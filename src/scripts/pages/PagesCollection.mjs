@@ -1,6 +1,6 @@
 
 /**
- * @typedef { import('../plugins/di/MethodsCaller').MethodsCaller } MethodsCaller
+ * @typedef { import('../plugins/invoker/Invoker.mjs').Invoker } Invoker
  * 
  * @typedef { import('./PageFoundation.mjs').PageFoundation } PageFoundation
  * @typedef { import('./PageOptions.mjs').PageOptions } PageOptions
@@ -14,38 +14,42 @@ export class PagesCollection
 {
 	/**
 	 * @private
-	 * @type {MethodsCaller}
+	 * @readonly
+	 * @type { Invoker }
 	 */
-	initializer;
+	invoker;
 
 	/**
 	 * @private
-	 * @type {Sidebar}
+	 * @readonly
+	 * @type { Sidebar }
 	 */
 	sidebar;
 
 	/**
 	 * @private
-	 * @type {Content}
+	 * @readonly
+	 * @type { Content }
 	 */
 	content;
 
 	/**
 	 * @private
-	 * @type {PageOptions[]}
+	 * @readonly
+	 * @type { PageOptions[] }
 	 */
 	collection = [];
 
 	/**
-	 * @param {MethodsCaller} initializer
-	 * @param {Sidebar} sidebar
-	 * @param {Content} content
+	 * @param { Invoker } invoker
+	 * @param { Sidebar } sidebar
+	 * @param { Content } content
 	 */
-	constructor (initializer, sidebar, content)
+	constructor (invoker, sidebar, content)
 	{
-		this.initializer = initializer;
-		this.sidebar     = sidebar;
-		this.content     = content;
+		this.invoker = invoker;
+		this.sidebar = sidebar;
+		this.content = content;
 	}
 
 	/**
@@ -60,7 +64,7 @@ export class PagesCollection
 				// создаем страницу только когда ее необходимо показать
 				if (instance.initialized === false)
 				{
-					this.initializer.runMethod(instance, 'initialize', options);
+					this.invoker.runMethod(instance, 'initialize', options);
 					instance.initialized = true;
 				}
 

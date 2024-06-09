@@ -16,7 +16,7 @@ import { InitializerInterface } from './plugins/initializer/InitializerInterface
 // register
 // ===== ===== ===== ===== =====
 
-import { get_di } from './configuration/get_di.js';
+import { get_dependencies } from './configuration/get_dependencies.mjs';
 import { Routers } from './configuration/Routers.js';
 import { Importer } from './configuration/Importer.js';
 
@@ -25,12 +25,12 @@ export class Loader extends InitializerInterface
 {
 	async initialize ()
 	{
-		this.di     = await get_di();
-		this.caller = this.di.singleton.caller;
+		this.dependencies = await get_dependencies();
+		this.invoker      = this.dependencies.singleton.invoker;
 
-		this.pages = this.caller.runMethod(Routers, 'collection');
-		this.caller.runMethod(this, '_tags');
-		this.caller.runMethod(Importer, 'files');
+		this.pages = this.invoker.runMethod(Routers, 'collection');
+		this.invoker.runMethod(this, '_tags');
+		this.invoker.runMethod(Importer, 'files');
 	}
 
 	/**

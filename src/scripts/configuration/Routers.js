@@ -1,6 +1,6 @@
 
 /**
- * @typedef { import('../plugins/di/MethodsCaller').MethodsCaller } MethodsCaller
+ * @typedef { import('../plugins/invoker/Invoker.mjs').Invoker } Invoker
  * 
  * @typedef { import('../parts/sidebar/Sidebar.mjs').Sidebar } Sidebar
  * @typedef { import('../parts/content/Content.mjs').Content } Content
@@ -24,14 +24,14 @@ import { PagesCollection } from '../pages/PagesCollection.mjs';
 export class Routers
 {
 	/**
-	 * @param {MethodsCaller} caller
+	 * @param {Invoker} invoker
 	 * @param {Sidebar} sidebar
 	 * @param {Content} content
 	 */
-	static collection (caller, sidebar, content)
+	static collection (invoker, sidebar, content)
 	{
 		const pages = new PagesCollection(
-			caller,
+			invoker,
 			sidebar,
 			content
 		);
