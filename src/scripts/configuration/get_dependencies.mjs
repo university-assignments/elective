@@ -1,5 +1,5 @@
 
-import { TagsFoundation } from '../display/TagsFoundation.js';
+import { TagsFoundation } from '../display/TagsFoundation.mjs';
 
 import { QueryOptions } from '../memory/QueryOptions.js';
 

@@ -91,14 +91,8 @@ export class Routers
 			},
 
 			{
-				title: 'settings',
-
-				pages: []
-			},
-
-			{
 				prefix: 'DEV',
-				title: 'di',
+				title: 'dependencies',
 
 				pages: [
 					{

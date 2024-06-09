@@ -6,6 +6,11 @@ import { Invoker } from '../invoker/Invoker.mjs';
 
 export class Singleton
 {
+	/**
+	 * @type { Invoker }
+	 */
+	invoker;
+
 	constructor (instances = new Map())
 	{
 		this.instances = instances;
