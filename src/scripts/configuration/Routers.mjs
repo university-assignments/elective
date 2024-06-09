@@ -15,6 +15,7 @@ import { MemorizePage } from '../pages/phrases/MemorizePage.js';
 import { CounterPage } from '../pages/selection/CounterPage.js';
 import { SelectPage } from '../pages/selection/SelectPage.js';
 
+import { ExecutePage } from '../pages/dependencies/ExecutePage.mjs';
 import { DatabasePage } from '../pages/dependencies/DatabasePage.mjs';
 import { FilesPage } from '../pages/dependencies/FilesPage.mjs';
 
@@ -95,6 +96,10 @@ export class Routers
 				title: 'dependencies',
 
 				pages: [
+					{
+						instance: ExecutePage,
+						name: 'execute'
+					},
 					{
 						instance: DatabasePage,
 						name: 'database'

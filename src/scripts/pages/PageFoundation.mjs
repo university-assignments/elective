@@ -13,18 +13,18 @@ export class PageFoundation extends InitializerInterface
 
 		this.initialized = false;
 
-		this.container = jQuery(document.createElement('article'))
-			.addClass('page_container')
+		this.tag_page = jQuery(document.createElement('page'))
+			.addClass('h-100')
 			.hide();
 	}
 
 	show ()
 	{
-		this.container.show();
+		this.tag_page.show();
 	}
 
 	hide ()
 	{
-		this.container.hide();
+		this.tag_page.hide();
 	}
 }

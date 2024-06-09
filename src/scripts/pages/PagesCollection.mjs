@@ -104,7 +104,7 @@ export class PagesCollection
 		}
 
 		// register
-		this.content.register(page.instance.container);
+		this.content.register(page.instance.tag_page);
 		this.collection.push(page);
 
 		return {
