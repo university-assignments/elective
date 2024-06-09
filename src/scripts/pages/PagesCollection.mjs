@@ -44,12 +44,30 @@ export class PagesCollection
 	 * @param { Invoker } invoker
 	 * @param { Sidebar } sidebar
 	 * @param { Content } content
+	 * @param { boolean } debug
 	 */
-	constructor (invoker, sidebar, content)
+	constructor (invoker, sidebar, content, debug = false)
 	{
 		this.invoker = invoker;
 		this.sidebar = sidebar;
 		this.content = content;
+		this.debug   = debug;
+	}
+
+	/**
+	 * @param { PageFoundation } instance
+	 */
+	initializePage (instance, options)
+	{
+		if (instance.initialized)
+		{
+			return false;
+		}
+
+		this.invoker.runMethod(instance, 'initialize', options);
+		instance.initialized = true;
+
+		return true;
 	}
 
 	/**
@@ -62,11 +80,7 @@ export class PagesCollection
 			if (instance === current)
 			{
 				// создаем страницу только когда ее необходимо показать
-				if (instance.initialized === false)
-				{
-					this.invoker.runMethod(instance, 'initialize', options);
-					instance.initialized = true;
-				}
+				this.initializePage(instance, options);
 
 				instance.show();
 				continue;
@@ -83,6 +97,11 @@ export class PagesCollection
 	{
 		// create instance
 		page.instance = new page.instance();
+
+		if (this.debug)
+		{
+			this.initializePage(page.instance, page.options);
+		}
 
 		// register
 		this.content.register(page.instance.container);
