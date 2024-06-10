@@ -3,22 +3,77 @@ import { InitializerInterface } from '../../plugins/initializer/InitializerInter
 
 import { FileSQL } from '../../plugins/files/sql/FileSQL.mjs';
 import { Files } from '../../plugins/files/Files.mjs';
+
 import { Database } from '../Database.mjs';
 
 
 export class Phrases extends InitializerInterface
 {
 	/**
-	 * @param {Database} database
-	 * @param {Files} files
+	 * @param { Database } database
+	 * @param { Files } files
 	 */
 	async initialize (database, files)
 	{
-		const path = './scripts/database/phrases/sql/phrases.sql';
-		const info = new FileSQL(path);
-		const file = await files.download(info);
+		const sql_folder = './scripts/database/phrases/sql';
+
+		// table
+		{
+			const path = sql_folder + '/phrases.sql';
+			const info = new FileSQL(path);
+			const file = await files.download(info);
+
+			this.sql_table = file.data;
+		}
+
+		// create
+		{
+			const path = sql_folder + '/create.sql';
+			const info = new FileSQL(path);
+			const file = await files.download(info);
+
+			this.sql_create = file.data;
+		}
 
 		this.database = database;
-		this.database.scheme(file.data);
+		this.database.scheme(this.sql_table);
+	}
+
+	// ===== ===== ===== ===== =====
+
+	/**
+	 * @param { string } english
+	 * 
+	 * @returns { ?number }
+	 */
+	getIdByEnglish (english)
+	{
+		const command  = `SELECT identifier FROM phrases WHERE english = '${english}' LIMIT 1`;
+		const response = this.database.execute(command);
+
+		return response.length > 0
+			? response[0].identifier
+			: null;
+	}
+
+	// ===== ===== ===== ===== =====
+
+	/**
+	 * @param { string } english
+	 * @param { string } russian
+	 * @param { string } sections
+	 * 
+	 * @returns { number }
+	 */
+	create (english, russian, sections)
+	{
+		const command = this.sql_create
+			.replace('{english}',  english)
+			.replace('{russian}',  russian)
+			.replace('{sections}', sections);
+
+		this.database.scheme(command);
+
+		return this.getIdByEnglish(english);
 	}
 }

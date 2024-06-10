@@ -3,22 +3,73 @@ import { InitializerInterface } from '../../plugins/initializer/InitializerInter
 
 import { FileSQL } from '../../plugins/files/sql/FileSQL.mjs';
 import { Files } from '../../plugins/files/Files.mjs';
+
 import { Database } from '../Database.mjs';
 
 
 export class Profiles extends InitializerInterface
 {
 	/**
-	 * @param {Database} database
-	 * @param {Files} files
+	 * @param { Database } database
+	 * @param { Files } files
 	 */
 	async initialize (database, files)
 	{
-		const path = './scripts/database/profiles/sql/profiles.sql';
-		const info = new FileSQL(path);
-		const file = await files.download(info);
+		const sql_folder = './scripts/database/profiles/sql';
+
+		// table
+		{
+			const path = sql_folder + '/profiles.sql';
+			const info = new FileSQL(path);
+			const file = await files.download(info);
+
+			this.sql_table = file.data;
+		}
+
+		// create
+		{
+			const path = sql_folder + '/create.sql';
+			const info = new FileSQL(path);
+			const file = await files.download(info);
+
+			this.sql_create = file.data;
+		}
 
 		this.database = database;
-		this.database.scheme(file.data);
+		this.database.scheme(this.sql_table);
+	}
+
+	// ===== ===== ===== ===== =====
+
+	/**
+	 * @param { string } profile_name
+	 * 
+	 * @returns { ?number }
+	 */
+	getIdByName (profile_name)
+	{
+		const command  = `SELECT identifier FROM profiles WHERE name = '${profile_name}' LIMIT 1`;
+		const response = this.database.execute(command);
+
+		return response.length > 0
+			? response[0].identifier
+			: null;
+	}
+
+	// ===== ===== ===== ===== =====
+
+	/**
+	 * @param { string } profile_name
+	 * 
+	 * @returns { number }
+	 */
+	create (profile_name)
+	{
+		const command = this.sql_create
+			.replace('{NAME}', profile_name);
+
+		this.database.scheme(command);
+
+		return this.getIdByName(profile_name);
 	}
 }
