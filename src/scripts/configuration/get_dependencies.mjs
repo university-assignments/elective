@@ -1,8 +1,6 @@
 
 import { TagsFoundation } from '../display/TagsFoundation.mjs';
 
-import { QueryOptions } from '../memory/QueryOptions.js';
-
 import { DependencyInjection } from '../plugins/di/DependencyInjection.mjs';
 import { Files } from '../plugins/files/Files.mjs';
 
@@ -32,8 +30,6 @@ export async function get_dependencies ()
 
 	await dependencies.singleton.register(() => new ProfilesPhrases())
 		.runMethod('initialize');
-
-	dependencies.singleton.register(() => new QueryOptions());
 
 	dependencies.singleton.register(() => new TagsFoundation());
 

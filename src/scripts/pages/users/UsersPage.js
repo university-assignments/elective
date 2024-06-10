@@ -1,11 +1,4 @@
 
-/**
- * @typedef { import('jquery') } jQuery
- * 
- * @typedef { import('../../memory/users/user/UserData').UserData } UserData
- * @typedef { import('../../memory/users/UserCollection').UserCollection } UserCollection
- */
-
 import { fancyappsFancybox } from '../../templates/fancyapps/fancyappsFancybox.js';
 
 import { PageFoundation } from '../PageFoundation.mjs';

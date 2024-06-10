@@ -1,9 +1,4 @@
 
-/**
- * @typedef { import('../../memory/users/UserCollection').UserCollection } UserCollection
- * @typedef { import('../../memory/tags/TagsDictionary').TagsDictionary } TagsDictionary
- */
-
 import { Grid, html } from 'gridjs';
 
 import { PageFoundation } from '../PageFoundation.mjs';

@@ -1,8 +1,4 @@
 
-/**
- * @typedef { import('../../memory/users/UserCollection.js').UserCollection } UserCollection
- */
-
 import { TemplateSummary } from '../../templates/TemplateSummary.js';
 
 import { PageFoundation } from '../PageFoundation.mjs';
