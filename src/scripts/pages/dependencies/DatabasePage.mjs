@@ -1,13 +1,13 @@
 
 import { Database } from '../../database/Database.mjs';
 
-import { PageFoundation } from '../PageFoundation.mjs';
+import { PageContainer } from '../PageContainer.mjs';
 
 import { DatabaseTablesPart } from './parts/DatabaseTablesPart.mjs';
 import { DatabaseTablePart } from './parts/DatabaseTablePart.mjs';
 
 
-export class DatabasePage extends PageFoundation
+export class DatabasePage extends PageContainer
 {
 	initializeTags ()
 	{
@@ -17,7 +17,7 @@ export class DatabasePage extends PageFoundation
 		this.table_container = jQuery(document.createElement('div'))
 			.addClass('mb-2');
 
-		this.container
+		this.tag_container
 			.append(this.tables_container)
 			.append(this.table_container);
 	}

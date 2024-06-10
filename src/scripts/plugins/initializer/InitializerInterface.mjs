@@ -11,4 +11,9 @@ export class InitializerInterface
 	{
 		throw new Error('override');
 	}
+
+	constructor ()
+	{
+		this.initialized = false;
+	}
 }

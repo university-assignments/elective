@@ -3,10 +3,10 @@ import { Grid, h } from 'gridjs';
 
 import { Files } from '../../plugins/files/Files.mjs';
 
-import { PageFoundation } from '../PageFoundation.mjs';
+import { PageContainer } from '../PageContainer.mjs';
 
 
-export class FilesPage extends PageFoundation
+export class FilesPage extends PageContainer
 {
 	/**
 	 * @param {FileDownloader[]} files
@@ -37,7 +37,7 @@ export class FilesPage extends PageFoundation
 	 * @param {string} class_name
 	 * @param {FileDownloader[]} files
 	 */
-	refreshDisplay (class_name, files)
+	getDisplay (class_name, files)
 	{
 		const display = new Grid({
 			columns: [ 'path', 'state', 'data' ],
@@ -50,13 +50,11 @@ export class FilesPage extends PageFoundation
 		const data = jQuery(document.createElement('article'));
 		display.render(data.get(0));
 
-		this.container.append(
-			jQuery(document.createElement('section'))
-				.addClass('mb-2')
+		return jQuery(document.createElement('section'))
+			.addClass('mb-2')
 
-				.append(name)
-				.append(data)
-		);
+			.append(name)
+			.append(data);
 	}
 
 	refresh ()
@@ -73,11 +71,13 @@ export class FilesPage extends PageFoundation
 				: groups.set(class_name, [ file ]);
 		}
 
-		this.container.html('');
+		this.tag_container.html('');
 
 		for (const [ class_name, files ] of groups)
 		{
-			this.refreshDisplay(class_name, files);
+			this.tag_container.append(
+				this.getDisplay(class_name, files)
+			);
 		}
 	}
 

@@ -11,8 +11,6 @@ export class PageFoundation extends InitializerInterface
 	{
 		super();
 
-		this.initialized = false;
-
 		this.tag_page = jQuery(document.createElement('page'))
 			.addClass('h-100')
 			.hide();
