@@ -1,39 +1,43 @@
 
-/**
- * @typedef { import('../../memory/phrases/TranslatedPhrases').TranslatedPhrases } TranslatedPhrases
- */
-
 import { FlashCard } from '../../templates/flashcards/FlashCard.js';
 import { FlashCards } from '../../templates/flashcards/FlashCards.js';
 
-import { PageFoundation } from '../PageFoundation.mjs';
+import { Phrases } from '../../database/phrases/Phrases.mjs';
+
+import { PageContainer } from '../PageContainer.mjs';
 
 
-export class MemorizePage extends PageFoundation
+export class MemorizePage extends PageContainer
 {
 	/**
 	 * @private
-	 * @type {TranslatedPhrases}
+	 * @type { Phrases }
 	 */
-	_translated;
+	_phrases;
 
 	/**
 	 * @private
-	 * @type {FlashCards}
+	 * @type { FlashCards }
 	 */
 	_flashcards;
 
 	/**
-	 * @param {TranslatedPhrases} translated
+	 * @param { Phrases } phrases
 	 */
-	async initialize (translated)
+	async initialize (phrases)
 	{
-		this._translated = translated;
+		this._phrases = phrases;
+		this._events  = phrases.events;
+
+		// ===== ===== ===== ===== =====
+
 		this._flashcards = new FlashCards();
 
-		this.container.append(this._flashcards.container);
+		this.tag_container.append(this._flashcards.container);
 
-		translated.on(translated.EVENT_REFRESH, () => this.refresh());
+		// ===== ===== ===== ===== =====
+
+		this._events.on(this._events.EVENT_REFRESH, () => this.refresh());
 		this.refresh();
 	}
 
@@ -41,8 +45,17 @@ export class MemorizePage extends PageFoundation
 	{
 		this._flashcards.reset();
 
-		for (const [ english, russian ] of this._translated.dictionary)
+		for (const phrase of this._phrases.getAll())
 		{
+			const english = phrase.english;
+			const russian = phrase.russian;
+
+			// перевод есть не у всех фраз.
+			if (!english || !russian)
+			{
+				continue;
+			}
+
 			this._flashcards.regiter(new FlashCard({
 				frontHTML: english,
 				backHTML: russian

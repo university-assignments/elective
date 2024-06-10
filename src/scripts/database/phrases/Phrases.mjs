@@ -5,6 +5,7 @@ import { FileSQL } from '../../plugins/files/sql/FileSQL.mjs';
 import { Files } from '../../plugins/files/Files.mjs';
 
 import { Database } from '../Database.mjs';
+import { PhrasesEvents } from './PhrasesEvents.mjs';
 
 
 export class Phrases extends InitializerInterface
@@ -35,6 +36,8 @@ export class Phrases extends InitializerInterface
 			this.sql_create = file.data;
 		}
 
+		this.events = new PhrasesEvents();
+
 		this.database = database;
 		this.database.scheme(this.sql_table);
 	}
@@ -56,6 +59,14 @@ export class Phrases extends InitializerInterface
 			: null;
 	}
 
+	getAll ()
+	{
+		const command  = 'SELECT * FROM phrases';
+		const response = this.database.execute(command);
+
+		return response;
+	}
+
 	// ===== ===== ===== ===== =====
 
 	/**
@@ -73,6 +84,7 @@ export class Phrases extends InitializerInterface
 			.replace('{sections}', sections);
 
 		this.database.scheme(command);
+		this.events.trigger(this.events.EVENT_REFRESH);
 
 		return this.getIdByEnglish(english);
 	}
