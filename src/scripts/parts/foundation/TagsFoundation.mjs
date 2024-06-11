@@ -1,7 +1,10 @@
 
-export class TagsFoundation
+import { InitializerInterface } from '../../plugins/initializer/InitializerInterface.mjs';
+
+
+export class TagsFoundation extends InitializerInterface
 {
-	constructor ()
+	async initialize ()
 	{
 		this.page = jQuery(document.createElement('div'))
 			.attr('id', 'page')

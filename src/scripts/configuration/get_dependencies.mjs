@@ -1,9 +1,8 @@
 
-import { TagsFoundation } from '../display/TagsFoundation.mjs';
-
 import { DependencyInjection } from '../plugins/di/DependencyInjection.mjs';
 import { Files } from '../plugins/files/Files.mjs';
 
+import { TagsFoundation } from '../parts/foundation/TagsFoundation.mjs';
 import { Content } from '../parts/content/Content.mjs';
 import { Sidebar } from '../parts/sidebar/Sidebar.mjs';
 
@@ -17,7 +16,11 @@ export async function get_dependencies ()
 {
 	const dependencies = new DependencyInjection();
 
+	// ===== ===== ===== ===== =====
+
 	dependencies.singleton.register(() => new Files());
+
+	// ===== ===== ===== ===== =====
 
 	await dependencies.singleton.register(() => new Database())
 		.runMethod('initialize');
@@ -31,13 +34,18 @@ export async function get_dependencies ()
 	await dependencies.singleton.register(() => new ProfilesPhrases())
 		.runMethod('initialize');
 
-	dependencies.singleton.register(() => new TagsFoundation());
+	// ===== ===== ===== ===== =====
+
+	await dependencies.singleton.register(() => new TagsFoundation())
+		.runMethod('initialize');
 
 	await dependencies.singleton.register(() => new Sidebar())
 		.runMethod('initialize');
 
 	await dependencies.singleton.register(() => new Content())
 		.runMethod('initialize');
+
+	// ===== ===== ===== ===== =====
 
 	return dependencies;
 }

@@ -1,22 +1,19 @@
 
-/**
- * @typedef { import('../display/TagsFoundation.mjs').TagsFoundation } TagsFoundation
- * 
- * @typedef { import('../parts/sidebar/Sidebar.mjs').Sidebar } Sidebar
- * @typedef { import('../parts/content/Content.mjs').Content } Content
- */
+import { TagsFoundation } from '../parts/foundation/TagsFoundation.mjs';
+import { Sidebar } from '../parts/sidebar/Sidebar.mjs';
+import { Content } from '../parts/content/Content.mjs';
 
 
 export class Containers
 {
 	/**
-	 * @param { TagsFoundation } tags
+	 * @param { TagsFoundation } foundation
 	 * @param { Sidebar } sidebar
 	 * @param { Content } content
 	 */
-	static tags (tags, sidebar, content)
+	static tags (foundation, sidebar, content)
 	{
-		tags.page.append(sidebar.tag_sidebar);
-		tags.page.append(content.tag_content);
+		foundation.page.append(sidebar.tag_sidebar);
+		foundation.page.append(content.tag_content);
 	}
 }
