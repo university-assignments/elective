@@ -1,23 +1,25 @@
 
 import { Grid, html } from 'gridjs';
 
-import { PageFoundation } from '../PageFoundation.mjs';
+import { PageContainer } from '../PageContainer.mjs';
+
+import { Database } from '../../database/Database.mjs';
 
 
-export class SelectPage extends PageFoundation
+export class SelectPage extends PageContainer
 {
 	/**
-	 * @param {TagsDictionary} tags
-	 * @param {UserCollection} users
+	 * @param { Database } database
 	 */
-	async initialize (tags, users)
+	async initialize (database)
 	{
-		// TODO: Позже исправить список тегов
-		// this.tags = tags;
+		this.database = database;
+		this.events   = database.events;
 
-		this.users = users;
-		this.users.on(this.users.EVENT_REFRESH, () => this.refreshContent());
+		this.lib_table = new Grid();
+		this.lib_table.render(this.tag_container.get(0));
 
+		this.events.on(this.events.EVENT_REFRESH, () => this.refreshContent());
 		this.refreshContent();
 	}
 
@@ -30,50 +32,40 @@ export class SelectPage extends PageFoundation
 	 */
 	refreshTable (data)
 	{
-		if (typeof this.lib_table === 'object')
-		{
-			this.lib_table.destroy();
-			delete this.lib_table;
-		}
-
 		const counter = data.map(values => values.length - 1);
 		const maximum = Math.max(...counter);
 
-		const users = Array(maximum).fill().map(function (_, value)
+		const profiles = Array(maximum).fill().map(function (_, index)
 		{
 			return {
-				name: value,
-				formatter: (cell) => html(`
-					<svg style="stroke-width: 2; stroke: #${ cell ? '6aff6a' : 'ff0033' };" class="svg_icon me-2" width="24" height="24" role="img">
-						<use xlink:href="#yes"></use>
-					</svg>
-				`)
+				name: index,
+
+				formatter: function (cell)
+				{
+					if (cell === null)
+					{
+						return '';
+					}
+
+					return html(`
+						<svg
+							style  = "stroke-width: 2; stroke: #${ cell ? '6aff6a' : 'ff0033' };"
+							class  = "svg_icon me-2"
+							width  = "24"
+							height = "24"
+							role   = "img"
+						>
+							<use xlink:href="#yes"></use>
+						</svg>
+					`);
+				}
 			};
 		});
 
-		this.lib_table = new Grid({
+		this.lib_table.updateConfig({
 			columns: [
-				{
-					name: 'phrase',
-
-					formatter: cell => html(`
-						<section>
-							${cell}
-						</section>
-
-						<section>
-							${
-								typeof this.tags === 'object' && this.tags.collection.has(cell)
-									? this.tags.collection.get(cell)
-										.map(value => '<article class="p-1 m-1 bg-info bg-opacity-10 text-wrap text-info-subtle border border-info rounded">' + value + '</article>')
-										.join('')
-									: ''
-							}
-						</section>
-					`)
-				},
-
-				...users
+				'phrase',
+				...profiles
 			],
 
 			data: data,
@@ -86,41 +78,67 @@ export class SelectPage extends PageFoundation
 			sort: true
 		});
 
-		this.lib_table.render(this.container.get(0));
+		this.lib_table.forceRender();
 	}
 
 	refreshContent ()
 	{
-		const phrases = [];
+		// получение фраз, которые участвовали
+		// english => debug
+		const phrases_identifier_english = this.database.execute(`
+			SELECT phrases.identifier, phrases.english
+			FROM phrases
+			INNER JOIN profiles_phrases ON phrases.identifier = profiles_phrases.phrase
+			GROUP BY phrases.identifier
+			ORDER BY phrases.identifier;
+		`);
 
-		for (const {survey} of this.users.all())
+		// получение профилей, которые участвовали
+		// name => debug
+		const profiles_identifier_name = this.database.execute(`
+			SELECT profiles.identifier, profiles.name
+			FROM profiles
+			INNER JOIN profiles_phrases ON profiles.identifier = profiles_phrases.profile
+			GROUP BY profiles.identifier
+			ORDER BY profiles.identifier;
+		`);
+
+		// rows: [ values: [ ... ] ]
+		const rows = phrases_identifier_english.map(
+			phrase_info => [ phrase_info.english ]
+		);
+
+		for (const profile_info of profiles_identifier_name)
 		{
-			for (const phrase of survey.keys())
+			// identifier, phrase => debug
+			const profiles_phrases__phrase_survey = this.database.execute(`
+				SELECT profiles_phrases.identifier, profiles_phrases.phrase, profiles_phrases.survey
+				FROM profiles
+				INNER JOIN profiles_phrases ON profiles.identifier = profiles_phrases.profile
+				WHERE profiles.identifier = ${profile_info.identifier}
+				GROUP BY profiles_phrases.phrase
+				ORDER BY profiles_phrases.phrase;
+			`);
+
+			rows.forEach(function (row_data, row_index)
 			{
-				if (phrases.includes(phrase) === false)
+				let flag_find    = false;
+				let survey_state = null;
+
+				for (const { phrase, survey } of profiles_phrases__phrase_survey)
 				{
-					phrases.push(phrase);
+					if (row_index + 1 === phrase)
+					{
+						flag_find    = true;
+						survey_state = survey;
+						break;
+					}
 				}
-			}
+
+				row_data.push(flag_find ? survey_state : null);
+			});
 		}
 
-		const response = [];
-
-		for (const phrase of phrases)
-		{
-			const users_amount = [];
-
-			for (const {survey} of this.users.all())
-			{
-				users_amount.push(survey.get(phrase));
-			}
-
-			response.push([
-				phrase,
-				...users_amount
-			]);
-		}
-
-		this.refreshTable(response);
+		this.refreshTable(rows);
 	}
 }
