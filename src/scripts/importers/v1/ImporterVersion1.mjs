@@ -33,6 +33,13 @@ export class ImporterVersion1
 
 		// ===== ===== ===== ===== =====
 
+		const survey_path = storage_path + '/security.json';
+		const survey_info = new FileJSON(survey_path);
+		const survey_file = await files.download(survey_info);
+		const survey_data = survey_file.converted;
+
+		// ===== ===== ===== ===== =====
+
 		const translated_path = storage_path + '/translated.csv';
 		const translated_info = new FileCSV(translated_path);
 
@@ -46,6 +53,7 @@ export class ImporterVersion1
 		return {
 			profiles: profiles_data,
 			sections: sections_data,
+			survey: survey_data,
 			translated: translated_data
 		};
 	}
@@ -98,6 +106,37 @@ export class ImporterVersion1
 					: '';
 
 				phrases_ids.set(english, phrases.create(english, russian, sections));
+			}
+		}
+
+		// ===== ===== ===== ===== =====
+		// profiles_phrases
+		// ===== ===== ===== ===== =====
+
+		for (const profile_name in downloader.profiles)
+		{
+			const phrases_array = downloader.profiles[profile_name];
+
+			for (const phrase of phrases_array)
+			{
+				const profile_id = profiles_ids.get(profile_name);
+				const phrase_id  = phrases_ids.get(phrase);
+
+				if (!profile_id || !phrase_id)
+				{
+					throw new Error();
+				}
+
+				const survey_profiles = downloader.survey[phrase];
+
+				if (!survey_profiles)
+				{
+					continue;
+				}
+
+				const survey_state = survey_profiles[profile_id];
+
+				profiles_phrases.create(profile_id, phrase_id, survey_state);
 			}
 		}
 	}
