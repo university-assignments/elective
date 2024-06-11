@@ -54,13 +54,23 @@ export class Routers
 
 				pages: [
 					{
-						instance: PhrasesPage,
+						instance: CounterPage,
+						options: [
+							[ '#', 'phrase', 'total' ],
+							`
+								SELECT english, COUNT(*) AS total
+								FROM profiles_phrases
+								INNER JOIN phrases ON phrases.identifier = profiles_phrases.phrase
+								GROUP BY phrase;
+							`
+						],
+
 						name: 'counter by phrases'
 					},
 					{
 						instance: CounterPage,
 						options: [
-							[ '#', 'profile_name', 'total' ],
+							[ '#', 'profile', 'total' ],
 							`
 								SELECT name, COUNT(*) as total
 								FROM profiles_phrases
