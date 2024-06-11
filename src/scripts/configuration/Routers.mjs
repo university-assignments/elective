@@ -6,7 +6,7 @@
  * @typedef { import('../parts/content/Content.mjs').Content } Content
  */
 
-import { UsersPage } from '../pages/users/UsersPage.js';
+import { ProfilesPage } from '../pages/profiles/ProfilesPage.mjs';
 
 import { PhrasesPage } from '../pages/phrases/PhrasesPage.js';
 import { QuantityPage } from '../pages/phrases/QuantityPage.js';
@@ -39,12 +39,12 @@ export class Routers
 
 		pages.register([
 			{
-				title: 'users',
+				title: 'profiles',
 
 				pages: [
 					{
-						instance: UsersPage,
-						name: 'users'
+						instance: ProfilesPage,
+						name: 'collection'
 					}
 				]
 			},

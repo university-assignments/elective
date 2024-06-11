@@ -5,6 +5,7 @@ import { FileSQL } from '../../plugins/files/sql/FileSQL.mjs';
 import { Files } from '../../plugins/files/Files.mjs';
 
 import { Database } from '../Database.mjs';
+import { ProfilesEvents } from './ProfilesEvents.mjs';
 
 
 export class Profiles extends InitializerInterface
@@ -35,6 +36,8 @@ export class Profiles extends InitializerInterface
 			this.sql_create = file.data;
 		}
 
+		this.events = new ProfilesEvents();
+
 		this.database = database;
 		this.database.scheme(this.sql_table);
 	}
@@ -56,6 +59,14 @@ export class Profiles extends InitializerInterface
 			: null;
 	}
 
+	getAll ()
+	{
+		const command  = 'SELECT * FROM profiles';
+		const response = this.database.execute(command);
+
+		return response;
+	}
+
 	// ===== ===== ===== ===== =====
 
 	/**
@@ -69,6 +80,7 @@ export class Profiles extends InitializerInterface
 			.replace('{NAME}', profile_name);
 
 		this.database.scheme(command);
+		this.events.trigger(this.events.EVENT_REFRESH);
 
 		return this.getIdByName(profile_name);
 	}

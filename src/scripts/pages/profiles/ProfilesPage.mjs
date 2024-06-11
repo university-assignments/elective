@@ -1,19 +1,22 @@
 
 import { fancyappsFancybox } from '../../templates/fancyapps/fancyappsFancybox.js';
 
-import { PageFoundation } from '../PageFoundation.mjs';
+import { Profiles } from '../../database/profiles/Profiles.mjs';
+
+import { PageContainer } from '../PageContainer.mjs';
 
 
-export class UsersPage extends PageFoundation
+export class ProfilesPage extends PageContainer
 {
 	/**
-	 * @param {UserCollection} users
+	 * @param { Profiles } profiles
 	 */
-	async initialize (users)
+	async initialize (profiles)
 	{
-		this.users = users;
-		this.users.on(this.users.EVENT_REFRESH, () => this.refreshContent());
+		this.profiles = profiles;
+		this.events   = profiles.events;
 
+		this.events.on(this.events.EVENT_REFRESH, () => this.refreshContent());
 		this.refreshContent();
 	}
 
@@ -22,7 +25,7 @@ export class UsersPage extends PageFoundation
 	 * 
 	 * @param {?UserData} user
 	 */
-	editUser (user)
+	edit (user)
 	{
 		const phrases = (user && user.phrases) || [];
 		const name    = (user && user.name   ) || '';
@@ -116,12 +119,12 @@ export class UsersPage extends PageFoundation
 	/**
 	 * @private
 	 * 
-	 * @param {UserData} user
+	 * @param { { identifier: number, name: string } } profile
 	 */
-	viewUser (user)
+	view (profile)
 	{
-		const phrases = user.phrases;
-		const name    = user.name;
+		const phrases = profile.phrases;
+		const name    = profile.name;
 
 		const container = jQuery(`
 			<section class="m-2 border rounded-4">
@@ -138,12 +141,12 @@ export class UsersPage extends PageFoundation
 				</article>
 
 				<article id="user_${name}" class="px-3 py-2 border-top collapse">
-					${phrases.join(', ')}
+					${phrases}
 				</article>
 			</section
 		`);
 
-		container.find('[alt=edit]').on('click', () => this.editUser(user));
+		container.find('[alt=edit]').on('click', () => this.edit(user));
 		container.find('[alt=delete]').on('click', () => this.users.delete(name));
 
 		return container;
@@ -152,7 +155,7 @@ export class UsersPage extends PageFoundation
 	/**
 	 * @private
 	 */
-	addUser ()
+	add ()
 	{
 		const container = jQuery(`
 			<section class="m-2 p-2 border rounded-4 text-center">
@@ -160,7 +163,7 @@ export class UsersPage extends PageFoundation
 			</section>
 		`);
 
-		container.on('click', () => this.editUser());
+		container.on('click', () => this.edit());
 
 		return container;
 	}
@@ -170,9 +173,9 @@ export class UsersPage extends PageFoundation
 	 */
 	refreshContent ()
 	{
-		this.container.html('');
+		this.tag_container.html('');
 
-		this.container.append(this.users.all().map(user => this.viewUser(user)));
-		this.container.append(this.addUser());
+		this.tag_container.append(this.profiles.getAll().map(profile => this.view(profile)));
+		this.tag_container.append(this.add());
 	}
 }
