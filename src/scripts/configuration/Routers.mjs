@@ -8,8 +8,6 @@
 
 import { ProfilesPage } from '../pages/profiles/ProfilesPage.mjs';
 
-import { PhrasesPage } from '../pages/phrases/PhrasesPage.js';
-import { QuantityPage } from '../pages/phrases/QuantityPage.js';
 import { MemorizePage } from '../pages/phrases/MemorizePage.js';
 
 import { CounterPage } from '../pages/selection/CounterPage.js';
