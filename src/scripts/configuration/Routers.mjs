@@ -58,8 +58,18 @@ export class Routers
 						name: 'counter by phrases'
 					},
 					{
-						instance: QuantityPage,
-						name: 'counter by users'
+						instance: CounterPage,
+						options: [
+							[ '#', 'profile_name', 'total' ],
+							`
+								SELECT name, COUNT(*) as total
+								FROM profiles_phrases
+								INNER JOIN profiles ON profiles.identifier = profiles_phrases.profile
+								GROUP BY profile;
+							`
+						],
+
+						name: 'counter by profiles'
 					},
 					{
 						instance: MemorizePage,

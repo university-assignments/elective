@@ -23,13 +23,14 @@ export class TemplateSummary
 	}
 
 	/**
-	 * @param {Map<string, number>} data
+	 * @param { string } columns
+	 * @param { Map<string, number> } data
 	 */
-	refresh (data)
+	refresh (columns, data)
 	{
 		const entries = Object.fromEntries(data);
 
-		this.refreshTable(entries);
+		this.refreshTable(columns, entries);
 	}
 
 	// ===== ===== ===== ===== =====
@@ -41,7 +42,7 @@ export class TemplateSummary
 	}
 
 	/**
-	 * @param { {[key: string]: number} } entries
+	 * @param { { [key: string]: number } } entries
 	 */
 	refreshChart (entries)
 	{
@@ -54,7 +55,7 @@ export class TemplateSummary
 			type: this.lib_chart_type
 		});
 
-		this.lib_chart.data.labels = jQuery.map(entries, (_, phrase) => phrase);
+		this.lib_chart.data.labels = jQuery.map(entries, (_, field) => field);
 		this.lib_chart.data.datasets[0] = {
 			label: '#',
 			data: jQuery.map(entries, amount => amount)
@@ -83,10 +84,10 @@ export class TemplateSummary
 		{
 			const cells = row.cells;
 
-			const phrase = cells[1].data;
+			const field  = cells[1].data;
 			const amount = cells[2].data;
 
-			view[phrase] = amount;
+			view[field] = amount;
 		}
 
 		this.refreshChart(view);
@@ -103,9 +104,10 @@ export class TemplateSummary
 	}
 
 	/**
-	 * @param { {[key: string]: number} } entries
+	 * @param { string[] } columns
+	 * @param { { [key: string]: number } } entries
 	 */
-	refreshTable (entries)
+	refreshTable (columns, entries)
 	{
 		if (typeof this.lib_table === 'undefined')
 		{
@@ -113,11 +115,11 @@ export class TemplateSummary
 		}
 
 		const data_table = jQuery
-			.map(entries, (amount, phrase) => [[phrase, amount]])
+			.map(entries, (amount, field) => [[field, amount]])
 			.map((values, index) => [index, ...values]);
 
 		this.lib_table.updateConfig({
-			columns: [ '#', 'phrase', 'amount' ],
+			columns: columns,
 			data: data_table,
 
 			search: true,

@@ -1,25 +1,28 @@
 
 import { TemplateSummary } from '../../templates/TemplateSummary.js';
 
-import { PageFoundation } from '../PageFoundation.mjs';
+import { PageContainer } from '../PageContainer.mjs';
 
+import { Database } from '../../database/Database.mjs';
 
-export class CounterPage extends PageFoundation
+export class CounterPage extends PageContainer
 {
 	/**
-	 * @param {UserCollection} users
-	 * @param {string} filter
+	 * @param { Database } database
+	 * @param { string[] } columns
+	 * @param { string } query
 	 */
-	async initialize (users, filter)
+	async initialize (database, columns, query)
 	{
 		this.summary = new TemplateSummary();
-		this.container.append(this.summary.tag_base);
+		this.tag_container.append(this.summary.tag_base);
 
-		this.users = users;
-		this.users.on(this.users.EVENT_REFRESH, () => this.refreshContent());
+		this.database = database;
+		this.events   = database.events;
+		this.columns  = columns;
+		this.query    = query;
 
-		this.filter = filter;
-
+		this.events.on(this.events.EVENT_REFRESH, () => this.refreshContent());
 		this.refreshContent();
 	}
 
@@ -30,48 +33,16 @@ export class CounterPage extends PageFoundation
 	/**
 	 * @private
 	 */
-	transformSelection ()
-	{
-		const response = new Map();
-
-		const _filter = this.filter;
-
-		this.users.all().forEach(function (user)
-		{
-			const key    = user.name;
-			const values = user.phrases;
-
-			values.forEach(function (value)
-			{
-				if (_filter.includes('check') && !value)
-				{
-					return;
-				}
-
-				if (_filter.includes('key'))
-				{
-					response.has(key)
-						? response.set(key, response.get(key) + 1)
-						: response.set(key, 1);
-				}
-
-				if (_filter.includes('value'))
-				{
-					response.has(value)
-						? response.set(value, response.get(value) + 1)
-						: response.set(value, 1);
-				}
-			});
-		});
-
-		return response;
-	}
-
-	/**
-	 * @private
-	 */
 	refreshContent ()
 	{
-		this.summary.refresh(this.transformSelection());
+		const response  = this.database.db.selectArrays(this.query);
+		const converted = new Map();
+
+		for (const data of response)
+		{
+			converted.set(data[0], data[1]);
+		}
+
+		this.summary.refresh(this.columns, converted);
 	}
 }
