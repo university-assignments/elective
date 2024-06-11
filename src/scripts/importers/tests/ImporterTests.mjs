@@ -11,7 +11,7 @@ export class ImporterTests
 	 * @param { Profiles } profiles
 	 * @param { Phrases } phrases
 	 */
-	static async initialize (profiles_phrases, profiles, phrases)
+	static initialize (profiles_phrases, profiles, phrases)
 	{
 		// [profiles] 10 => [1..11]
 		for (let profile_id = 1; profile_id <= 11; profile_id++)
@@ -29,7 +29,7 @@ export class ImporterTests
 			);
 		}
 
-		// [profiles_phrases] profiles => phrases => 66
+		// [profiles_phrases] profiles => phrases => 65 [1..66]
 		for (let profile_id = 1; profile_id <= 11; profile_id++)
 		{
 			for (let phrase_id = 1; phrase_id <= profile_id; phrase_id++)
