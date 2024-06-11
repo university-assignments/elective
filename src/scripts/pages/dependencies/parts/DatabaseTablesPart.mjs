@@ -19,9 +19,13 @@ export class DatabaseTablesPart
 
 	refresh ()
 	{
-		this.collection = this.database.execute(
-			'SELECT * FROM sqlite_schema WHERE type = \'table\' AND name NOT LIKE \'sqlite_%\';'
-		);
+		this.collection = this.database.execute(`
+			SELECT *
+			FROM sqlite_schema
+			WHERE type = 'table'
+				AND name NOT LIKE 'sqlite_%'
+				AND name NOT LIKE 'sqlean_%';
+		`);
 
 		if (typeof this.display === 'undefined')
 		{
