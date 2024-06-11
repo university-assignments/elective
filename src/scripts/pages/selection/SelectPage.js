@@ -122,20 +122,16 @@ export class SelectPage extends PageContainer
 
 			rows.forEach(function (row_data, row_index)
 			{
-				let flag_find    = false;
-				let survey_state = null;
-
 				for (const { phrase, survey } of profiles_phrases__phrase_survey)
 				{
 					if (row_index + 1 === phrase)
 					{
-						flag_find    = true;
-						survey_state = survey;
-						break;
+						row_data.push(survey);
+						return;
 					}
 				}
 
-				row_data.push(flag_find ? survey_state : null);
+				row_data.push(null);
 			});
 		}
 
