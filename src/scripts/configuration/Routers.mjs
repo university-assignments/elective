@@ -103,9 +103,9 @@ export class Routers
 							[ '#', 'profile', 'total' ],
 							`
 								SELECT name, COUNT(*) as total
-								FROM poll
-								INNER JOIN profiles ON profiles.identifier = poll.profile
-								GROUP BY profile;
+								FROM selected
+								INNER JOIN profiles ON profiles.identifier = selected.profile
+								GROUP BY name;
 							`
 						],
 
