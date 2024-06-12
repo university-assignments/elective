@@ -124,9 +124,18 @@ export class Routers
 				pages: [
 					{
 						instance: CounterPage,
-						options: [ 'check-key' ],
+						options: [
+							[ '#', 'survey', 'total' ],
+							`
+								SELECT english, COUNT(*) AS total
+								FROM profiles_phrases
+								INNER JOIN phrases ON profiles_phrases.phrase = phrases.identifier
+								WHERE profiles_phrases.survey = TRUE
+								GROUP BY english;
+							`
+						],
 
-						name: 'counter'
+						name: 'counter by poll'
 					},
 					{
 						instance: SelectPage,
