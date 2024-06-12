@@ -104,9 +104,9 @@ export class SelectPage extends PageContainer
 		`);
 
 		// rows: [ values: [ ... ] ]
-		const rows = phrases_identifier_english.map(
-			phrase_info => [ phrase_info.english ]
-		);
+		const rows = new Map(phrases_identifier_english.map(
+			phrase_info => [ phrase_info.identifier, [ phrase_info.english ] ]
+		));
 
 		for (const profile_info of profiles_identifier_name)
 		{
@@ -124,7 +124,7 @@ export class SelectPage extends PageContainer
 			{
 				for (const { phrase, survey } of profiles_phrases__phrase_survey)
 				{
-					if (row_index + 1 === phrase)
+					if (row_index === phrase)
 					{
 						row_data.push(survey);
 						return;
@@ -135,6 +135,6 @@ export class SelectPage extends PageContainer
 			});
 		}
 
-		this.refreshTable(rows);
+		this.refreshTable([...rows.values()]);
 	}
 }
