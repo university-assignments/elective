@@ -5,6 +5,8 @@ import { Files } from '../../plugins/files/Files.mjs';
 
 import { Profiles } from '../../database/profiles/Profiles.mjs';
 import { Phrases } from '../../database/phrases/Phrases.mjs';
+
+import { Selected } from '../../database/selected/Selected.mjs';
 import { Poll } from '../../database/poll/Poll.mjs';
 
 
@@ -62,10 +64,11 @@ export class ImporterVersion1
 	/**
 	 * @param { Profiles } profiles
 	 * @param { Phrases } phrases
+	 * @param { Selected } selected
 	 * @param { Poll } poll
 	 * @param { Files } files
 	 */
-	static async initialize (profiles, phrases, poll, files)
+	static async initialize (profiles, phrases, selected, poll, files)
 	{
 		const downloader = await this.files(files);
 
@@ -109,6 +112,20 @@ export class ImporterVersion1
 					: [];
 
 				phrases_ids.set(english, phrases.create(english, russian, sections));
+			}
+		}
+
+		// ===== ===== ===== ===== =====
+		// selected
+		// ===== ===== ===== ===== =====
+
+		for (const profile_name in downloader.profiles)
+		{
+			for (let english of downloader.profiles[profile_name])
+			{
+				english = english.toLocaleLowerCase();
+
+				selected.create(profiles_ids.get(profile_name), phrases_ids.get(english));
 			}
 		}
 

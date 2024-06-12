@@ -85,6 +85,6 @@ export class Selected extends InitializerInterface
 		this.database.scheme(command);
 		this.events.trigger(this.events.EVENT_REFRESH);
 
-		return this.getIdByName(profile_name);
+		return this.getIdByWhere(`profile = ${profile} AND phrase = ${phrase}`);
 	}
 }

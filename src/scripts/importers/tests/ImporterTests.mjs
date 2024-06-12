@@ -1,6 +1,8 @@
 
 import { Profiles } from '../../database/profiles/Profiles.mjs';
 import { Phrases } from '../../database/phrases/Phrases.mjs';
+
+import { Selected } from '../../database/selected/Selected.mjs';
 import { Poll } from '../../database/poll/Poll.mjs';
 
 
@@ -9,9 +11,11 @@ export class ImporterTests
 	/**
 	 * @param { Profiles } profiles
 	 * @param { Phrases } phrases
+	 * 
+	 * @param { Selected } selected
 	 * @param { Poll } poll
 	 */
-	static initialize (profiles, phrases, poll)
+	static initialize (profiles, phrases, selected, poll)
 	{
 		// [profiles] 6 => [1..6]
 		// [used] 5 => [1..5]
@@ -29,6 +33,17 @@ export class ImporterTests
 				'russian_' + phrase_id,
 				Array(phrase_id).fill(0).map((_, index) => 's' + index)
 			);
+		}
+
+		// [profiles] 5 => [1..5]
+		// [phrases] 10 => [1..10]
+		// [selected] 15 => [1..15..2]
+		for (let profile_id = 1; profile_id <= 5; profile_id++)
+		{
+			for (let phrase_id = 1; phrase_id <= profile_id * 2; phrase_id += 2)
+			{
+				selected.create(profile_id, phrase_id);
+			}
 		}
 
 		// [profiles] 5 => [1..5]
