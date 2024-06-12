@@ -54,6 +54,38 @@ export class Routers
 					{
 						instance: CounterPage,
 						options: [
+							[ '#', 'section', 'total' ],
+
+							`
+								SELECT sections
+								FROM phrases;
+							`,
+
+							/**
+							 * @param { string[] } sql_response
+							 * @param { Map<string, number> } response
+							 */
+							function (sql_response, response)
+							{
+								for (const sections of sql_response)
+								{
+									const converted_sections = JSON.parse(sections);
+
+									for (const section of converted_sections)
+									{
+										response.has(section)
+											? response.set(section, response.get(section) + 1)
+											: response.set(section, 1);
+									}
+								}
+							}
+						],
+
+						name: 'counter by sections'
+					},
+					{
+						instance: CounterPage,
+						options: [
 							[ '#', 'phrase', 'total' ],
 							`
 								SELECT english, COUNT(*) AS total
@@ -95,12 +127,6 @@ export class Routers
 						options: [ 'check-key' ],
 
 						name: 'counter'
-					},
-					{
-						instance: CounterPage,
-						options: [ 'value' ],
-
-						name: 'tags'
 					},
 					{
 						instance: SelectPage,
