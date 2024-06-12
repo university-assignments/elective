@@ -6,20 +6,32 @@ export class TemplateSummary
 {
 	constructor ()
 	{
+		this.lib_chart_type = 'line';
+		this.tag_chart_type = jQuery(`
+			<select class="chart_type form-select">
+				<option value="line">line</option>
+				<option value="bar">bar</option>
+				<option value="doughnut">doughnut</option>
+				<option value="polarArea">polarArea</option>
+			</select>
+		`)
+			.on('change', () => this.refresh());
+
 		this.tag_chart_canvas = jQuery(document.createElement('canvas'));
 
 		this.tag_chart = jQuery(document.createElement('article'))
-			.addClass('phrases')
+			.addClass('chart')
+			.addClass('m-2')
 			.append(this.tag_chart_canvas);
 
 		this.tag_table = jQuery(document.createElement('article'))
-			.addClass('phrases');
+			.addClass('table')
+			.addClass('m-2');
 
 		this.tag_base = jQuery(document.createElement('section'))
+			.append(this.tag_chart_type)
 			.append(this.tag_chart)
 			.append(this.tag_table);
-
-		this.lib_chart_type = 'line';
 	}
 
 	/**
@@ -28,6 +40,17 @@ export class TemplateSummary
 	 */
 	refresh (columns, data)
 	{
+		if (columns && data)
+		{
+			this.current_columns = columns;
+			this.current_data    = data;
+		}
+		else
+		{
+			columns = this.current_columns;
+			data    = this.current_data;
+		}
+
 		const entries = Object.fromEntries(data);
 
 		this.refreshTable(columns, entries);
@@ -50,6 +73,8 @@ export class TemplateSummary
 		{
 			this.lib_chart.destroy();
 		}
+
+		this.lib_chart_type = this.tag_chart_type.val();
 
 		this.lib_chart = new Chart(this.tag_chart_canvas, {
 			type: this.lib_chart_type
