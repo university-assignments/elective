@@ -7,8 +7,11 @@ import { Content } from '../parts/content/Content.mjs';
 import { Sidebar } from '../parts/sidebar/Sidebar.mjs';
 
 import { Database } from '../database/Database.mjs';
+
 import { Profiles } from '../database/profiles/Profiles.mjs';
 import { Phrases } from '../database/phrases/Phrases.mjs';
+
+import { Selected } from '../database/selected/Selected.mjs';
 import { Poll } from '../database/poll/Poll.mjs';
 
 
@@ -29,6 +32,9 @@ export async function get_dependencies ()
 		.runMethod('initialize');
 
 	await dependencies.singleton.register(() => new Phrases())
+		.runMethod('initialize');
+
+	await dependencies.singleton.register(() => new Selected())
 		.runMethod('initialize');
 
 	await dependencies.singleton.register(() => new Poll())
