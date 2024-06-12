@@ -89,9 +89,9 @@ export class Routers
 							[ '#', 'phrase', 'total' ],
 							`
 								SELECT english, COUNT(*) AS total
-								FROM poll
-								INNER JOIN phrases ON phrases.identifier = poll.phrase
-								GROUP BY phrase;
+								FROM selected
+								INNER JOIN phrases ON phrases.identifier = selected.phrase
+								GROUP BY phrases.identifier;
 							`
 						],
 
@@ -105,7 +105,7 @@ export class Routers
 								SELECT name, COUNT(*) as total
 								FROM selected
 								INNER JOIN profiles ON profiles.identifier = selected.profile
-								GROUP BY name;
+								GROUP BY profiles.identifier;
 							`
 						],
 
