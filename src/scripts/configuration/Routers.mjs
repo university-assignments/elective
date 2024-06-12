@@ -89,8 +89,8 @@ export class Routers
 							[ '#', 'phrase', 'total' ],
 							`
 								SELECT english, COUNT(*) AS total
-								FROM profiles_phrases
-								INNER JOIN phrases ON phrases.identifier = profiles_phrases.phrase
+								FROM poll
+								INNER JOIN phrases ON phrases.identifier = poll.phrase
 								GROUP BY phrase;
 							`
 						],
@@ -103,8 +103,8 @@ export class Routers
 							[ '#', 'profile', 'total' ],
 							`
 								SELECT name, COUNT(*) as total
-								FROM profiles_phrases
-								INNER JOIN profiles ON profiles.identifier = profiles_phrases.profile
+								FROM poll
+								INNER JOIN profiles ON profiles.identifier = poll.profile
 								GROUP BY profile;
 							`
 						],
@@ -119,7 +119,7 @@ export class Routers
 			},
 
 			{
-				title: 'selection',
+				title: 'poll',
 
 				pages: [
 					{
@@ -128,9 +128,9 @@ export class Routers
 							[ '#', 'survey', 'total' ],
 							`
 								SELECT english, COUNT(*) AS total
-								FROM profiles_phrases
-								INNER JOIN phrases ON profiles_phrases.phrase = phrases.identifier
-								WHERE profiles_phrases.state = TRUE
+								FROM poll
+								INNER JOIN phrases ON poll.phrase = phrases.identifier
+								WHERE poll.state = TRUE
 								GROUP BY english;
 							`
 						],

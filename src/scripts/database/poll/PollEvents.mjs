@@ -2,6 +2,6 @@
 import { DatabaseEvents } from '../DatabaseEvents.mjs';
 
 
-export class ProfilesPhrasesEvents extends DatabaseEvents
+export class PollEvents extends DatabaseEvents
 {
 }

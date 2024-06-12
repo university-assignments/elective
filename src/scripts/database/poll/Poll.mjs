@@ -6,9 +6,9 @@ import { Files } from '../../plugins/files/Files.mjs';
 
 import { Database } from '../Database.mjs';
 
-import { ProfilesPhrasesEvents } from './ProfilesPhrasesEvents.mjs';
+import { PollEvents } from './PollEvents.mjs';
 
-export class ProfilesPhrases extends InitializerInterface
+export class Poll extends InitializerInterface
 {
 	/**
 	 * @param { Database } database
@@ -16,11 +16,11 @@ export class ProfilesPhrases extends InitializerInterface
 	 */
 	async initialize (database, files)
 	{
-		const sql_folder = './scripts/database/profiles_phrases/sql';
+		const sql_folder = './scripts/database/poll/sql';
 
 		// table
 		{
-			const path = sql_folder + '/profiles_phrases.sql';
+			const path = sql_folder + '/poll.sql';
 			const info = new FileSQL(path);
 			const file = await files.download(info);
 
@@ -36,7 +36,7 @@ export class ProfilesPhrases extends InitializerInterface
 			this.sql_create = file.data;
 		}
 
-		this.events = new ProfilesPhrasesEvents();
+		this.events = new PollEvents();
 
 		this.database = database;
 		this.database.scheme(this.sql_table);
@@ -51,7 +51,7 @@ export class ProfilesPhrases extends InitializerInterface
 	 */
 	getIdByWhere (where)
 	{
-		const command  = `SELECT identifier FROM profiles_phrases WHERE ${where} LIMIT 1`;
+		const command  = `SELECT identifier FROM poll WHERE ${where} LIMIT 1`;
 		const response = this.database.execute(command);
 
 		return response.length > 0
@@ -61,7 +61,7 @@ export class ProfilesPhrases extends InitializerInterface
 
 	getAll ()
 	{
-		const command  = 'SELECT * FROM profiles_phrases';
+		const command  = 'SELECT * FROM poll';
 		const response = this.database.execute(command);
 
 		return response;

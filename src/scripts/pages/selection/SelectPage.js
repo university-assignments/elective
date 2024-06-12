@@ -88,7 +88,7 @@ export class SelectPage extends PageContainer
 		const phrases_identifier_english = this.database.execute(`
 			SELECT phrases.identifier, phrases.english
 			FROM phrases
-			INNER JOIN profiles_phrases ON phrases.identifier = profiles_phrases.phrase
+			INNER JOIN poll ON phrases.identifier = poll.phrase
 			GROUP BY phrases.identifier
 			ORDER BY phrases.identifier;
 		`);
@@ -98,7 +98,7 @@ export class SelectPage extends PageContainer
 		const profiles_identifier_name = this.database.execute(`
 			SELECT profiles.identifier, profiles.name
 			FROM profiles
-			INNER JOIN profiles_phrases ON profiles.identifier = profiles_phrases.profile
+			INNER JOIN poll ON profiles.identifier = poll.profile
 			GROUP BY profiles.identifier
 			ORDER BY profiles.identifier;
 		`);
@@ -111,18 +111,18 @@ export class SelectPage extends PageContainer
 		for (const profile_info of profiles_identifier_name)
 		{
 			// identifier, phrase => debug
-			const profiles_phrases__phrase_state = this.database.execute(`
-				SELECT profiles_phrases.identifier, profiles_phrases.phrase, profiles_phrases.state
+			const poll_phrase_state = this.database.execute(`
+				SELECT poll.identifier, poll.phrase, poll.state
 				FROM profiles
-				INNER JOIN profiles_phrases ON profiles.identifier = profiles_phrases.profile
+				INNER JOIN poll ON profiles.identifier = poll.profile
 				WHERE profiles.identifier = ${profile_info.identifier}
-				GROUP BY profiles_phrases.phrase
-				ORDER BY profiles_phrases.phrase;
+				GROUP BY poll.phrase
+				ORDER BY poll.phrase;
 			`);
 
 			rows.forEach(function (row_data, row_index)
 			{
-				for (const { phrase, state } of profiles_phrases__phrase_state)
+				for (const { phrase, state } of poll_phrase_state)
 				{
 					if (row_index === phrase)
 					{

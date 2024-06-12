@@ -9,7 +9,7 @@ import { Sidebar } from '../parts/sidebar/Sidebar.mjs';
 import { Database } from '../database/Database.mjs';
 import { Profiles } from '../database/profiles/Profiles.mjs';
 import { Phrases } from '../database/phrases/Phrases.mjs';
-import { ProfilesPhrases } from '../database/profiles_phrases/ProfilesPhrases.mjs';
+import { Poll } from '../database/poll/Poll.mjs';
 
 
 export async function get_dependencies ()
@@ -31,7 +31,7 @@ export async function get_dependencies ()
 	await dependencies.singleton.register(() => new Phrases())
 		.runMethod('initialize');
 
-	await dependencies.singleton.register(() => new ProfilesPhrases())
+	await dependencies.singleton.register(() => new Poll())
 		.runMethod('initialize');
 
 	// ===== ===== ===== ===== =====

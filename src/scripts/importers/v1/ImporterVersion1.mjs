@@ -3,9 +3,9 @@ import { FileJSON } from '../../plugins/files/json/FileJSON.mjs';
 import { FileCSV } from '../../plugins/files/excel/FileCSV.mjs';
 import { Files } from '../../plugins/files/Files.mjs';
 
-import { ProfilesPhrases } from '../../database/profiles_phrases/ProfilesPhrases.mjs';
 import { Profiles } from '../../database/profiles/Profiles.mjs';
 import { Phrases } from '../../database/phrases/Phrases.mjs';
+import { Poll } from '../../database/poll/Poll.mjs';
 
 
 export class ImporterVersion1
@@ -33,10 +33,10 @@ export class ImporterVersion1
 
 		// ===== ===== ===== ===== =====
 
-		const survey_path = storage_path + '/security.json';
-		const survey_info = new FileJSON(survey_path);
-		const survey_file = await files.download(survey_info);
-		const survey_data = survey_file.converted;
+		const poll_path = storage_path + '/security.json';
+		const poll_info = new FileJSON(poll_path);
+		const poll_file = await files.download(poll_info);
+		const poll_data = poll_file.converted;
 
 		// ===== ===== ===== ===== =====
 
@@ -51,20 +51,21 @@ export class ImporterVersion1
 		// ===== ===== ===== ===== =====
 
 		return {
-			profiles: profiles_data,
-			sections: sections_data,
-			survey: survey_data,
-			translated: translated_data
+			profiles:   profiles_data,
+			translated: translated_data,
+			sections:   sections_data,
+
+			poll: poll_data
 		};
 	}
 
 	/**
-	 * @param { ProfilesPhrases } profiles_phrases
 	 * @param { Profiles } profiles
 	 * @param { Phrases } phrases
+	 * @param { Poll } poll
 	 * @param { Files } files
 	 */
-	static async initialize (profiles_phrases, profiles, phrases, files)
+	static async initialize (profiles, phrases, poll, files)
 	{
 		const downloader = await this.files(files);
 
@@ -112,23 +113,23 @@ export class ImporterVersion1
 		}
 
 		// ===== ===== ===== ===== =====
-		// profiles_phrases
+		// poll
 		// ===== ===== ===== ===== =====
 
-		for (const phrase_name in downloader.survey)
+		for (const phrase_name in downloader.poll)
 		{
 			const phrase_id = phrases_ids.get(phrase_name.toLocaleLowerCase());
 
 			if (!phrase_id)
 			{
-				throw new Error(`[importers | v1 | profiles_phrases] phrase_name: ${phrase_name}`);
+				throw new Error(`[importers | v1 | poll] phrase_name: ${phrase_name}`);
 			}
 
-			const profile_ids = downloader.survey[phrase_name];
+			const profile_ids = downloader.poll[phrase_name];
 
-			profile_ids.forEach(function (survey_state, profile_id)
+			profile_ids.forEach(function (poll_state, profile_id)
 			{
-				profiles_phrases.create(profile_id + 1, phrase_id, survey_state);
+				poll.create(profile_id + 1, phrase_id, poll_state);
 			});
 		}
 	}
