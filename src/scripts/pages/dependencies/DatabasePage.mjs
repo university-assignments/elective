@@ -11,6 +11,14 @@ export class DatabasePage extends PageContainer
 {
 	initializeTags ()
 	{
+		this.tables_container_select = jQuery(document.createElement('div'))
+			.addClass('border-info')
+			.addClass('border-start')
+			.addClass('border-4')
+			.addClass('p-2')
+			.addClass('m-2')
+			.html('<span class="text-primary fw-bold">NOTE: </span><span>Текст внутри таблицы кликабельный</span>');
+
 		this.tables_container = jQuery(document.createElement('div'))
 			.addClass('mb-2');
 
@@ -18,6 +26,7 @@ export class DatabasePage extends PageContainer
 			.addClass('mb-2');
 
 		this.tag_container
+			.append(this.tables_container_select)
 			.append(this.tables_container)
 			.append(this.table_container);
 	}
