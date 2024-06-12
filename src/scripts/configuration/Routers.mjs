@@ -9,6 +9,7 @@
 import { ProfilesPage } from '../pages/profiles/ProfilesPage.mjs';
 
 import { MemorizePage } from '../pages/phrases/MemorizePage.js';
+import { PhrasesPage } from '../pages/phrases/PhrasesPage.mjs';
 
 import { CounterPage } from '../pages/selection/CounterPage.js';
 import { SelectPage } from '../pages/selection/SelectPage.js';
@@ -114,6 +115,10 @@ export class Routers
 					{
 						instance: MemorizePage,
 						name: 'memorize'
+					},
+					{
+						instance: PhrasesPage,
+						name: 'collection'
 					}
 				]
 			},

@@ -9,7 +9,7 @@ export class PageContainer extends PageFoundation
 		super();
 
 		this.tag_container = jQuery(document.createElement('div'))
-			.addClass('container')
+			.addClass('container-md')
 			.addClass('p-2');
 
 		this.tag_page
