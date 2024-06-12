@@ -32,7 +32,7 @@ export class ReflectionMethod
 		// function
 
 		const regex_before_function = new RegExp(
-			`${this.method_name}\\s*\\([,\\w\\s]*\\)\\s*{`, 'g'
+			`${this.method_name}\\s*\\([,=\\w\\s]*\\)\\s*{`, 'g'
 		);
 
 		const split_before_function = StringsTools.splitWithCheck(
