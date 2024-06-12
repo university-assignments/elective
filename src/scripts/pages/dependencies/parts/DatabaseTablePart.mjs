@@ -34,7 +34,14 @@ export class DatabaseTablePart
 
 		this.display.updateConfig({
 			columns: this.info.map(option => option.name),
-			data: this.data.map(table => jQuery.each(table, (_, value) => value))
+			data: this.data.map(table => jQuery.each(table, (_, value) => value)),
+
+			pagination: {
+				limit: 20
+			},
+
+			search: true,
+			sort: true
 		});
 
 		this.display.forceRender();
