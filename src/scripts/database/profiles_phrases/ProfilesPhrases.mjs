@@ -72,15 +72,17 @@ export class ProfilesPhrases extends InitializerInterface
 	/**
 	 * @param { number } profile
 	 * @param { number } phrase
+	 * @param { boolean } added_phrase
 	 * @param { boolean } survey
 	 * 
 	 * @returns { number }
 	 */
-	create (profile, phrase, survey)
+	create (profile, phrase, added_phrase, survey)
 	{
 		const command = this.sql_create
 			.replace('{profile}', profile)
 			.replace('{phrase}',  phrase)
+			.replace('{added}', added_phrase ? 'TRUE' : 'FALSE')
 			.replace('{survey}',  survey ? 'TRUE' : 'FALSE');
 
 		this.database.scheme(command);

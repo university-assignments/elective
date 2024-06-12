@@ -89,8 +89,10 @@ export class ImporterVersion1
 		{
 			const phrases_array = downloader.profiles[profile_name];
 
-			for (const english of phrases_array)
+			for (let english of phrases_array)
 			{
+				english = english.toLocaleLowerCase();
+
 				// Проверить существует ли фраза в базе
 				if (phrases_ids.has(english))
 				{
@@ -98,7 +100,7 @@ export class ImporterVersion1
 				}
 
 				const russian = translated_map.has(english)
-					? translated_map.get(english)
+					? translated_map.get(english).toLocaleLowerCase()
 					: '';
 
 				const sections = typeof downloader.sections[english] === 'object'
@@ -113,31 +115,27 @@ export class ImporterVersion1
 		// profiles_phrases
 		// ===== ===== ===== ===== =====
 
-		for (const profile_name in downloader.profiles)
+		for (const phrase_name in downloader.survey)
 		{
-			const phrases_array = downloader.profiles[profile_name];
+			const phrase_id = phrases_ids.get(phrase_name.toLocaleLowerCase());
 
-			for (const phrase of phrases_array)
+			if (!phrase_id)
 			{
-				const profile_id = profiles_ids.get(profile_name);
-				const phrase_id  = phrases_ids.get(phrase);
-
-				if (!profile_id || !phrase_id)
-				{
-					throw new Error();
-				}
-
-				const survey_profiles = downloader.survey[phrase];
-
-				if (!survey_profiles)
-				{
-					continue;
-				}
-
-				const survey_state = survey_profiles[profile_id];
-
-				profiles_phrases.create(profile_id, phrase_id, survey_state);
+				throw new Error(`[importers | v1 | profiles_phrases] phrase_name: ${phrase_name}`);
 			}
+
+			const profile_ids = downloader.survey[phrase_name];
+
+			profile_ids.forEach(function (survey_state, profile_id)
+			{
+				const profile_name = [...profiles_ids].find(
+					profile_info => profile_info[1] === profile_id + 1
+				)[0];
+
+				const added_phrase = downloader.profiles[profile_name].includes(phrase_name);
+
+				profiles_phrases.create(profile_id + 1, phrase_id, added_phrase, survey_state);
+			});
 		}
 	}
 }
