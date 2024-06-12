@@ -102,8 +102,8 @@ export class ImporterVersion1
 					: '';
 
 				const sections = typeof downloader.sections[english] === 'object'
-					? downloader.sections[english].join(', ')
-					: '';
+					? downloader.sections[english]
+					: [];
 
 				phrases_ids.set(english, phrases.create(english, russian, sections));
 			}
