@@ -147,6 +147,10 @@ export class TemplateSummary
 			columns: columns,
 			data: data_table,
 
+			pagination: {
+				limit: 20
+			},
+
 			search: true,
 			sort: true
 		});
