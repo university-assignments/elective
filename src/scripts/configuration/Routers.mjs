@@ -125,7 +125,7 @@ export class Routers
 					{
 						instance: CounterPage,
 						options: [
-							[ '#', 'survey', 'total' ],
+							[ '#', 'poll', 'total' ],
 							`
 								SELECT english, COUNT(*) AS total
 								FROM poll
