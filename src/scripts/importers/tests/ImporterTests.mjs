@@ -27,7 +27,7 @@ export class ImporterTests
 			phrases.create(
 				'english_' + phrase_id,
 				'russian_' + phrase_id,
-				Array(phrase_id).fill(0).map((_, index) => 's' + index).join(', ')
+				Array(phrase_id).fill(0).map((_, index) => 's' + index)
 			);
 		}
 

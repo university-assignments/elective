@@ -72,7 +72,7 @@ export class Phrases extends InitializerInterface
 	/**
 	 * @param { string } english
 	 * @param { string } russian
-	 * @param { string } sections
+	 * @param { string[] } sections
 	 * 
 	 * @returns { number }
 	 */
@@ -81,7 +81,7 @@ export class Phrases extends InitializerInterface
 		const command = this.sql_create
 			.replace('{english}',  english)
 			.replace('{russian}',  russian)
-			.replace('{sections}', sections);
+			.replace('{sections}', JSON.stringify(sections));
 
 		this.database.scheme(command);
 		this.events.trigger(this.events.EVENT_REFRESH);
