@@ -128,13 +128,7 @@ export class ImporterVersion1
 
 			profile_ids.forEach(function (survey_state, profile_id)
 			{
-				const profile_name = [...profiles_ids].find(
-					profile_info => profile_info[1] === profile_id + 1
-				)[0];
-
-				const added_phrase = downloader.profiles[profile_name].includes(phrase_name);
-
-				profiles_phrases.create(profile_id + 1, phrase_id, added_phrase, survey_state);
+				profiles_phrases.create(profile_id + 1, phrase_id, survey_state);
 			});
 		}
 	}

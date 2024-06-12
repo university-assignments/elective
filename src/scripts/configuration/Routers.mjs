@@ -130,7 +130,7 @@ export class Routers
 								SELECT english, COUNT(*) AS total
 								FROM profiles_phrases
 								INNER JOIN phrases ON profiles_phrases.phrase = phrases.identifier
-								WHERE profiles_phrases.survey = TRUE
+								WHERE profiles_phrases.state = TRUE
 								GROUP BY english;
 							`
 						],

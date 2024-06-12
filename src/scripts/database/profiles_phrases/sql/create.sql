@@ -1,5 +1,5 @@
 
 INSERT INTO `profiles_phrases`
-	( `profile`, `phrase`, `added`, `survey` )
+	( `profile`, `phrase`, `state` )
 VALUES
-	( {profile}, {phrase}, {added}, {survey} );
+	( {profile}, {phrase}, {state} );

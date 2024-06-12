@@ -111,8 +111,8 @@ export class SelectPage extends PageContainer
 		for (const profile_info of profiles_identifier_name)
 		{
 			// identifier, phrase => debug
-			const profiles_phrases__phrase_survey = this.database.execute(`
-				SELECT profiles_phrases.identifier, profiles_phrases.phrase, profiles_phrases.survey
+			const profiles_phrases__phrase_state = this.database.execute(`
+				SELECT profiles_phrases.identifier, profiles_phrases.phrase, profiles_phrases.state
 				FROM profiles
 				INNER JOIN profiles_phrases ON profiles.identifier = profiles_phrases.profile
 				WHERE profiles.identifier = ${profile_info.identifier}
@@ -122,11 +122,11 @@ export class SelectPage extends PageContainer
 
 			rows.forEach(function (row_data, row_index)
 			{
-				for (const { phrase, survey } of profiles_phrases__phrase_survey)
+				for (const { phrase, state } of profiles_phrases__phrase_state)
 				{
 					if (row_index === phrase)
 					{
-						row_data.push(survey);
+						row_data.push(state);
 						return;
 					}
 				}
