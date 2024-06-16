@@ -4,11 +4,12 @@ import { InitializerInterface } from '../../plugins/initializer/InitializerInter
 import { FileSQL } from '../../plugins/files/sql/FileSQL.mjs';
 import { Files } from '../../plugins/files/Files.mjs';
 
-import { Database } from '../Database.mjs';
-import { ProfilesEvents } from './ProfilesEvents.mjs';
+import { Database } from '../../plugins/sqlite3/database/Database.mjs';
+
+import { PollEvents } from './PollEvents.mjs';
 
 
-export class Profiles extends InitializerInterface
+export class Poll extends InitializerInterface
 {
 	/**
 	 * @param { Database } database
@@ -16,11 +17,11 @@ export class Profiles extends InitializerInterface
 	 */
 	async initialize (database, files)
 	{
-		const sql_folder = './scripts/database/profiles/sql';
+		const sql_folder = './scripts/tables/poll/sql';
 
 		// table
 		{
-			const path = sql_folder + '/profiles.sql';
+			const path = sql_folder + '/poll.sql';
 			const info = new FileSQL(path);
 			const file = await files.download(info);
 
@@ -36,7 +37,7 @@ export class Profiles extends InitializerInterface
 			this.sql_create = file.data;
 		}
 
-		this.events = new ProfilesEvents();
+		this.events = new PollEvents();
 
 		this.database = database;
 		this.database.scheme(this.sql_table);
@@ -45,13 +46,13 @@ export class Profiles extends InitializerInterface
 	// ===== ===== ===== ===== =====
 
 	/**
-	 * @param { string } profile_name
+	 * @param { string } where
 	 * 
 	 * @returns { ?number }
 	 */
-	getIdByName (profile_name)
+	getIdByWhere (where)
 	{
-		const command  = `SELECT identifier FROM profiles WHERE name = '${profile_name}' LIMIT 1`;
+		const command  = `SELECT identifier FROM poll WHERE ${where} LIMIT 1`;
 		const response = this.database.execute(command);
 
 		return response.length > 0
@@ -61,7 +62,7 @@ export class Profiles extends InitializerInterface
 
 	getAll ()
 	{
-		const command  = 'SELECT * FROM profiles';
+		const command  = 'SELECT * FROM poll';
 		const response = this.database.execute(command);
 
 		return response;
@@ -70,18 +71,22 @@ export class Profiles extends InitializerInterface
 	// ===== ===== ===== ===== =====
 
 	/**
-	 * @param { string } profile_name
+	 * @param { number } profile
+	 * @param { number } phrase
+	 * @param { boolean } state
 	 * 
 	 * @returns { number }
 	 */
-	create (profile_name)
+	create (profile, phrase, state)
 	{
 		const command = this.sql_create
-			.replace('{NAME}', profile_name);
+			.replace('{profile}', profile)
+			.replace('{phrase}',  phrase)
+			.replace('{state}',   state ? 'TRUE' : 'FALSE');
 
 		this.database.scheme(command);
 		this.events.trigger(this.events.EVENT_REFRESH);
 
-		return this.getIdByName(profile_name);
+		return this.getIdByWhere(`profile = ${profile} AND phrase = ${phrase}`);
 	}
 }

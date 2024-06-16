@@ -1,7 +1,7 @@
 
 import { PageContainer } from '../PageContainer.mjs';
 
-import { Phrases } from '../../database/phrases/Phrases.mjs';
+import { Phrases } from '../../tables/phrases/Phrases.mjs';
 
 
 export class PhrasesPage extends PageContainer

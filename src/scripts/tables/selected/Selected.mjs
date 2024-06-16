@@ -4,7 +4,7 @@ import { InitializerInterface } from '../../plugins/initializer/InitializerInter
 import { FileSQL } from '../../plugins/files/sql/FileSQL.mjs';
 import { Files } from '../../plugins/files/Files.mjs';
 
-import { Database } from '../Database.mjs';
+import { Database } from '../../plugins/sqlite3/database/Database.mjs';
 
 import { SelectedEvents } from './SelectedEvents.mjs';
 
@@ -17,7 +17,7 @@ export class Selected extends InitializerInterface
 	 */
 	async initialize (database, files)
 	{
-		const sql_folder = './scripts/database/selected/sql';
+		const sql_folder = './scripts/tables/selected/sql';
 
 		// table
 		{

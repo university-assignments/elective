@@ -4,11 +4,12 @@ import { InitializerInterface } from '../../plugins/initializer/InitializerInter
 import { FileSQL } from '../../plugins/files/sql/FileSQL.mjs';
 import { Files } from '../../plugins/files/Files.mjs';
 
-import { Database } from '../Database.mjs';
+import { Database } from '../../plugins/sqlite3/database/Database.mjs';
 
-import { PollEvents } from './PollEvents.mjs';
+import { PhrasesEvents } from './PhrasesEvents.mjs';
 
-export class Poll extends InitializerInterface
+
+export class Phrases extends InitializerInterface
 {
 	/**
 	 * @param { Database } database
@@ -16,11 +17,11 @@ export class Poll extends InitializerInterface
 	 */
 	async initialize (database, files)
 	{
-		const sql_folder = './scripts/database/poll/sql';
+		const sql_folder = './scripts/tables/phrases/sql';
 
 		// table
 		{
-			const path = sql_folder + '/poll.sql';
+			const path = sql_folder + '/phrases.sql';
 			const info = new FileSQL(path);
 			const file = await files.download(info);
 
@@ -36,7 +37,7 @@ export class Poll extends InitializerInterface
 			this.sql_create = file.data;
 		}
 
-		this.events = new PollEvents();
+		this.events = new PhrasesEvents();
 
 		this.database = database;
 		this.database.scheme(this.sql_table);
@@ -45,13 +46,13 @@ export class Poll extends InitializerInterface
 	// ===== ===== ===== ===== =====
 
 	/**
-	 * @param { string } where
+	 * @param { string } english
 	 * 
 	 * @returns { ?number }
 	 */
-	getIdByWhere (where)
+	getIdByEnglish (english)
 	{
-		const command  = `SELECT identifier FROM poll WHERE ${where} LIMIT 1`;
+		const command  = `SELECT identifier FROM phrases WHERE english = '${english}' LIMIT 1`;
 		const response = this.database.execute(command);
 
 		return response.length > 0
@@ -61,7 +62,7 @@ export class Poll extends InitializerInterface
 
 	getAll ()
 	{
-		const command  = 'SELECT * FROM poll';
+		const command  = 'SELECT * FROM phrases';
 		const response = this.database.execute(command);
 
 		return response;
@@ -70,22 +71,22 @@ export class Poll extends InitializerInterface
 	// ===== ===== ===== ===== =====
 
 	/**
-	 * @param { number } profile
-	 * @param { number } phrase
-	 * @param { boolean } state
+	 * @param { string } english
+	 * @param { string } russian
+	 * @param { string[] } sections
 	 * 
 	 * @returns { number }
 	 */
-	create (profile, phrase, state)
+	create (english, russian, sections)
 	{
 		const command = this.sql_create
-			.replace('{profile}', profile)
-			.replace('{phrase}',  phrase)
-			.replace('{state}',   state ? 'TRUE' : 'FALSE');
+			.replace('{english}',  english)
+			.replace('{russian}',  russian)
+			.replace('{sections}', JSON.stringify(sections));
 
 		this.database.scheme(command);
 		this.events.trigger(this.events.EVENT_REFRESH);
 
-		return this.getIdByWhere(`profile = ${profile} AND phrase = ${phrase}`);
+		return this.getIdByEnglish(english);
 	}
 }

@@ -2,7 +2,7 @@
 import { FlashCard } from '../../templates/flashcards/FlashCard.js';
 import { FlashCards } from '../../templates/flashcards/FlashCards.js';
 
-import { Phrases } from '../../database/phrases/Phrases.mjs';
+import { Phrases } from '../../tables/phrases/Phrases.mjs';
 
 import { PageContainer } from '../PageContainer.mjs';
 

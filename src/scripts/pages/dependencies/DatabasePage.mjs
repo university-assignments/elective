@@ -1,5 +1,5 @@
 
-import { Database } from '../../database/Database.mjs';
+import { Database } from '../../plugins/sqlite3/database/Database.mjs';
 
 import { PageContainer } from '../PageContainer.mjs';
 
@@ -32,7 +32,7 @@ export class DatabasePage extends PageContainer
 	}
 
 	/**
-	 * @param {Database} database
+	 * @param { Database } database
 	 */
 	async initialize (database)
 	{

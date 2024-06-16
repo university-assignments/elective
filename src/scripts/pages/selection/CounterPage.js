@@ -3,7 +3,7 @@ import { TemplateSummary } from '../../templates/TemplateSummary.js';
 
 import { PageContainer } from '../PageContainer.mjs';
 
-import { Database } from '../../database/Database.mjs';
+import { Database } from '../../plugins/sqlite3/database/Database.mjs';
 
 export class CounterPage extends PageContainer
 {

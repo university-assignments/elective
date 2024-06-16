@@ -1,7 +1,7 @@
 
 import { fancyappsFancybox } from '../../templates/fancyapps/fancyappsFancybox.js';
 
-import { Profiles } from '../../database/profiles/Profiles.mjs';
+import { Profiles } from '../../tables/profiles/Profiles.mjs';
 
 import { PageContainer } from '../PageContainer.mjs';
 

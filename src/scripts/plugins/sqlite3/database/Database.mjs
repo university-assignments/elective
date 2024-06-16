@@ -1,28 +1,21 @@
 
-import sqlite3InitModule from '@antonz/sqlean';
 
-import { InitializerInterface } from '../plugins/initializer/InitializerInterface.mjs';
+import { InitializerInterface } from '../../initializer/InitializerInterface.mjs';
+
+import { SQLite3Connection } from '../connection/SQLite3Connection.mjs';
 
 import { DatabaseEvents } from './DatabaseEvents.mjs';
 
 
 export class Database extends InitializerInterface
 {
-	async initialize ()
+	/**
+	 * @param { SQLite3Connection } connection
+	 */
+	async initialize (connection)
 	{
 		this.events = new DatabaseEvents();
-
-		this.sqlite3 = await sqlite3InitModule({
-			printErr: console.error,
-			print: console.debug
-		});
-
-		this.db = new this.sqlite3.oo1.DB();
-	}
-
-	get version ()
-	{
-		return this.sqlite3.capi.sqlite3_libversion();
+		this.db     = connection.database;
 	}
 
 	/**

@@ -4,11 +4,12 @@ import { InitializerInterface } from '../../plugins/initializer/InitializerInter
 import { FileSQL } from '../../plugins/files/sql/FileSQL.mjs';
 import { Files } from '../../plugins/files/Files.mjs';
 
-import { Database } from '../Database.mjs';
-import { PhrasesEvents } from './PhrasesEvents.mjs';
+import { Database } from '../../plugins/sqlite3/database/Database.mjs';
+
+import { ProfilesEvents } from './ProfilesEvents.mjs';
 
 
-export class Phrases extends InitializerInterface
+export class Profiles extends InitializerInterface
 {
 	/**
 	 * @param { Database } database
@@ -16,11 +17,11 @@ export class Phrases extends InitializerInterface
 	 */
 	async initialize (database, files)
 	{
-		const sql_folder = './scripts/database/phrases/sql';
+		const sql_folder = './scripts/tables/profiles/sql';
 
 		// table
 		{
-			const path = sql_folder + '/phrases.sql';
+			const path = sql_folder + '/profiles.sql';
 			const info = new FileSQL(path);
 			const file = await files.download(info);
 
@@ -36,7 +37,7 @@ export class Phrases extends InitializerInterface
 			this.sql_create = file.data;
 		}
 
-		this.events = new PhrasesEvents();
+		this.events = new ProfilesEvents();
 
 		this.database = database;
 		this.database.scheme(this.sql_table);
@@ -45,13 +46,13 @@ export class Phrases extends InitializerInterface
 	// ===== ===== ===== ===== =====
 
 	/**
-	 * @param { string } english
+	 * @param { string } profile_name
 	 * 
 	 * @returns { ?number }
 	 */
-	getIdByEnglish (english)
+	getIdByName (profile_name)
 	{
-		const command  = `SELECT identifier FROM phrases WHERE english = '${english}' LIMIT 1`;
+		const command  = `SELECT identifier FROM profiles WHERE name = '${profile_name}' LIMIT 1`;
 		const response = this.database.execute(command);
 
 		return response.length > 0
@@ -61,7 +62,7 @@ export class Phrases extends InitializerInterface
 
 	getAll ()
 	{
-		const command  = 'SELECT * FROM phrases';
+		const command  = 'SELECT * FROM profiles';
 		const response = this.database.execute(command);
 
 		return response;
@@ -70,22 +71,18 @@ export class Phrases extends InitializerInterface
 	// ===== ===== ===== ===== =====
 
 	/**
-	 * @param { string } english
-	 * @param { string } russian
-	 * @param { string[] } sections
+	 * @param { string } profile_name
 	 * 
 	 * @returns { number }
 	 */
-	create (english, russian, sections)
+	create (profile_name)
 	{
 		const command = this.sql_create
-			.replace('{english}',  english)
-			.replace('{russian}',  russian)
-			.replace('{sections}', JSON.stringify(sections));
+			.replace('{NAME}', profile_name);
 
 		this.database.scheme(command);
 		this.events.trigger(this.events.EVENT_REFRESH);
 
-		return this.getIdByEnglish(english);
+		return this.getIdByName(profile_name);
 	}
 }

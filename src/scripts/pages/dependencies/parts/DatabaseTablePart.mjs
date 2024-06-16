@@ -1,11 +1,11 @@
 
-import { Database } from '../../../database/Database.mjs';
+import { Database } from '../../../plugins/sqlite3/database/Database.mjs';
 
 
 export class DatabaseTablePart
 {
 	/**
-	 * @param {Database} database
+	 * @param { Database } database
 	 * @param { JQuery<HTMLDivElement> } container
 	 */
 	constructor (database, container)

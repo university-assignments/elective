@@ -2,17 +2,19 @@
 import { DependencyInjection } from '../plugins/di/DependencyInjection.mjs';
 import { Files } from '../plugins/files/Files.mjs';
 
+
+import { SQLite3Connection } from '../plugins/sqlite3/connection/SQLite3Connection.mjs';
+import { Database } from '../plugins/sqlite3/database/Database.mjs';
+
+import { Profiles } from '../tables/profiles/Profiles.mjs';
+import { Phrases } from '../tables/phrases/Phrases.mjs';
+
+import { Selected } from '../tables/selected/Selected.mjs';
+import { Poll } from '../tables/poll/Poll.mjs';
+
 import { TagsFoundation } from '../parts/foundation/TagsFoundation.mjs';
 import { Content } from '../parts/content/Content.mjs';
 import { Sidebar } from '../parts/sidebar/Sidebar.mjs';
-
-import { Database } from '../database/Database.mjs';
-
-import { Profiles } from '../database/profiles/Profiles.mjs';
-import { Phrases } from '../database/phrases/Phrases.mjs';
-
-import { Selected } from '../database/selected/Selected.mjs';
-import { Poll } from '../database/poll/Poll.mjs';
 
 
 export async function get_dependencies ()
@@ -24,6 +26,9 @@ export async function get_dependencies ()
 	dependencies.singleton.register(() => new Files());
 
 	// ===== ===== ===== ===== =====
+
+	await dependencies.singleton.register(() => new SQLite3Connection())
+		.runMethod('initialize');
 
 	await dependencies.singleton.register(() => new Database())
 		.runMethod('initialize');

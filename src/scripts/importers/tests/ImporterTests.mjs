@@ -1,9 +1,9 @@
 
-import { Profiles } from '../../database/profiles/Profiles.mjs';
-import { Phrases } from '../../database/phrases/Phrases.mjs';
+import { Profiles } from '../../tables/profiles/Profiles.mjs';
+import { Phrases } from '../../tables/phrases/Phrases.mjs';
 
-import { Selected } from '../../database/selected/Selected.mjs';
-import { Poll } from '../../database/poll/Poll.mjs';
+import { Selected } from '../../tables/selected/Selected.mjs';
+import { Poll } from '../../tables/poll/Poll.mjs';
 
 
 export class ImporterTests

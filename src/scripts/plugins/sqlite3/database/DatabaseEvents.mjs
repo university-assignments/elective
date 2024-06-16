@@ -1,5 +1,5 @@
 
-import { Events } from '../plugins/events/Events.mjs';
+import { Events } from '../../events/Events.mjs';
 
 
 export class DatabaseEvents extends Events

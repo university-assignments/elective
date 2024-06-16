@@ -1,7 +1,7 @@
 
 import { Grid, h } from 'gridjs';
 
-import { Database } from '../../../database/Database.mjs';
+import { Database } from '../../../plugins/sqlite3/database/Database.mjs';
 
 
 export class DatabaseTablesPart
