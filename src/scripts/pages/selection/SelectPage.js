@@ -38,7 +38,7 @@ export class SelectPage extends PageContainer
 		const profiles = Array(maximum).fill().map(function (_, index)
 		{
 			return {
-				name: index,
+				name: 'p' + index,
 
 				formatter: function (cell)
 				{
