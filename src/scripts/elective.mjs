@@ -11,9 +11,9 @@ async function starter ()
 	const dependencies = await get_dependencies();
 	const invoker      = dependencies.singleton.invoker;
 
+	invoker.runMethod(Importer, 'files');
 	const pages = invoker.runMethod(Routers, 'collection');
 	invoker.runMethod(Containers, 'tags');
-	invoker.runMethod(Importer, 'files');
 
 	return { dependencies, invoker, pages };
 }
