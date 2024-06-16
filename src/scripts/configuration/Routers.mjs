@@ -140,7 +140,7 @@ export class Routers
 							`
 						],
 
-						name: 'counter by poll'
+						name: 'counter by state'
 					},
 					{
 						instance: SelectPage,
@@ -160,7 +160,7 @@ export class Routers
 					},
 					{
 						instance: DatabasePage,
-						name: 'database'
+						name: 'tables'
 					},
 					{
 						instance: FilesPage,
