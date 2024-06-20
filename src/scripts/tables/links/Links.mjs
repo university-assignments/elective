@@ -2,6 +2,8 @@
 import { DatabaseEvents } from '../../plugins/sqlite3/database/DatabaseEvents.mjs';
 import { Database } from '../../plugins/sqlite3/database/Database.mjs';
 
+import { Link } from './Link.mjs';
+
 
 export class Links
 {
@@ -36,6 +38,23 @@ export class Links
 	}
 
 	// ===== ===== ===== ===== =====
+
+	/**
+	 * @param { string } where
+	 * @param { any[] } options
+	 * 
+	 * @returns { Link[] }
+	 */
+	getLinksByWhere (where, options = [])
+	{
+		const command = this.knex
+			.select('*')
+			.from(this.TABLE_NAME)
+			.whereRaw(where, options)
+			.toQuery();
+
+		return this.database.execute(command);
+	}
 
 	/**
 	 * @param { string } where

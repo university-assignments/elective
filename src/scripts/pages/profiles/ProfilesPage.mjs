@@ -2,6 +2,7 @@
 import { fancyappsFancybox } from '../../templates/fancyapps/fancyappsFancybox.js';
 
 import { Profiles } from '../../tables/profiles/Profiles.mjs';
+import { Links } from '../../tables/links/Links.mjs';
 
 import { PageContainer } from '../PageContainer.mjs';
 
@@ -10,10 +11,12 @@ export class ProfilesPage extends PageContainer
 {
 	/**
 	 * @param { Profiles } profiles
+	 * @param { Links } links
 	 */
-	async initialize (profiles)
+	async initialize (profiles, links)
 	{
 		this.profiles = profiles;
+		this.links    = links;
 		this.events   = profiles.events;
 
 		this.events.on(this.events.EVENT_REFRESH, () => this.refreshContent());
@@ -123,14 +126,21 @@ export class ProfilesPage extends PageContainer
 	 */
 	view (profile)
 	{
-		const phrases = profile.phrases;
-		const name    = profile.name;
+		const identifier = profile.identifier;
+		const phrases    = profile.phrases;
+		const name       = profile.name;
+
+		const resources = this.links
+			.getLinksByWhere('profile = ?', [ identifier ])
+			.map(link => `<a href="${ link.link }"><img alt="${ link.title }" src="${ link.icon }" height="24" /></a>`)
+			.join('');
 
 		const container = jQuery(`
 			<section class="m-2 border rounded-4">
 				<article class="px-3 py-2 d-flex flex-row justify-content-between">
-					<div>
-						<h4 class="m-0">${name}</h4>
+					<div class="align-items-center d-flex flex-row gap-1">
+						${ resources }
+						<h4 class="m-0">${ name }</h4>
 					</div>
 
 					<div>
@@ -140,8 +150,8 @@ export class ProfilesPage extends PageContainer
 					</div>
 				</article>
 
-				<article id="user_${name}" class="px-3 py-2 border-top collapse">
-					${phrases}
+				<article id="user_${ name }" class="px-3 py-2 border-top collapse">
+					${ phrases }
 				</article>
 			</section
 		`);
