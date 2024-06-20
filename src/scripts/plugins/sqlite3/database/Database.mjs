@@ -15,11 +15,12 @@ export class Database extends InitializerInterface
 	async initialize (connection)
 	{
 		this.events = new DatabaseEvents();
+		this.knex   = connection.knex;
 		this.db     = connection.database;
 	}
 
 	/**
-	 * @param {string} sql
+	 * @param { string } sql
 	 */
 	execute (sql)
 	{
@@ -27,7 +28,7 @@ export class Database extends InitializerInterface
 	}
 
 	/**
-	 * @param {string} sql
+	 * @param { string } sql
 	 */
 	scheme (sql)
 	{
