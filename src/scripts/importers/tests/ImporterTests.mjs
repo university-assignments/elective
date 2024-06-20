@@ -32,9 +32,9 @@ export class ImporterTests
 			{
 				links.create(
 					profile_id,
-					'icon_'  + link_id,
-					'title_' + link_id,
-					'link_'  + link_id + '_' + profile_id
+					'https://www.mindmeister.com/mm_favicon.ico',
+					'mindmeister',
+					'https://www.mindmeister.com/ru/' + profile_id + '/' + link_id
 				);
 			}
 		}
