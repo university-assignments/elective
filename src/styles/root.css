@@ -1,11 +1,11 @@
 
-#page {
+root {
 	background-color: var(--bs-secondary-bg);
 }
 
 @media screen and (min-width: 768px)
 {
-	#page {
+	root {
 		height: 100vh;
 		width: 100vw;
 

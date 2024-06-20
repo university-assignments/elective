@@ -6,9 +6,7 @@ export class TagsFoundation extends InitializerInterface
 {
 	async initialize ()
 	{
-		this.page = jQuery(document.createElement('div'))
-			.attr('id', 'page')
-
+		this.root = jQuery(document.createElement('root'))
 			.addClass('d-flex')
 			.addClass('flex-column')
 			.addClass('flex-md-row')
@@ -17,6 +15,6 @@ export class TagsFoundation extends InitializerInterface
 			.addClass('p-2');
 
 		this.body = jQuery(document.body)
-			.append(this.page);
+			.append(this.root);
 	}
 }

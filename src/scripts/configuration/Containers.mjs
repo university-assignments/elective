@@ -13,7 +13,7 @@ export class Containers
 	 */
 	static tags (foundation, sidebar, content)
 	{
-		foundation.page.append(sidebar.tag_sidebar);
-		foundation.page.append(content.tag_content);
+		foundation.root.append(sidebar.tag_sidebar);
+		foundation.root.append(content.tag_content);
 	}
 }
