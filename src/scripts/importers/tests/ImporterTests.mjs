@@ -1,7 +1,8 @@
 
 import { Profiles } from '../../tables/profiles/Profiles.mjs';
-import { Phrases } from '../../tables/phrases/Phrases.mjs';
+import { Links } from '../../tables/links/Links.mjs';
 
+import { Phrases } from '../../tables/phrases/Phrases.mjs';
 import { Selected } from '../../tables/selected/Selected.mjs';
 import { Poll } from '../../tables/poll/Poll.mjs';
 
@@ -10,18 +11,32 @@ export class ImporterTests
 {
 	/**
 	 * @param { Profiles } profiles
-	 * @param { Phrases } phrases
+	 * @param { Links } links
 	 * 
+	 * @param { Phrases } phrases
 	 * @param { Selected } selected
 	 * @param { Poll } poll
 	 */
-	static initialize (profiles, phrases, selected, poll)
+	static initialize (profiles, links, phrases, selected, poll)
 	{
 		// [profiles] 6 => [1..6]
 		// [used] 5 => [1..5]
 		for (let profile_id = 1; profile_id <= 6; profile_id++)
 		{
 			profiles.create('profile_' + profile_id);
+		}
+
+		for (let profile_id = 1; profile_id <= 5; profile_id++)
+		{
+			for (let link_id = 1; link_id <= profile_id * 2; link_id++)
+			{
+				links.create(
+					profile_id,
+					'icon_'  + link_id,
+					'title_' + link_id,
+					'link_'  + link_id + '_' + profile_id
+				);
+			}
 		}
 
 		// [phrases] 11 => [1..11]
