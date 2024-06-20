@@ -39,12 +39,19 @@ export class Links
 
 	/**
 	 * @param { string } where
+	 * @param { any[] } options
 	 * 
 	 * @returns { ?number }
 	 */
-	getIdByWhere (where)
+	getIdByWhere (where, options = [])
 	{
-		const command  = `SELECT identifier FROM ${this.TABLE_NAME} WHERE ${where} LIMIT 1`;
+		const command = this.knex
+			.select('identifier')
+			.from(this.TABLE_NAME)
+			.whereRaw(where, options)
+			.first()
+			.toQuery();
+
 		const response = this.database.execute(command);
 
 		return response.length > 0
@@ -63,21 +70,29 @@ export class Links
 	// ===== ===== ===== ===== =====
 
 	/**
+	 * @param { number } profile
+	 * 
 	 * @param { string } icon
 	 * @param { string } title
 	 * @param { string } link
 	 * 
 	 * @returns { number }
 	 */
-	create (icon, title, link)
+	create (profile, icon, title, link)
 	{
 		const command = this.database.knex
-			.insert({ icon, title, link })
-			.into(this.TABLE_NAME);
+			.insert({ profile, icon, title, link })
+			.into(this.TABLE_NAME)
+			.toQuery();
 
 		this.database.scheme(command);
 		this.events.trigger(this.events.EVENT_REFRESH);
 
-		return this.getIdByWhere(`icon = ${icon} AND title = ${title} AND link = ${link}`);
+		return this.getIdByWhere('profile = ? AND icon = ? AND title = ? AND link = ?', [
+			profile,
+			icon,
+			title,
+			link
+		]);
 	}
 }
