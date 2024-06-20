@@ -19,6 +19,7 @@ export class Links
 		this.sql_schema = database.knex.schema.createTable(this.TABLE_NAME, function (links_builder)
 		{
 			links_builder.increments('identifier');
+			links_builder.integer('profile').references('profiles.identifier');
 
 			links_builder.text('icon').notNullable();
 			links_builder.text('title').notNullable();

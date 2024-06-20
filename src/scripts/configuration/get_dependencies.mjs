@@ -7,8 +7,9 @@ import { SQLite3Connection } from '../plugins/sqlite3/connection/SQLite3Connecti
 import { Database } from '../plugins/sqlite3/database/Database.mjs';
 
 import { Profiles } from '../tables/profiles/Profiles.mjs';
-import { Phrases } from '../tables/phrases/Phrases.mjs';
+import { Links } from '../tables/links/Links.mjs';
 
+import { Phrases } from '../tables/phrases/Phrases.mjs';
 import { Selected } from '../tables/selected/Selected.mjs';
 import { Poll } from '../tables/poll/Poll.mjs';
 
@@ -34,6 +35,9 @@ export async function get_dependencies ()
 		.runMethod('initialize');
 
 	await dependencies.singleton.register(() => new Profiles())
+		.runMethod('initialize');
+
+	await dependencies.singleton.register(() => new Links())
 		.runMethod('initialize');
 
 	await dependencies.singleton.register(() => new Phrases())
