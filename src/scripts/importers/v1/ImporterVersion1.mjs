@@ -4,8 +4,9 @@ import { FileCSV } from '../../plugins/files/excel/FileCSV.mjs';
 import { Files } from '../../plugins/files/Files.mjs';
 
 import { Profiles } from '../../tables/profiles/Profiles.mjs';
-import { Phrases } from '../../tables/phrases/Phrases.mjs';
+import { Links } from '../../tables/links/Links.mjs';
 
+import { Phrases } from '../../tables/phrases/Phrases.mjs';
 import { Selected } from '../../tables/selected/Selected.mjs';
 import { Poll } from '../../tables/poll/Poll.mjs';
 
@@ -63,12 +64,14 @@ export class ImporterVersion1
 
 	/**
 	 * @param { Profiles } profiles
+	 * @param { Links } links
+	 * 
 	 * @param { Phrases } phrases
 	 * @param { Selected } selected
 	 * @param { Poll } poll
 	 * @param { Files } files
 	 */
-	static async initialize (profiles, phrases, selected, poll, files)
+	static async initialize (profiles, links, phrases, selected, poll, files)
 	{
 		const downloader = await this.files(files);
 
@@ -84,6 +87,19 @@ export class ImporterVersion1
 		{
 			profiles_ids.set(profile_name, profiles.create(profile_name));
 		}
+
+		// ===== ===== ===== ===== =====
+		// links
+		// ===== ===== ===== ===== =====
+
+		// Ужас, но я должен был написать за 1 час.
+		links.create(2, 'https://cdn1.mindomo.com/resources/favicon/favicon-32x32.png', 'mindomo', 'https://www.mindomo.com/mindmap/information-da6f92a30648424bb0a7b4ac27addd60');
+		links.create(4, 'https://www.mindmeister.com/mm_favicon.ico', 'mindmeister', 'https://www.mindmeister.com/ru/3289952532/information-security');
+		links.create(5, 'https://www.mindmeister.com/mm_favicon.ico', 'mindmeister', 'https://www.mindmeister.com/app/map/3301962240');
+		links.create(6, 'https://www.mindmeister.com/mm_favicon.ico', 'mindmeister', 'https://www.mindmeister.com/ru/3289953009/information-security');
+
+		// Не известно, кто ее выполнил
+		links.create(12, 'https://www.mindmeister.com/mm_favicon.ico', 'mindmeister', 'https://www.mindmeister.com/app/map/3292370076');
 
 		// ===== ===== ===== ===== =====
 		// phrases
