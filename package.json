@@ -1,15 +1,15 @@
 {
-  "dependencies": {
-    "@antonz/sqlean": "^3.45.1-rc1",
-    "@fancyapps/ui": "^5.0.33",
-    "@types/sqlite3": "^3.1.11",
-    "bootstrap": "^5.3.3",
-    "bootstrap-show-toast": "^1.1.5",
-    "chart.js": "^4.4.2",
-    "gridjs": "^6.2.0",
-    "jquery": "^3.7.1",
-    "knex-browser": "^3.0.7",
-    "mustache": "^4.2.0",
-    "panic-overlay": "^1.0.51"
-  }
+	"dependencies": {
+		"@antonz/sqlean": "^3.45.1-rc1",
+		"@fancyapps/ui": "^5.0.33",
+		"@types/sqlite3": "^3.1.11",
+		"bootstrap": "^5.3.3",
+		"bootstrap-show-toast": "^1.1.5",
+		"chart.js": "^4.4.2",
+		"gridjs": "^6.2.0",
+		"jquery": "^3.7.1",
+		"knex-browser": "^3.0.7",
+		"mustache": "^4.2.0",
+		"panic-overlay": "^1.0.51"
+	}
 }
