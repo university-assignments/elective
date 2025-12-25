@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+
+		<title>services</title>
+
+		<style>
+			*,
+			*::after,
+			*::before {
+				box-sizing: border-box;
+			}
+
+			body {
+				background-color: #f7f7f7;
+
+				padding: 0;
+				margin: 0;
+			}
+
+			main {
+				position: absolute;
+				left: 50%;
+				top: 50%;
+
+				transform: translate(-50%, -50%);
+			}
+
+			/* https://cp.jino.ru/ */
+
+			section {
+				box-shadow: 0 2px 40px rgba(0, 0, 0, 0.04);
+				border-radius: 24px;
+
+				background-color: #fff;
+
+				grid-template-columns: auto 1fr;
+				column-gap: 24px;
+				display: grid;
+
+				padding: 32px;
+				margin: 32px;
+			}
+
+			.info {
+				align-items: center;
+			}
+
+			img {
+				height: 50px;
+				width: auto;
+			}
+
+			.name {
+				font-weight: 700;
+				font-size: 24px;
+				line-height: 28px;
+			}
+
+			.desc {
+				font-weight: 400;
+				font-size: 16px;
+				line-height: 24px;
+
+				color: rgba(0, 0, 0, 0.55);
+			}
+
+			@media screen and (min-width: 700px) {
+				main {
+					width: 50vw;
+				}
+			}
+		</style>
+	</head>
+
+	<body>
+		<main>
+			<!-- v6 -->
+			<section data-version="version_6" data-options="users=users&selection=security&tags=tags">
+				<article class="info">
+					<div class="name">version_6</div>
+					<div class="desc">Версия 6</div>
+				</article>
+			</section>
+
+			<!-- v8 -->
+			<section data-version="version_8">
+				<article class="info">
+					<div class="name">version_8</div>
+					<div class="desc">Версия 8</div>
+				</article>
+			</section>
+
+			<!-- v9 -->
+			<section data-version="version_9">
+				<article class="info">
+					<div class="name">version_9</div>
+					<div class="desc">Версия 9</div>
+				</article>
+			</section>
+		</main>
+
+		<script>
+			for (const tag of document.getElementsByTagName('section'))
+			{
+				tag.onclick = function ()
+				{
+					location = location.origin + '/elective/' + tag.getAttribute('data-version') + '/?' + (tag.getAttribute('data-options') ?? '');
+				};
+			}
+		</script>
+	</body>
+</html>

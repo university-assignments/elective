@@ -1,0 +1,44 @@
+
+import sqlite3InitModule from '@antonz/sqlean';
+
+import { InitializerInterface } from '../plugins/initializer/InitializerInterface.mjs';
+
+import { DatabaseEvents } from './DatabaseEvents.mjs';
+
+
+export class Database extends InitializerInterface
+{
+	async initialize ()
+	{
+		this.events = new DatabaseEvents();
+
+		this.sqlite3 = await sqlite3InitModule({
+			printErr: console.error,
+			print: console.debug
+		});
+
+		this.db = new this.sqlite3.oo1.DB();
+	}
+
+	get version ()
+	{
+		return this.sqlite3.capi.sqlite3_libversion();
+	}
+
+	/**
+	 * @param {string} sql
+	 */
+	execute (sql)
+	{
+		return this.db.selectObjects(sql);
+	}
+
+	/**
+	 * @param {string} sql
+	 */
+	scheme (sql)
+	{
+		this.db.exec(sql);
+		this.events.trigger(this.events.EVENT_REFRESH);
+	}
+}

@@ -1,0 +1,431 @@
+{
+	"Access to state secrets": [
+		"society"
+	],
+	"activation function": [
+		"network"
+	],
+	"algorithm": [
+		"programming"
+	],
+	"antivirus": [
+		"programs",
+		"data"
+	],
+	"api (application programm interface)": [
+		"data",
+		"web"
+	],
+	"application (web mobile)": [
+		"programs",
+		"data",
+		"web"
+	],
+	"architecture": [
+		"programming"
+	],
+	"automatic testing": [
+		"programming"
+	],
+	"bank": [
+		"data",
+		"cyber crime"
+	],
+	"Basics of information security": [
+		"education",
+		"security"
+	],
+	"be the danger of information": [
+		"society"
+	],
+	"big data": [
+		"data"
+	],
+	"bioinformatics": [
+		"society"
+	],
+	"C": [
+		"programming_language",
+		"programming"
+	],
+	"C# (CSharp)": [
+		"programming_language",
+		"programming"
+	],
+	"C++": [
+		"programming_language",
+		"programming"
+	],
+	"cheat": [
+		"cyber crimes"
+	],
+	"client": [
+		"data"
+	],
+	"cloud computing": [
+		"storage",
+		"Internet"
+	],
+	"code": [
+		"programming_language"
+	],
+	"collaboration": [
+		"society"
+	],
+	"Commercial secret": [
+		"data"
+	],
+	"communication": [
+		"society"
+	],
+	"computatianal fluid dynamics": [
+		"mechanics",
+		"data structure"
+	],
+	"Computer": [
+		"computer",
+		"data"
+	],
+	"computer accessories": [
+		"computer",
+		"data"
+	],
+	"Computer hardware": [
+		"computer",
+		"data"
+	],
+	"Constitution": [
+		"society"
+	],
+	"cpu (central processor unit)": [
+		"computer"
+	],
+	"crime and punishment": [
+		"society"
+	],
+	"CSS (Style)": [
+		"programming_language",
+		"web"
+	],
+	"Data analysis": [
+		"data"
+	],
+	"data flow diagram": [
+		"data"
+	],
+	"data": [
+		"data"
+	],
+	"Database analysis": [
+		"database",
+		"data",
+		"db"
+	],
+	"Database protection": [
+		"database",
+		"data",
+		"db"
+	],
+	"Databases": [
+		"database",
+		"data",
+		"db"
+	],
+	"DB (DataBase)": [
+		"database",
+		"data",
+		"db"
+	],
+	"discipline": [
+		"society"
+	],
+	"disk (storage)": [
+		"computer",
+		"data"
+	],
+	"documentation": [
+		"data"
+	],
+	"ecosystem": [
+		"society"
+	],
+	"Federal law": [
+		"society"
+	],
+	"following the rules": [
+		"society"
+	],
+	"game development": [
+		"programming"
+	],
+	"Git": [
+		"data",
+		"git"
+	],
+	"GitHub": [
+		"data",
+		"git"
+	],
+	"Go": [
+		"programming_language"
+	],
+	"Gogs (Go Git Service)": [
+		"data",
+		"git"
+	],
+	"Government secret": [
+		"society"
+	],
+	"gpu (graphic processor unit)": [
+		"computer"
+	],
+	"graphics": [
+		"computer"
+	],
+	"hack": [
+		"cyber crimes"
+	],
+	"hardware": [
+		"computer"
+	],
+	"HTML": [
+		"programming_language",
+		"web"
+	],
+	"ide (integrated development invironment)": [
+		"programming_language",
+		"computer",
+		"data"
+	],
+	"ideas": [
+		"education"
+	],
+	"imitation modelling": [
+		"CAD",
+		"simulation"
+	],
+	"Information protection": [
+		"data",
+		"security"
+	],
+	"information": [
+		"data"
+	],
+	"internet": [
+		"web"
+	],
+	"JS (JavaScript)": [
+		"programming_language",
+		"web"
+	],
+	"kaspesky": [
+		"computer",
+		"programs"
+	],
+	"knowledge": [
+		"education"
+	],
+	"Law code": [
+		"society"
+	],
+	"law": [
+		"society"
+	],
+	"lock": [
+		"security"
+	],
+	"loss function": [
+		"machine learning"
+	],
+	"mainframe": [
+		"computer"
+	],
+	"MariaDB": [
+		"database",
+		"data",
+		"db"
+	],
+	"Means of protection": [
+		"security"
+	],
+	"memory": [
+		"computer",
+		"data"
+	],
+	"monitor": [
+		"computer"
+	],
+	"MS SQL": [
+		"database",
+		"data",
+		"sql",
+		"db"
+	],
+	"MySQL": [
+		"database",
+		"data",
+		"sql",
+		"db"
+	],
+	"neural network": [
+		"network"
+	],
+	"neurocomputer": [
+		"computer"
+	],
+	"new technologies": [
+		"data",
+		"computer"
+	],
+	"optimizer": [
+		"computer",
+		"utility"
+	],
+	"parallel programming technologies": [
+		"programming"
+	],
+	"password": [
+		"data",
+		"security"
+	],
+	"perfomance test": [
+		"programming"
+	],
+	"Personal data": [
+		"data"
+	],
+	"PHP": [
+		"programming_language",
+		"web"
+	],
+	"PostgresSQL": [
+		"database",
+		"data",
+		"sql",
+		"db"
+	],
+	"printing": [
+		"computer"
+	],
+	"privacy": [
+		"data"
+	],
+	"processor": [
+		"computer"
+	],
+	"program language": [
+		"programs"
+	],
+	"program": [
+		"programs"
+	],
+	"Programming": [
+		"programming_language",
+		"programming"
+	],
+	"programming language": [
+		"programming_language",
+		"programming"
+	],
+	"protection": [
+		"security",
+		"data"
+	],
+	"python": [
+		"programming_language",
+		"programming"
+	],
+	"quantum computing": [
+		"supercomputer",
+		"computer"
+	],
+	"resource monitoring": [
+		"utility",
+		"OS"
+	],
+	"Restriction of rights": [
+		"society"
+	],
+	"Rights and freedoms": [
+		"society"
+	],
+	"Safe": [
+		"security"
+	],
+	"safety": [
+		"security"
+	],
+	"scam": [
+		"cyber crimes"
+	],
+	"secrecy": [
+		"security",
+		"data"
+	],
+	"secret": [
+		"security",
+		"data"
+	],
+	"Security": [
+		"security",
+		"data"
+	],
+	"Selenium": [
+		"progrmming"
+	],
+	"server": [
+		"server",
+		"web"
+	],
+	"skills": [
+		"programming"
+	],
+	"Software": [
+		"computer"
+	],
+	"SQL (Structure Query Language)": [
+		"security",
+		"database",
+		"data",
+		"sql",
+		"db"
+	],
+	"state secrets": [
+		"society"
+	],
+	"Studying the legal code": [
+		"security"
+	],
+	"supercomputer": [
+		"computer"
+	],
+	"technology": [
+		"computer",
+		""
+	],
+	"unlock": [
+		"security",
+		"cyber crime"
+	],
+	"user": [
+		"security",
+		"data"
+	],
+	"virus petya": [
+		"computer",
+		"programs",
+		"data"
+	],
+	"waterfall programming model": [
+		"programming"
+	],
+	"Web (World Wide Web)": [
+		"web"
+	],
+	"work": [
+		"security"
+	],
+	"workstation": [
+		"computer"
+	]
+}

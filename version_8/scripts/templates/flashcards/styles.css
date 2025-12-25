@@ -1,0 +1,15 @@
+
+@keyframes moving {
+	from {
+		transform: translateX(100%);
+	}
+
+	to {
+		transform: translateX(0);
+	}
+}
+
+.flashcard {
+	animation-duration: 1s;
+	animation-name: moving;
+}

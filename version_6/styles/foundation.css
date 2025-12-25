@@ -1,0 +1,9 @@
+img {
+	height: 100%;
+	width: 100%;
+}
+
+#page {
+	min-height: 100vh;
+	min-width: 100vw;
+}

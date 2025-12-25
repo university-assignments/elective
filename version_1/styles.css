@@ -1,0 +1,137 @@
+*,
+*::after,
+*::before {
+	box-sizing: border-box;
+}
+
+body {
+	padding: 0;
+	margin: 0;
+}
+
+main {
+	padding: 20px;
+}
+
+/*
+
+===== ===== ===== ===== =====
+templates
+===== ===== ===== ===== =====
+
+*/
+
+.flex {
+	flex-flow: row nowrap;
+	display: flex;
+}
+
+/*
+
+===== ===== ===== ===== =====
+header
+===== ===== ===== ===== =====
+
+*/
+
+header {
+	border-bottom: 1px solid #ccc;
+	padding: 10px;
+
+	justify-content: center;
+}
+
+header > section {
+	gap: 10px;
+}
+
+/*
+
+===== ===== ===== ===== =====
+input
+===== ===== ===== ===== =====
+
+*/
+
+.user {
+	border: 1px dashed #ccc;
+	border-radius: 10px;
+
+	padding: 10px;
+	margin: 10px;
+}
+
+.user .info {
+	justify-content: space-between;
+	font-size: 20px;
+}
+
+.user .edit,
+.user .remove {
+	border: 1px dashed #ccc;
+	border-radius: 10px;
+}
+
+.user .edit {
+	background-color: rgba(0, 255, 0, 0.3);
+}
+
+.user .remove {
+	background-color: rgba(255, 0, 0, 0.3);
+}
+
+.user .phrases {
+	color: #333;
+}
+
+/* ===== ===== ===== */
+
+#create {
+	border-top: 1px solid #ccc;
+
+	padding-top: 10px;
+	margin-top: 10px;
+}
+
+#user_name,
+#user_rules,
+#user_phrase,
+#user_add {
+	border: 1px dashed #ccc;
+	border-radius: 10px;
+
+	margin-top: 10px;
+	padding: 3px 7px;
+
+	width: calc(100vw - 40px);
+}
+
+#user_rules {
+	background-color: rgba(255, 0, 0, 0.1);
+
+	font-family: 'Consolas', sans-serif;
+}
+
+#user_phrase {
+	min-height: 50px;
+}
+
+#user_add {
+	background-image: linear-gradient(
+		45deg,
+		#00ff7b1c 20%,
+		#1900ff1c 80%
+	);
+}
+
+/*
+
+===== ===== ===== ===== =====
+output
+===== ===== ===== ===== =====
+
+*/
+
+#output {
+	display: none;
+}

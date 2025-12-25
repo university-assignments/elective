@@ -1,0 +1,160 @@
+*,
+*::after,
+*::before {
+	box-sizing: border-box;
+}
+
+body {
+	padding: 0;
+	margin: 0;
+}
+
+main {
+	padding: 10px;
+}
+
+/*
+
+===== ===== ===== ===== =====
+templates
+===== ===== ===== ===== =====
+
+*/
+
+.flex {
+	flex-flow: row nowrap;
+	display: flex;
+}
+
+/*
+
+===== ===== ===== ===== =====
+header
+===== ===== ===== ===== =====
+
+*/
+
+header {
+	border-bottom: 1px solid #ccc;
+	padding: 10px;
+
+	justify-content: center;
+}
+
+header > section {
+	gap: 10px;
+}
+
+/*
+
+===== ===== ===== ===== =====
+input
+===== ===== ===== ===== =====
+
+*/
+
+.user {
+	border: 1px dashed #ccc;
+	border-radius: 10px;
+
+	padding: 10px;
+	margin: 10px;
+}
+
+.user .info {
+	justify-content: space-between;
+	font-size: 20px;
+}
+
+.user .edit,
+.user .remove {
+	border: 1px dashed #ccc;
+	border-radius: 10px;
+}
+
+.user .edit {
+	background-color: rgba(0, 255, 0, 0.3);
+}
+
+.user .remove {
+	background-color: rgba(255, 0, 0, 0.3);
+}
+
+.user .phrases {
+	color: #333;
+}
+
+/* ===== ===== ===== */
+
+#create {
+	position: fixed;
+	bottom: -250px;
+	left: 0;
+
+	border-top-right-radius: 10px;
+	border-top-left-radius: 10px;
+	background-color: #eee;
+
+	padding: 10px;
+	width: 100vw;
+
+	transition: all 1s ease-in-out;
+}
+
+#create:hover {
+	transform: translate(0, -250px);
+}
+
+#user_name,
+.user_rules_wrap,
+#user_phrase,
+#user_add {
+	border: 1px dashed #ccc;
+	border-radius: 10px;
+
+	margin-top: 10px;
+	padding: 3px 7px;
+
+	width: calc(100vw - 40px);
+
+	background-color: #fff;
+	font-size: 20px;
+}
+
+.user_rules_wrap {
+	position: relative;
+
+	width: calc(100vw - 40px);
+	height: 100px;
+}
+
+#user_rules {
+	position: absolute;
+	left: 0;
+	top: 0;
+
+	width: inherit;
+	height: inherit;
+}
+
+#user_phrase {
+	max-height: 60vh;
+	min-height: 50px;
+	resize: vertical;
+}
+
+#user_add {
+	background-color: #0000ff55;
+}
+
+/*
+
+===== ===== ===== ===== =====
+output
+===== ===== ===== ===== =====
+
+*/
+
+#output {
+	display: none;
+}

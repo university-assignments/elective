@@ -1,0 +1,389 @@
+{
+	"Access to state secrets": [],
+	"activation function": [],
+	"algorithm": [],
+
+	"antivirus": [
+		"programs",
+		"data"
+	],
+
+	"api (application programm interface)": [
+		"data",
+		"web"
+	],
+
+	"application (web mobile)": [
+		"programs",
+		"data",
+		"web"
+	],
+
+	"architecture": [],
+	"automatic testing": [],
+
+	"bank": [
+		"data"
+	],
+
+	"Basics of information security": [],
+
+	"be the danger of information": [],
+
+	"big data": [
+		"data"
+	],
+
+	"bioinformatics": [],
+
+	"C": [
+		"programming_language"
+	],
+
+	"C# (CSharp)": [
+		"programming_language"
+	],
+
+	"C++": [
+		"programming_language"
+	],
+
+	"cheat": [],
+
+	"client": [
+		"data"
+	],
+
+	"cloud computing": [],
+
+	"code": [
+		"programming_language"
+	],
+
+	"collaboration": [],
+
+	"Commercial secret": [
+		"data"
+	],
+
+	"communication": [],
+	"computational fluid dynamics": [],
+
+	"Computer": [
+		"computer",
+		"data"
+	],
+
+	"computer accessories": [
+		"computer",
+		"data"
+	],
+
+	"Computer hardware": [
+		"computer",
+		"data"
+	],
+
+	"Constitution": [],
+
+	"cpu (central processor unit)": [
+		"computer"
+	],
+
+	"crime and punishment": [],
+
+	"CSS (Style)": [
+		"programming_language",
+		"web"
+	],
+
+	"Data analysis": [
+		"data"
+	],
+
+	"data flow diagram": [
+		"data"
+	],
+
+	"data": [
+		"data"
+	],
+
+	"Database analysis": [
+		"database",
+		"data",
+		"db"
+	],
+
+	"Database protection": [
+		"database",
+		"data",
+		"db"
+	],
+
+	"Databases": [
+		"database",
+		"data",
+		"db"
+	],
+
+	"DB (DataBase)": [
+		"database",
+		"data",
+		"db"
+	],
+
+	"discipline": [],
+
+	"disk (storage)": [
+		"computer",
+		"data"
+	],
+
+	"documentation": [
+		"data"
+	],
+
+	"ecosystem": [],
+	"Federal law": [],
+	"following the rules": [],
+	"game development": [],
+
+	"Git": [
+		"data",
+		"git"
+	],
+
+	"GitHub": [
+		"data",
+		"git"
+	],
+
+	"Go": [
+		"programming_language"
+	],
+
+	"Gogs (Go Git Service)": [
+		"data",
+		"git"
+	],
+
+	"Government secret": [],
+
+	"gpu (graphic processor unit)": [
+		"computer"
+	],
+
+	"graphics": [],
+	"hack": [],
+	"hardware": [],
+
+	"HTML": [
+		"programming_language",
+		"web"
+	],
+
+	"ide (integrated development invironment)": [
+		"programming_language",
+		"computer",
+		"data"
+	],
+
+	"ideas": [],
+	"imitation modelling": [],
+
+	"Information protection": [
+		"data"
+	],
+
+	"information": [
+		"data"
+	],
+
+	"internet": [],
+
+	"JS (JavaScript)": [
+		"programming_language",
+		"web"
+	],
+
+	"kaspesky": [
+		"computer",
+		"programs"
+	],
+
+	"knowledge": [],
+	"Law code": [],
+	"law": [],
+	"lock": [],
+	"loss function": [],
+	"mainframe": [],
+
+	"MariaDB": [
+		"database",
+		"data",
+		"db"
+	],
+
+	"Means of protection": [],
+
+	"memory": [
+		"computer",
+		"data"
+	],
+
+	"monitor": [
+		"computer"
+	],
+
+	"MS SQL": [
+		"database",
+		"data",
+		"sql",
+		"db"
+	],
+
+	"MySQL": [
+		"database",
+		"data",
+		"sql",
+		"db"
+	],
+
+	"neural network": [],
+	"neurocomputer": [],
+	"new technologies": [],
+	"optimizer": [],
+	"parallel programming technologies": [],
+
+	"password": [
+		"data"
+	],
+
+	"perfomance test": [],
+
+	"Personal data": [
+		"data"
+	],
+
+	"PHP": [
+		"programming_language",
+		"web"
+	],
+
+	"PostgresSQL": [
+		"database",
+		"data",
+		"sql",
+		"db"
+	],
+
+	"printing": [],
+
+	"privacy": [
+		"data"
+	],
+
+	"processor": [
+		"computer"
+	],
+
+	"program language": [
+		"programs"
+	],
+
+	"program": [
+		"programs"
+	],
+
+	"Programming": [
+		"programming_language",
+		"programming"
+	],
+
+	"programming language": [
+		"programming_language",
+		"programming"
+	],
+
+	"protection": [
+		"security",
+		"data"
+	],
+
+	"python": [
+		"programming_language",
+		"programming"
+	],
+
+	"quantum computing": [],
+	"resource monitoring": [],
+	"Restriction of rights": [],
+	"Rights and freedoms": [],
+	"Safe": [],
+	"safety": [],
+	"scam": [],
+
+	"secrecy": [
+		"security",
+		"data"
+	],
+
+	"secret": [
+		"security",
+		"data"
+	],
+
+	"Security": [
+		"security",
+		"data"
+	],
+
+	"Selenium": [],
+
+	"server": [
+		"server",
+		"web"
+	],
+
+	"skills": [],
+	"Software": [],
+
+	"SQL (Structure Query Language)": [
+		"security",
+		"database",
+		"data",
+		"sql",
+		"db"
+	],
+
+	"state secrets": [],
+	"Studying the legal code": [],
+
+	"supercomputer": [
+		"computer"
+	],
+
+	"technology": [],
+	"unlock": [],
+
+	"user": [
+		"security",
+		"data"
+	],
+
+	"virus petya": [
+		"computer",
+		"programs",
+		"data"
+	],
+
+	"waterfall programming model": [],
+
+	"Web (World Wide Web)": [
+		"web"
+	],
+
+	"work": [],
+	"workstation": []
+}

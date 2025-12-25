@@ -1,0 +1,19 @@
+.header_container {
+	border-bottom: 1px solid #ccc;
+	background-color: #eee;
+
+	justify-content: center;
+}
+
+.page_identifier {
+	border-top: 3px solid #00000000;
+	padding: 5px;
+}
+
+.page_identifier:hover {
+	border-top: 3px solid #8899ff;
+}
+
+.page_identifier_current {
+	border-top: 3px solid #ff88dd;
+}

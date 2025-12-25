@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ru">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+
+		<title>Факультатив</title>
+
+		<!-- https://gridjs.io/docs/install -->
+		<link rel="stylesheet" href="https://unpkg.com/gridjs/dist/theme/mermaid.min.css" />
+		<link rel="stylesheet" href="./styles.css" />
+	</head>
+
+	<body>
+		<header class="flex">
+			<section class="flex">
+				<article onclick="setTagState('block', 'none')">input</article>
+				<article onclick="setTagState('none', 'block')">output</article>
+			</section>
+		</header>
+
+		<main>
+			<section id="input">
+				<article id="users"></article>
+				<article id="create">
+					<input    id="user_name"   placeholder="название"        type="text" />
+					<input    id="user_rules"  placeholder="преобразователь" type="text" wrap="off" autocorrect="off" autocapitalize="off" spellcheck="false" aria-haspopup="false" aria-autocomplete="both" value="user_phrase.split(',').map(value => value.trim());" />
+					<textarea id="user_phrase" placeholder="фразы"></textarea>
+					<input    id="user_add"    value="добавить"              type="button" />
+				</article>
+			</section>
+
+			<section id="output">
+				<article id="schedule"></article>
+				<article id="counter"></article>
+			</section>
+		</main>
+
+		<script>
+			const tags_state = {
+				input:  document.getElementById('input'),
+				output: document.getElementById('output')
+			};
+
+			function setTagState (input, output)
+			{
+				tags_state.input.style.display  = input;
+				tags_state.output.style.display = output;
+			}
+		</script>
+
+		<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+		<script type="module" src="./handler.js"></script>
+	</body>
+</html>

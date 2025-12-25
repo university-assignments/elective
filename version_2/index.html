@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ru">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+
+		<title>Факультатив</title>
+
+		<!-- https://gridjs.io/docs/install -->
+		<link rel="stylesheet" href="https://unpkg.com/gridjs/dist/theme/mermaid.min.css" />
+		<link rel="stylesheet" href="./styles.css" />
+	</head>
+
+	<body>
+		<header class="flex">
+			<section class="flex">
+				<article onclick="setTagState('block', 'none')">input</article>
+				<article onclick="setTagState('none', 'block')">output</article>
+			</section>
+		</header>
+
+		<main>
+			<section id="input">
+				<article id="users"></article>
+				<article id="create">
+					<div class="user_name_wrap">
+						<input type="text" id="user_name" placeholder="название" />
+					</div>
+
+					<div class="user_rules_wrap">
+						<div id="user_rules">user_phrase.indexOf('->') >= 0
+	? [...new Set(user_phrase.toLowerCase().replace(/->/g, '').split('\n').map(value => value.trim()))].filter(value => value)
+	: [...new Set(user_phrase.toLowerCase().replace(/\n/g, '').split(',').map(value => value.trim()))].filter(value => value);</div>
+					</div>
+
+					<div class="user_phrase_wrap">
+						<textarea id="user_phrase" placeholder="фразы"></textarea>
+					</div>
+
+					<div class="user_add_wrap">
+						<input type="button" id="user_add" value="добавить" />
+					</div>
+				</article>
+			</section>
+
+			<section id="output">
+				<article id="schedule"></article>
+				<article id="counter"></article>
+			</section>
+		</main>
+
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.32.6/ace.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+		<script>
+			const tags_state = {
+				input:  document.getElementById('input'),
+				output: document.getElementById('output')
+			};
+
+			function setTagState (input, output)
+			{
+				tags_state.input.style.display  = input;
+				tags_state.output.style.display = output;
+			}
+		</script>
+
+		<script type="module" src="./handler.js"></script>
+	</body>
+</html>

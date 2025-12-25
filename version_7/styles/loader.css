@@ -1,0 +1,12 @@
+@import url('./foundation.css');
+@import url('./templates.css');
+
+/* parts */
+
+@import url('./parts/sidebar.css');
+@import url('./parts/content.css');
+
+/* pages */
+
+@import url('./pages/users.css');
+@import url('./pages/phrases.css');
